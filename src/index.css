@@ -37,3 +37,7 @@
 .logo-font {
   font-family: "Baloo 2", sans-serif;
 }
+
+.form-input {
+  @apply input focus:outline-none focus:border-secondary-content w-full;
+}

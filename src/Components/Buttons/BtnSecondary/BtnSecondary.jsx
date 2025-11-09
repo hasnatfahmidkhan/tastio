@@ -5,7 +5,7 @@ const BtnSecondary = ({ children, to, className, onClick }) => {
     <Link
       onClick={onClick}
       to={`${to}`}
-      className={`btn font-semibold px-7 text-secondary-content bg-secondary border border-primary hover:bg-(--color-secondary-hover) rounded-full ${className}`}
+      className={`btn font-semibold px-7 text-secondary-content bg-secondary border border-primary hover:bg-(--color-secondary-hover) ${className}`}
     >
       {children}
     </Link>

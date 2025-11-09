@@ -1,12 +1,14 @@
 import { NavLink, Link } from "react-router";
 import BtnPrimary from "../Buttons/BtnPrimary/BtnPrimary";
 import BtnSecondary from "../Buttons/BtnSecondary/BtnSecondary";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 // import useAuth from "../../hooks/useAuth";
 // import toast from "react-hot-toast";
 // import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  //   const { user, signoutFunc } = useAuth();
+  const { user, signoutFunc } = useAuth();
   //   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   //   useEffect(() => {
@@ -18,6 +20,16 @@ const Navbar = () => {
   //   const handleTheme = (checked) => {
   //     setTheme(checked ? "dark" : "light");
   //   };
+
+  const handleSignOut = async () => {
+    try {
+      signoutFunc().then(() => {
+        toast.success("Sign Out Successfully!");
+      });
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   const links = (
     <>
@@ -32,7 +44,35 @@ const Navbar = () => {
   return (
     <nav className={"py-2 bg-base-200 shadow-md"}>
       <div className="navbar md:w-11/12 2xl:w-7xl mx-auto md:px-4">
-        <div className="navbar-start">
+        <div className="navbar-start gap-2">
+          {user && (
+            <div className="dropdown dropdown-bottom dropdown-start md:hidden">
+              <img
+                src={user?.photoURL}
+                tabIndex={0}
+                role="button"
+                className="w-12 h-12 rounded-full m-1 cursor-pointer"
+              />
+
+              <ul
+                tabIndex="-1"
+                className="dropdown-content menu menu-lg bg-base-100 rounded-md z-1 w-52 text-base-content font-semibold p-2 shadow-sm tracking-wide divide-y divide-base-300"
+              >
+                <li>
+                  <Link>Add Review</Link>
+                </li>
+                <li>
+                  <Link>My Reviews</Link>
+                </li>
+                <li>
+                  <Link>My Favourite</Link>
+                </li>
+                <li>
+                  <button onClick={handleSignOut}>Sign Out</button>
+                </li>
+              </ul>
+            </div>
+          )}
           <Link to="/">
             <h2 className="text-2xl md:text-3xl font-bold tracking-wide text-primary logo-font">
               Tastio
@@ -48,11 +88,44 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           <div className="hidden lg:flex items-center gap-4">
-            <>
-              <BtnSecondary to={"/login"}>Login</BtnSecondary>
+            {user ? (
+              <div className="dropdown dropdown-bottom dropdown-end">
+                <img
+                  src={user?.photoURL}
+                  tabIndex={0}
+                  role="button"
+                  className="w-12 h-12 rounded-full m-1 cursor-pointer"
+                />
 
-              <BtnPrimary to={"/register"}>Register</BtnPrimary>
-            </>
+                <ul
+                  tabIndex="-1"
+                  className="dropdown-content menu text-base bg-base-100 rounded-md z-1 w-52 text-base-content font-semibold divide-accent p-2 shadow-sm"
+                >
+                  <li>
+                    <Link>Add Review</Link>
+                  </li>
+                  <li>
+                    <Link>My Reviews</Link>
+                  </li>
+                  <li>
+                    <Link>My Favourite</Link>
+                  </li>
+                  <li>
+                    <button onClick={handleSignOut}>Sign Out</button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <>
+                <BtnSecondary to={"/login"} className={"rounded-full"}>
+                  Login
+                </BtnSecondary>
+
+                <BtnPrimary to={"/register"} className={"rounded-full"}>
+                  Register
+                </BtnPrimary>
+              </>
+            )}
           </div>
 
           {/* mobile menu  */}
@@ -76,16 +149,20 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="navlinks menu menu-lg dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text divide-y divide-gray-300"
+              className="navlinks menu menu-lg dropdown-content bg-base-100 rounded-md z-1 mt-3 w-52 p-2 shadow divide-y divide-base-300 font-semibold"
             >
               {links}
 
-              <li>
-                <NavLink to={"/login"}>Login</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/register"}>Register</NavLink>
-              </li>
+              {!user && (
+                <>
+                  <li>
+                    <NavLink to={"/login"}>Login</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to={"/register"}>Register</NavLink>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
