@@ -41,3 +41,7 @@
 .form-input {
   @apply input focus:outline-none focus:border-secondary-content w-full;
 }
+
+.form-error-msg {
+  @apply text-error text-sm tracking-wide;
+}
