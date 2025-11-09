@@ -2,6 +2,7 @@ import Banner from "../../Components/Banner/Banner";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import ReviewCard from "../../Components/ReviewCard/ReviewCard";
+import CardSkeleton from "../../Components/CardSkeleton/CardSkeleton";
 
 const Home = () => {
   const axiosInstance = useAxios();
@@ -14,8 +15,6 @@ const Home = () => {
     queryKey: ["latest-reviews"],
     queryFn: getTopReviews,
   });
-
-  console.log(data);
 
   return (
     <section>
@@ -32,9 +31,9 @@ const Home = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-10">
           {isPending
-            ? ""
+            ? [...Array(data.length)].map((_, i) => <CardSkeleton key={i} />)
             : data.map((review) => (
-               <ReviewCard key={review._id} review={review}/>
+                <ReviewCard key={review._id} review={review} />
               ))}
         </div>
       </div>

@@ -20,7 +20,7 @@ const ReviewCard = ({ review }) => {
       <div className="card-body gap-3">
         <div>
           <h2 className="card-title text-2xl">{review.foodName}</h2>
-          <p className="text-lg font-medium text-base-300">
+          <p className="text-lg font-medium text-accent">
             {review.reviewerName}
           </p>
         </div>
