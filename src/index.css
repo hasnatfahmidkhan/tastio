@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f9fafb;
+  --color-base-300: #e5e7eb;
+  --color-base-content: #1e293b;
+
+  --color-primary: #07a061;
+  --color-primary-hover: #059a59;
+  --color-primary-content: #ffffff;
+
+  --color-secondary: #e7fff3;
+  --color-secondary-hover: #d8fce9;
+  --color-secondary-content: #4b9377;
+
+  --color-accent: #d1fae5;
+  --color-accent-content: #065f46;
+
+  --color-info: #38bdf8;
+  --color-success: #22c55e;
+  --color-warning: #facc15;
+  --color-error: #ef4444;
+
+  --radius-box: 1rem;
+  --radius-btn: 0.5rem;
+  --radius-badge: 1.9rem;
+}
+
+.logo-font {
+  font-family: "Baloo 2", sans-serif;
+}
