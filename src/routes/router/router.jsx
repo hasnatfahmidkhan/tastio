@@ -4,6 +4,8 @@ import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Register/Register";
 import AllReviews from "../../Pages/AllReviews/AllReviews";
+import AddReview from "../../Pages/AddReview/AddReview";
+import PrivateRoutes from "../privateroutes/PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
       {
         path: "/all-reviews",
         Component: AllReviews,
+      },
+      {
+        path: "/add-review",
+        element: (
+          <PrivateRoutes>
+            <AddReview />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/login",

@@ -4,7 +4,7 @@ import Lottie from "lottie-react";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAxios from "../../hooks/useAxios";
 const Login = () => {
@@ -12,7 +12,14 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { googleSignInFunc, setUser, emailPassLogin } = useAuth();
+  const { googleSignInFunc, setUser, emailPassLogin, user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
+
   const {
     register,
     handleSubmit,

@@ -2,7 +2,7 @@ import { FaRegHeart, FaStar } from "react-icons/fa";
 
 const ReviewCard = ({ review }) => {
   return (
-    <div className="card bg-base-100 shadow-sm ">
+    <div className="card bg-base-100 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] ">
       <figure className="relative h-52 md:h-60">
         <img
           className="h-full w-full object-cover"

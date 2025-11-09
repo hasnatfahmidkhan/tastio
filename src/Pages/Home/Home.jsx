@@ -26,7 +26,7 @@ const Home = () => {
             Top Rated <span className="text-base-content">Reviews</span>
           </h2>
           <p className="text-2xl md:text-3xl font-semibold text-base-content">
-            Discover what local food lovers are raving about
+            Discover what food lovers are raving about
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-10">

@@ -27,6 +27,25 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const userLinks = (
+    <>
+      <li>
+        <Link to={"add-review"}>Add Review</Link>
+      </li>
+      <li>
+        <Link>My Reviews</Link>
+      </li>
+      <li>
+        <Link>My Favourite</Link>
+      </li>
+      <li>
+        <button onClick={handleSignOut} className="text-red-600">
+          Sign Out
+        </button>
+      </li>
+    </>
+  );
   return (
     <nav className={"py-1 bg-base-200 shadow-md"}>
       <div className="navbar md:w-11/12 2xl:w-7xl mx-auto md:px-4">
@@ -44,20 +63,7 @@ const Navbar = () => {
                 tabIndex="-1"
                 className="dropdown-content menu menu-lg bg-base-100 rounded-md z-1 w-52 text-base-content font-semibold p-2 shadow-sm tracking-wide divide-y divide-base-300"
               >
-                <li>
-                  <Link>Add Review</Link>
-                </li>
-                <li>
-                  <Link>My Reviews</Link>
-                </li>
-                <li>
-                  <Link>My Favourite</Link>
-                </li>
-                <li>
-                  <button onClick={handleSignOut} className="text-red-600">
-                    Sign Out
-                  </button>
-                </li>
+                {userLinks}
               </ul>
             </div>
           )}
@@ -89,20 +95,7 @@ const Navbar = () => {
                   tabIndex="-1"
                   className="dropdown-content menu text-base bg-base-100 rounded-md z-1 w-52 text-base-content font-semibold divide-accent p-2 shadow-sm"
                 >
-                  <li>
-                    <Link>Add Review</Link>
-                  </li>
-                  <li>
-                    <Link>My Reviews</Link>
-                  </li>
-                  <li>
-                    <Link>My Favourite</Link>
-                  </li>
-                  <li>
-                    <button onClick={handleSignOut} className="text-red-600">
-                      Sign Out
-                    </button>
-                  </li>
+                  {userLinks}
                 </ul>
               </div>
             ) : (
