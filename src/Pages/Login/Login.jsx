@@ -4,7 +4,12 @@ import Lottie from "lottie-react";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useAxios from "../../hooks/useAxios";
 const Login = () => {
+  const axiosInstance = useAxios();
+  const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { googleSignInFunc, setUser, emailPassLogin } = useAuth();
@@ -19,6 +24,17 @@ const Login = () => {
       const result = await emailPassLogin(data?.email, data?.password);
       const currentUser = result.user;
       setUser(currentUser);
+      const newUser = {
+        email: currentUser.email,
+        photo: currentUser.photoURL,
+        name: currentUser.displayName,
+      };
+
+      axiosInstance.post("/users", { ...newUser }).then((data) => {
+        console.log(data);
+      });
+
+      console.log(currentUser);
       navigate(location.state || "/");
     } catch (error) {
       toast.error(error.message);
@@ -67,15 +83,27 @@ const Login = () => {
                 {/* pass  */}
                 <div>
                   <label className="label">Password</label>
-                  <input
-                    type="password"
-                    className="form-input"
-                    placeholder="Password"
-                    {...register("password", {
-                      required: "Password is required!",
-                    })}
-                    aria-invalid={errors.password ? true : false}
-                  />
+                  <div className="relative flex items-center">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      className="form-input"
+                      placeholder="Password"
+                      {...register("password", {
+                        required: "Password is required!",
+                      })}
+                      aria-invalid={errors.password ? true : false}
+                    />
+                    <span
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 cursor-pointer active:translate-y-0.5 transition-transform duration-150 z-20"
+                    >
+                      {showPassword ? (
+                        <FaEye size={24} />
+                      ) : (
+                        <FaEyeSlash size={24} />
+                      )}
+                    </span>
+                  </div>
                   {errors.password && (
                     <p className="text-error" role="alert">
                       {errors.password.message}

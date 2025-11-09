@@ -3,23 +3,9 @@ import BtnPrimary from "../Buttons/BtnPrimary/BtnPrimary";
 import BtnSecondary from "../Buttons/BtnSecondary/BtnSecondary";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-// import useAuth from "../../hooks/useAuth";
-// import toast from "react-hot-toast";
-// import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { user, signoutFunc } = useAuth();
-  //   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-
-  //   useEffect(() => {
-  //     const html = document.querySelector("html");
-  //     html.setAttribute("data-theme", theme);
-  //     localStorage.setItem("theme", theme);
-  //   }, [theme]);
-
-  //   const handleTheme = (checked) => {
-  //     setTheme(checked ? "dark" : "light");
-  //   };
 
   const handleSignOut = async () => {
     try {
@@ -42,7 +28,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <nav className={"py-2 bg-base-200 shadow-md"}>
+    <nav className={"py-1 bg-base-200 shadow-md"}>
       <div className="navbar md:w-11/12 2xl:w-7xl mx-auto md:px-4">
         <div className="navbar-start gap-2">
           {user && (
@@ -68,7 +54,7 @@ const Navbar = () => {
                   <Link>My Favourite</Link>
                 </li>
                 <li>
-                  <button onClick={handleSignOut}>Sign Out</button>
+                  <button onClick={handleSignOut} className="text-red-600">Sign Out</button>
                 </li>
               </ul>
             </div>
@@ -111,7 +97,7 @@ const Navbar = () => {
                     <Link>My Favourite</Link>
                   </li>
                   <li>
-                    <button onClick={handleSignOut}>Sign Out</button>
+                    <button onClick={handleSignOut} className="text-red-600">Sign Out</button>
                   </li>
                 </ul>
               </div>
