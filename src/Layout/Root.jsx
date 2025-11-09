@@ -8,11 +8,11 @@ const Root = () => {
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>
-      <Container>
-        <main className="flex-1">
+      <main className="flex-1">
+        <Container>
           <Outlet />
-        </main>
-      </Container>
+        </Container>
+      </main>
       {/* footer  */}
     </section>
   );

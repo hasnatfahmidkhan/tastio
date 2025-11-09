@@ -47,7 +47,7 @@ const Register = () => {
       <div className="hidden md:block">
         <Lottie animationData={loginImg} loop={true} className="w-[550px]" />
       </div>
-      <div className="w-96 h-full">
+      <div className="w-full max-w-sm h-full">
         <div className="card bg-base-100 w-full h-full shrink-0 shadow-[0px_10px_1px_rgba(221,221,221,1),0_10px_20px_rgba(204,204,204,1)]">
           <div className="card-body">
             <h1 className="text-3xl mb-2 font-bold text-center text-base-content">
