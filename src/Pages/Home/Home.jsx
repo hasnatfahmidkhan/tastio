@@ -11,7 +11,7 @@ const Home = () => {
     const res = await axiosInstance.get("/latest-reviews");
     return res.status === 200 ? res.data : [];
   };
-  const { data, isPending, error } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["latest-reviews"],
     queryFn: getTopReviews,
   });
@@ -31,7 +31,7 @@ const Home = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-10">
           {isPending
-            ? [...Array(data.length)].map((_, i) => <CardSkeleton key={i} />)
+            ? [...Array(data?.length)].map((_, i) => <CardSkeleton key={i} />)
             : data.map((review) => (
                 <ReviewCard key={review._id} review={review} />
               ))}

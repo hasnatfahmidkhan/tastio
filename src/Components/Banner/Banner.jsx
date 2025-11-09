@@ -15,7 +15,7 @@ const images = [
 ];
 const Banner = () => {
   return (
-    <div className="md:mt-10">
+    <div className="md:mt-5">
       <Swiper
         pagination={{
           dynamicBullets: true,
