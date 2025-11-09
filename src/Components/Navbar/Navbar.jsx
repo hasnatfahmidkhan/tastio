@@ -54,7 +54,9 @@ const Navbar = () => {
                   <Link>My Favourite</Link>
                 </li>
                 <li>
-                  <button onClick={handleSignOut} className="text-red-600">Sign Out</button>
+                  <button onClick={handleSignOut} className="text-red-600">
+                    Sign Out
+                  </button>
                 </li>
               </ul>
             </div>
@@ -68,7 +70,7 @@ const Navbar = () => {
 
         {/* desktop menu  */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="navlinks flex gap-9 font-medium text-base-content">
+          <ul className="navlinks flex gap-9 font-medium text-base-content text-lg">
             {links}
           </ul>
         </div>
@@ -97,7 +99,9 @@ const Navbar = () => {
                     <Link>My Favourite</Link>
                   </li>
                   <li>
-                    <button onClick={handleSignOut} className="text-red-600">Sign Out</button>
+                    <button onClick={handleSignOut} className="text-red-600">
+                      Sign Out
+                    </button>
                   </li>
                 </ul>
               </div>

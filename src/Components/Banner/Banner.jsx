@@ -15,7 +15,7 @@ const images = [
 ];
 const Banner = () => {
   return (
-    <>
+    <div className="md:mt-10">
       <Swiper
         pagination={{
           dynamicBullets: true,
@@ -32,7 +32,7 @@ const Banner = () => {
             <div className="relative h-full w-full ">
               <img src={img} alt="" className="h-full w-full object-cover" />
               <div className="absolute inset-0 text-base-100 flex flex-col items-center justify-center text-center bg-black/35 px-4">
-                <h1 className="text-2xl md:text-5xl font-semibold uppercase mb-2 md:mb-4 tracking-wide">
+                <h1 className="text-3xl md:text-5xl font-semibold uppercase mb-2 md:mb-4 tracking-wide">
                   Taste. Share. Belong.
                 </h1>
                 <p className="text-base md:text-2xl font-medium tracking-wide uppercase">
@@ -44,7 +44,7 @@ const Banner = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </div>
   );
 };
 
