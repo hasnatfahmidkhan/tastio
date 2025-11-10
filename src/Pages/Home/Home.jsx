@@ -1,12 +1,11 @@
 import Banner from "../../Components/Banner/Banner";
-import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import ReviewCard from "../../Components/ReviewCard/ReviewCard";
 import CardSkeleton from "../../Components/CardSkeleton/CardSkeleton";
+import useAxios from "../../hooks/useAxios";
 
 const Home = () => {
   const axiosInstance = useAxios();
-
   const getTopReviews = async () => {
     const res = await axiosInstance.get("/latest-reviews");
     return res.status === 200 ? res.data : [];

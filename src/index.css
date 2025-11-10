@@ -45,3 +45,7 @@
 .form-error-msg {
   @apply text-error text-sm tracking-wide;
 }
+
+.table-td {
+  @apply text-base font-medium tracking-wide text-base-content;
+}

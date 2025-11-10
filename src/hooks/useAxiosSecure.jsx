@@ -22,7 +22,10 @@ const useAxiosSecure = () => {
       instance.interceptors.request.eject(requestInterceptor);
     };
   }, [user]);
+
   return instance;
 };
 
 export default useAxiosSecure;
+
+

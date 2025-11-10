@@ -31,10 +31,10 @@ const Navbar = () => {
   const userLinks = (
     <>
       <li>
-        <Link to={"add-review"}>Add Review</Link>
+        <Link to={"/add-review"}>Add Review</Link>
       </li>
       <li>
-        <Link>My Reviews</Link>
+        <Link to={'/my-reviews'}>My Reviews</Link>
       </li>
       <li>
         <Link>My Favourite</Link>
