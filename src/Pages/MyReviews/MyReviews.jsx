@@ -2,8 +2,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const MyReviews = () => {
+  const navigate = useNavigate()
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
@@ -53,6 +55,7 @@ const MyReviews = () => {
     });
     return id;
   };
+
   return (
     <div className="overflow-x-auto">
       <table className="table table-zebra">
@@ -87,7 +90,10 @@ const MyReviews = () => {
                   {new Date(postedAt).toLocaleString()}
                 </td>
                 <td className="flex items-center gap-2">
-                  <button className="btn btn-info text-base-200 btn-sm text-sm tracking-wide">
+                  <button
+                    onClick={() => navigate(`/my-reviews/edit/${_id}`)}
+                    className="btn btn-info text-base-200 btn-sm text-sm tracking-wide"
+                  >
                     Edit
                   </button>
                   <button
