@@ -1,6 +1,4 @@
 import { useForm } from "react-hook-form";
-import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
