@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 const MyReviews = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const quiryClient = useQueryClient();
+  const queryClient = useQueryClient();
   //? get my review
   const getMyReviews = async (email) => {
     const res = await axiosSecure.get(`/my-reviews?email=${email}`);
@@ -22,16 +22,16 @@ const MyReviews = () => {
   //! delete review
   const deleteMutation = useMutation({
     mutationFn: (id) => handleMyReviewDelete(id),
-    // in here delete review from the cache data 
+    // in here delete review from the cache data
     onSuccess: (data, id) => {
-      quiryClient.setQueryData(["reviews", user?.email], (curElem) => {
+      queryClient.setQueryData(["reviews", user?.email], (curElem) => {
         return curElem?.filter((review) => review._id !== id);
       });
     },
   });
 
-  const handleMyReviewDelete = (id) => {
-    Swal.fire({
+  const handleMyReviewDelete = async (id) => {
+    const result = await Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -39,18 +39,19 @@ const MyReviews = () => {
       confirmButtonColor: "#22c55e",
       cancelButtonColor: "#ef4444",
       confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        //! delete a review
-        await axiosSecure.delete(`/my-reviews/${id}`);
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your review has been deleted.",
-          icon: "success",
-        });
-        return id;
-      }
     });
+
+    if (!result.isConfirmed) {
+      throw new Error("User cancel the deletation");
+    }
+    //! delete a review
+    await axiosSecure.delete(`/my-reviews/${id}`);
+    await Swal.fire({
+      title: "Deleted!",
+      text: "Your review has been deleted.",
+      icon: "success",
+    });
+    return id;
   };
   return (
     <div className="overflow-x-auto">
