@@ -3,6 +3,8 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import noData from "../../assets/No-Data.json";
+import Lottie from "lottie-react";
 
 const MyReviews = () => {
   const navigate = useNavigate();
@@ -57,61 +59,70 @@ const MyReviews = () => {
   });
 
   return (
-    <div className="overflow-x-auto">
+    <section>
       <h2 className="text-4xl md:text-5xl font-bold text-primary text-center mb-3 md:mb-5">
         My <span className="text-base-content">Reviews</span>
       </h2>
-      <table className="table table-zebra">
-        {/* head */}
-        <thead>
-          <tr className="text-lg">
-            <th>Food Image</th>
-            <th>Food Name</th>
-            <th>Restaurant Name</th>
-            <th>Posted At</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* row 1 */}
-          {data?.map((review) => {
-            const { _id, photo, foodName, restaurantName, postedAt } = review;
-            return (
-              <tr key={_id}>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img src={photo} alt={foodName} />
-                      </div>
-                    </div>
-                  </div>
-                </td>
-                <td className="table-td">{foodName}</td>
-                <td className="table-td">{restaurantName}</td>
-                <td className="table-td">
-                  {new Date(postedAt).toLocaleString()}
-                </td>
-                <td className="flex items-center gap-2">
-                  <button
-                    onClick={() => navigate(`/my-reviews/edit/${_id}`)}
-                    className="btn btn-info text-base-200 btn-sm text-sm tracking-wide"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => deleteMutation.mutate(_id)}
-                    className="btn btn-error text-base-200 btn-sm text-sm tracking-wide"
-                  >
-                    Delete
-                  </button>
-                </td>
+      {!data?.length ? (
+        <div className="flex justify-center mt-15">
+          <Lottie animationData={noData} loop={true} className="w-sm" />
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table table-zebra">
+            {/* head */}
+            <thead>
+              <tr className="text-lg">
+                <th>Food Image</th>
+                <th>Food Name</th>
+                <th>Restaurant Name</th>
+                <th>Posted At</th>
+                <th>Action</th>
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+            </thead>
+            <tbody>
+              {/* row 1 */}
+              {data?.map((review) => {
+                const { _id, photo, foodName, restaurantName, postedAt } =
+                  review;
+                return (
+                  <tr key={_id}>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle h-12 w-12">
+                            <img src={photo} alt={foodName} />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="table-td">{foodName}</td>
+                    <td className="table-td">{restaurantName}</td>
+                    <td className="table-td">
+                      {new Date(postedAt).toLocaleString()}
+                    </td>
+                    <td className="flex items-center gap-2">
+                      <button
+                        onClick={() => navigate(`/my-reviews/edit/${_id}`)}
+                        className="btn btn-info text-base-200 btn-sm text-sm tracking-wide"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => deleteMutation.mutate(_id)}
+                        className="btn btn-error text-base-200 btn-sm text-sm tracking-wide"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   );
 };
 
