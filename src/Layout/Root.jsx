@@ -5,7 +5,7 @@ import Footer from "../Components/Footer/Footer";
 
 const Root = () => {
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col justify-center min-h-screen">
       <header className="sticky top-0 z-50">
         <Navbar />
       </header>

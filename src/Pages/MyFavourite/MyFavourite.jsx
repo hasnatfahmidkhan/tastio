@@ -1,27 +1,24 @@
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
 
-const MyReviews = () => {
-  const navigate = useNavigate();
-  const { user } = useAuth();
+const MyFavourite = () => {
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
   const queryClient = useQueryClient();
-  //? get my review
-  const getMyReviews = async (email) => {
-    const res = await axiosSecure.get(`/my-reviews?email=${email}`);
+
+  const getFavourite = async (email) => {
+    const res = await axiosSecure.get(`/favourites?email=${email}`);
     return res.status === 200 ? res.data : [];
   };
-  const { data, isPending } = useQuery({
-    queryKey: ["reviews", user?.email],
-    queryFn: () => getMyReviews(user?.email),
+
+  const { data: favourites } = useQuery({
+    queryKey: ["favourite", user?.email],
+    queryFn: () => getFavourite(user?.email),
   });
 
-  console.log(isPending);
-
-  const handleMyReviewDelete = async (id) => {
+  const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -36,7 +33,7 @@ const MyReviews = () => {
       throw new Error("User cancel the deletation");
     }
     //! delete a review
-    await axiosSecure.delete(`/my-reviews/${id}`);
+    await axiosSecure.delete(`/favourites/${id}`);
     await Swal.fire({
       title: "Deleted!",
       text: "Your review has been deleted.",
@@ -47,10 +44,10 @@ const MyReviews = () => {
 
   //! delete review
   const deleteMutation = useMutation({
-    mutationFn: (id) => handleMyReviewDelete(id),
+    mutationFn: (id) => handleDelete(id),
     // in here delete review from the cache data
     onSuccess: (id) => {
-      queryClient.setQueryData(["reviews", user?.email], (curElem) => {
+      queryClient.setQueryData(["favourite", user?.email], (curElem) => {
         return curElem?.filter((review) => review._id !== id);
       });
     },
@@ -65,14 +62,14 @@ const MyReviews = () => {
             <th>Food Image</th>
             <th>Food Name</th>
             <th>Restaurant Name</th>
-            <th>Posted At</th>
+            <th>Rating</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {/* row 1 */}
-          {data?.map((review) => {
-            const { _id, photo, foodName, restaurantName, postedAt } = review;
+          {favourites?.map((review) => {
+            const { _id, photo, foodName, restaurantName, rating } = review;
             return (
               <tr key={_id}>
                 <td>
@@ -86,16 +83,8 @@ const MyReviews = () => {
                 </td>
                 <td className="table-td">{foodName}</td>
                 <td className="table-td">{restaurantName}</td>
-                <td className="table-td">
-                  {new Date(postedAt).toLocaleString()}
-                </td>
+                <td className="table-td">{rating}</td>
                 <td className="flex items-center gap-2">
-                  <button
-                    onClick={() => navigate(`/my-reviews/edit/${_id}`)}
-                    className="btn btn-info text-base-200 btn-sm text-sm tracking-wide"
-                  >
-                    Edit
-                  </button>
                   <button
                     onClick={() => deleteMutation.mutate(_id)}
                     className="btn btn-error text-base-200 btn-sm text-sm tracking-wide"
@@ -112,4 +101,4 @@ const MyReviews = () => {
   );
 };
 
-export default MyReviews;
+export default MyFavourite;

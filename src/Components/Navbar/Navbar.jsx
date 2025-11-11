@@ -34,10 +34,10 @@ const Navbar = () => {
         <Link to={"/add-review"}>Add Review</Link>
       </li>
       <li>
-        <Link to={'/my-reviews'}>My Reviews</Link>
+        <Link to={"/my-reviews"}>My Reviews</Link>
       </li>
       <li>
-        <Link>My Favourite</Link>
+        <Link to={"/my-favourite"}>My Favourite</Link>
       </li>
       <li>
         <button onClick={handleSignOut} className="text-red-600">
