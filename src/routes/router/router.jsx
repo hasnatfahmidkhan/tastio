@@ -9,11 +9,13 @@ import PrivateRoutes from "../privateroutes/PrivateRoutes";
 import MyReviews from "../../Pages/MyReviews/MyReviews";
 import EditReview from "../../Pages/EditReview/EditReview";
 import MyFavourite from "../../Pages/MyFavourite/MyFavourite";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
+    ErrorBoundary: ErrorPage,
     children: [
       {
         index: true,
