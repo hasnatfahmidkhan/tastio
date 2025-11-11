@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import Container from "../Components/Container/Container";
 import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
+import ScrollOnTop from "../Components/ScrollOnTop/ScrollOnTop";
 
 const Root = () => {
   return (
@@ -14,6 +15,7 @@ const Root = () => {
           <Outlet />
         </Container>
       </main>
+      <ScrollOnTop />
       <Footer />
     </section>
   );

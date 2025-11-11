@@ -42,7 +42,7 @@ const AllReviews = () => {
           All <span className="text-base-content">Reviews</span>
         </h2>
 
-        <form onSubmit={handleSubmit(handleSearch)} class="max-w-sm w-full">
+        <form onSubmit={handleSubmit(handleSearch)} className="max-w-sm w-full">
           <div className="flex items-center gap-2">
             <label className="input focus-within:outline-none focus-within:border-primary">
               <svg
@@ -71,7 +71,7 @@ const AllReviews = () => {
             <button
               disabled={isSubmitting}
               type="submit"
-              class="btn btn-primary"
+              className="btn btn-primary"
             >
               {isSubmitting ? "Searching..." : "Search"}
             </button>

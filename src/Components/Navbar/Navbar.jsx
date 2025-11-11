@@ -3,6 +3,8 @@ import BtnPrimary from "../Buttons/BtnPrimary/BtnPrimary";
 import BtnSecondary from "../Buttons/BtnSecondary/BtnSecondary";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { FaArrowDown } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 
 const Navbar = () => {
   const { user, signoutFunc } = useAuth();
@@ -52,12 +54,15 @@ const Navbar = () => {
         <div className="navbar-start gap-2">
           {user && (
             <div className="dropdown dropdown-bottom dropdown-start md:hidden">
-              <img
-                src={user?.photoURL}
-                tabIndex={0}
-                role="button"
-                className="w-12 h-12 rounded-full m-1 cursor-pointer"
-              />
+              <div className="flex items-center gap-1">
+                <IoIosArrowDown />
+                <img
+                  src={user?.photoURL}
+                  tabIndex={0}
+                  role="button"
+                  className="w-12 h-12 rounded-full m-1 cursor-pointer"
+                />
+              </div>
 
               <ul
                 tabIndex="-1"
@@ -84,12 +89,15 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4">
             {user ? (
               <div className="dropdown dropdown-bottom dropdown-end">
-                <img
-                  src={user?.photoURL}
-                  tabIndex={0}
-                  role="button"
-                  className="w-12 h-12 rounded-full m-1 cursor-pointer"
-                />
+                <div className="flex items-center gap-1">
+                  <img
+                    src={user?.photoURL}
+                    tabIndex={0}
+                    role="button"
+                    className="w-12 h-12 rounded-full m-1 cursor-pointer"
+                  />
+                  <IoIosArrowDown />
+                </div>
 
                 <ul
                   tabIndex="-1"

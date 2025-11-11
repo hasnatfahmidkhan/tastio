@@ -37,12 +37,8 @@ const Login = () => {
         name: currentUser.displayName,
       };
 
-      axiosInstance.post("/users", { ...newUser }).then((data) => {
-        console.log(data);
-      });
-
-      console.log(currentUser);
       navigate(location.state || "/");
+      await axiosInstance.post("/users", { ...newUser });
     } catch (error) {
       toast.error(error.message);
     }
@@ -53,7 +49,13 @@ const Login = () => {
       const result = await googleSignInFunc();
       const currentUser = result.user;
       setUser(currentUser);
+      const newUser = {
+        email: currentUser.email,
+        photo: currentUser.photoURL,
+        name: currentUser.displayName,
+      };
       navigate(location.state || "/");
+      await axiosInstance.post("/users", { ...newUser });
     } catch (error) {
       toast.error(error.message);
     }

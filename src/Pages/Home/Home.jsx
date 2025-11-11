@@ -3,8 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import ReviewCard from "../../Components/ReviewCard/ReviewCard";
 import CardSkeleton from "../../Components/CardSkeleton/CardSkeleton";
 import useAxios from "../../hooks/useAxios";
+import { useNavigate } from "react-router";
 
 const Home = () => {
+  const navigate = useNavigate();
   const axiosInstance = useAxios();
   const getTopReviews = async () => {
     const res = await axiosInstance.get("/latest-reviews");
@@ -36,6 +38,15 @@ const Home = () => {
             : data.map((review) => (
                 <ReviewCard key={review._id} review={review} />
               ))}
+        </div>
+
+        <div className="mt-20 text-center">
+          <button
+            onClick={() => navigate("/all-reviews")}
+            className="btn btn-primary w-44 text-base py-5 rounded-full"
+          >
+            Show All
+          </button>
         </div>
       </div>
     </section>

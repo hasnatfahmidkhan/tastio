@@ -6,8 +6,10 @@ import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import useAxios from "../../hooks/useAxios";
 
 const Register = () => {
+  const axiosInstance = useAxios();
   const [showPassword, setShowPassword] = useState(false);
   const [cShowPassword, setCShowPassword] = useState(false);
   const location = useLocation();
@@ -23,9 +25,15 @@ const Register = () => {
 
   const handleRegister = async (data) => {
     try {
-      await emailPassRegister(data?.email, data?.password);
+      const currentUser = await emailPassRegister(data?.email, data?.password);
       await updateProfileFunc(data?.name, data?.photo);
+      const newUser = {
+        email: currentUser.email,
+        photo: currentUser.photoURL,
+        name: currentUser.displayName,
+      };
       navigate("/");
+      await axiosInstance.post("/users", { ...newUser });
     } catch (error) {
       toast.error(error.message);
     }
@@ -36,7 +44,13 @@ const Register = () => {
       const result = await googleSignInFunc();
       const currentUser = result.user;
       setUser(currentUser);
+      const newUser = {
+        email: currentUser.email,
+        photo: currentUser.photoURL,
+        name: currentUser.displayName,
+      };
       navigate(location.state || "/");
+      await axiosInstance.post("/users", { ...newUser });
     } catch (error) {
       toast.error(error.message);
     }
