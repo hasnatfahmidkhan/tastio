@@ -58,6 +58,9 @@ const MyReviews = () => {
 
   return (
     <div className="overflow-x-auto">
+      <h2 className="text-4xl md:text-5xl font-bold text-primary text-center mb-3 md:mb-5">
+        My <span className="text-base-content">Reviews</span>
+      </h2>
       <table className="table table-zebra">
         {/* head */}
         <thead>
