@@ -41,6 +41,7 @@ const MyReviews = () => {
       title: "Deleted!",
       text: "Your review has been deleted.",
       icon: "success",
+      confirmButtonColor: "#22c55e",
     });
     return id;
   };

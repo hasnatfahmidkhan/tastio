@@ -4,11 +4,12 @@ import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import ReviewForm from "../../Components/ReviewForm/ReviewForm";
 import BackBtn from "../../Components/BackBtn/BackBtn";
+import { useRef } from "react";
 
 const AddReview = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { reset } = useForm();
+  const formRef = useRef();
 
   const handleAddReview = (data) => {
     axiosSecure
@@ -21,7 +22,7 @@ const AddReview = () => {
       .then(({ data }) => {
         if (data.insertedId) {
           toast.success("Review Added Succesfully");
-          reset();
+          formRef.current?.resetForm();
         }
       });
   };
@@ -34,7 +35,7 @@ const AddReview = () => {
         </h3>
         <BackBtn />
       </div>
-      <ReviewForm handleReview={handleAddReview} review={null}>
+      <ReviewForm ref={formRef} handleReview={handleAddReview}>
         Add Review
       </ReviewForm>
     </section>

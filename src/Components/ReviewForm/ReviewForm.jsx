@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useForm } from "react-hook-form";
 
-const ReviewForm = ({ handleReview, review, children }) => {
+const ReviewForm = forwardRef(({ handleReview, review, children }, ref) => {
   const {
     register,
     handleSubmit,
@@ -17,6 +17,9 @@ const ReviewForm = ({ handleReview, review, children }) => {
       reviewText: "",
     },
   });
+  
+  // return a reset fn as obj format
+  useImperativeHandle(ref, () => ({ resetForm: () => reset() }));
 
   useEffect(() => {
     if (review) {
@@ -138,6 +141,5 @@ const ReviewForm = ({ handleReview, review, children }) => {
       </form>
     </div>
   );
-};
-
+});
 export default ReviewForm;
