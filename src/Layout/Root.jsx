@@ -40,7 +40,7 @@ const Root = () => {
       </header>
       <main className="flex-1">
         {loading ? (
-          <div className="flex items-center justify-center h-[80dvh] md:h-[50dvh]">
+          <div className="flex items-center justify-center h-screen md:h-[50dvh]">
             <Spinner />
           </div>
         ) : (
@@ -48,8 +48,8 @@ const Root = () => {
             <Outlet />
           </Container>
         )}
+        <ScrollOnTop />
       </main>
-      <ScrollOnTop />
       <Footer />
     </section>
   );

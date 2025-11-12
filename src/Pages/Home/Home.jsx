@@ -4,6 +4,7 @@ import ReviewCard from "../../Components/ReviewCard/ReviewCard";
 import CardSkeleton from "../../Components/CardSkeleton/CardSkeleton";
 import useAxios from "../../hooks/useAxios";
 import { useNavigate } from "react-router";
+import Faq from "../../Components/Faq/Faq";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Home = () => {
   return (
     <section>
       <Banner />
-
+      
       <div className="mt-14 md:mt-20">
         <div className="text-center space-y-2 md:space-y-3">
           <h2 className="text-4xl md:text-5xl font-bold text-primary">
@@ -48,6 +49,8 @@ const Home = () => {
             Show All
           </button>
         </div>
+
+        <Faq />
       </div>
     </section>
   );

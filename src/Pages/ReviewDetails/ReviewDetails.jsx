@@ -51,7 +51,9 @@ const ReviewDetails = () => {
           >
             <FaArrowLeft /> Go Back
           </button>
-          <h2 className="text-3xl md:text-4xl xl:text-5xl font-semibold">{foodName}</h2>
+          <h2 className="text-3xl md:text-4xl xl:text-5xl font-semibold">
+            {foodName}
+          </h2>
           <div className="bg-secondary p-4 rounded-xl space-y-1 tracking-wide font-medium my-2">
             <p>Restuarant Name: {restaurantName}</p>
             <p>Location: {location}</p>
