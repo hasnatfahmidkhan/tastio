@@ -32,7 +32,7 @@ const AddReview = () => {
         <h3 className="text-4xl text-base-content font-bold">
           <span className="text-primary">Add</span> Review
         </h3>
-        <BackBtn />
+        <BackBtn className={"justify-center"} />
       </div>
       <ReviewForm ref={formRef} handleReview={handleAddReview}>
         Add Review

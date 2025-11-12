@@ -66,7 +66,7 @@ const Navbar = () => {
 
               <ul
                 tabIndex="-1"
-                className="dropdown-content menu menu-lg bg-base-100 rounded-md z-1 w-52 text-base-content font-semibold p-2 shadow-sm tracking-wide divide-y divide-base-300"
+                className="dropdown-content menu menu-lg bg-base-100 rounded-md z-1 w-52 text-base-content font-semibold p-2 shadow-sm tracking-wide divide-y divide-accent"
               >
                 {userLinks}
               </ul>
@@ -140,7 +140,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="navlinks menu menu-lg dropdown-content bg-base-100 rounded-md z-1 mt-3 w-52 p-2 shadow divide-y divide-base-300 font-semibold"
+              className="navlinks menu menu-lg dropdown-content bg-base-100 rounded-md z-1 mt-3 w-52 p-2 shadow divide-y divide-accent font-semibold"
             >
               {links}
 

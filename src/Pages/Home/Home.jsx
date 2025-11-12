@@ -30,8 +30,6 @@ const Home = () => {
     queryFn: getTopReviewers,
   });
 
-  console.log(topReviewers);
-
   return (
     <section>
       <Banner />
@@ -70,12 +68,12 @@ const Home = () => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 place-items-center mt-5">
-            {topReviewers?.map((topReviewer) => {
-              const { _id, photo, name, reviewerEmail, totalReviews } =
-                topReviewer;
+            {topReviewers?.map((topReviewer, i) => {
+              const { photo, name, reviewerEmail, totalReviews } = topReviewer;
+
               return (
                 <div
-                  key={_id}
+                  key={i}
                   className="bg-secondary p-4 rounded-xl md:w-[400px] mx-auto"
                 >
                   <div className="flex flex-col items-center">
@@ -89,7 +87,9 @@ const Home = () => {
                     <div className="text-center mt-4 text-lg">
                       <h3 className="text-accent">{reviewerEmail}</h3>
                       <p className="text-base-content font-medium">{name}</p>
-                      <p className="text-accent">Total Reviews: {totalReviews}</p>
+                      <p className="text-accent">
+                        Total Reviews: {totalReviews}
+                      </p>
                     </div>
                   </div>
                 </div>

@@ -54,7 +54,8 @@ const ReviewCard = ({ review }) => {
         <img
           className="h-full w-full object-cover"
           src={review.photo}
-          alt="Shoes"
+          alt={review.foodName}
+          loading="lazy"
         />
         <div className="badge badge-secondary absolute top-4 left-4 flex items-center font-semibold">
           {review.rating}
@@ -71,7 +72,7 @@ const ReviewCard = ({ review }) => {
           )}
         </div>
       </figure>
-      <div className="card-body gap-3">
+      <div className="card-body justify-between gap-3">
         <div>
           <h2 className="card-title text-2xl">{review.foodName}</h2>
           <p className="text-lg font-medium text-accent">

@@ -1,10 +1,11 @@
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { FaArrowLeft, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
+import BackBtn from "../../Components/BackBtn/BackBtn";
+import Spinner from "../../Components/Spinner/Spinner";
 
 const ReviewDetails = () => {
-  const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const { id } = useParams();
 
@@ -18,7 +19,11 @@ const ReviewDetails = () => {
     queryFn: getDeatils,
   });
   if (isPending) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spinner />
+      </div>
+    );
   }
 
   const {
@@ -40,17 +45,13 @@ const ReviewDetails = () => {
         <div className="w-full md:w-1/2">
           <img
             className="rounded-xl h-60 md:h-96 xl:h-[400px] object-cover w-full"
+            loading="lazy"
             src={photo}
-            alt=""
+            alt={foodName}
           />
         </div>
         <div className="w-full md:w-1/2">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-1.5 py-2 cursor-pointer hover:text-gray-400 transition-colors duration-200 font-semibold"
-          >
-            <FaArrowLeft /> Go Back
-          </button>
+          <BackBtn className={"justify-start"} />
           <h2 className="text-3xl md:text-4xl xl:text-5xl font-semibold">
             {foodName}
           </h2>

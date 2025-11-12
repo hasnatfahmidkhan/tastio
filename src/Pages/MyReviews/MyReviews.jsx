@@ -90,7 +90,7 @@ const MyReviews = () => {
                       <div className="flex items-center gap-3">
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
-                            <img src={photo} alt={foodName} />
+                            <img src={photo} alt={foodName} loading="lazy" />
                           </div>
                         </div>
                       </div>
