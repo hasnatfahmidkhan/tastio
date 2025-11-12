@@ -49,13 +49,13 @@ const Footer = () => {
               <FaXTwitter size={28} />
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/hasnatfahmidkhan"
               className="block  text-gray-900 transition-all duration-500 hover:text-primary"
             >
               <FaFacebook size={30} />
             </a>
             <a
-              href="#"
+              href="linkedin.com/in/hasnatfahmid"
               className="block  text-gray-900 transition-all duration-500 hover:text-primary"
             >
               <CiLinkedin size={32} />
