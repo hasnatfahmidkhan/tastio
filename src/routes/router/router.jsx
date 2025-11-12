@@ -10,6 +10,7 @@ import MyReviews from "../../Pages/MyReviews/MyReviews";
 import EditReview from "../../Pages/EditReview/EditReview";
 import MyFavourite from "../../Pages/MyFavourite/MyFavourite";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
+import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
       {
         path: "/all-reviews",
         Component: AllReviews,
+      },
+      {
+        path: "/review-details/:id",
+        element: (
+          <PrivateRoutes>
+            <ReviewDetails />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/add-review",

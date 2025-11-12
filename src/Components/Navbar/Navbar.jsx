@@ -33,13 +33,13 @@ const Navbar = () => {
   const userLinks = (
     <>
       <li>
-        <Link to={"/add-review"}>Add Review</Link>
+        <NavLink to={"/add-review"}>Add Review</NavLink>
       </li>
       <li>
-        <Link to={"/my-reviews"}>My Reviews</Link>
+        <NavLink to={"/my-reviews"}>My Reviews</NavLink>
       </li>
       <li>
-        <Link to={"/my-favourite"}>My Favourite</Link>
+        <NavLink to={"/my-favourite"}>My Favorite</NavLink>
       </li>
       <li>
         <button onClick={handleSignOut} className="text-red-600">

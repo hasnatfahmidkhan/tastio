@@ -16,12 +16,10 @@ const MyReviews = () => {
     const res = await axiosSecure.get(`/my-reviews?email=${email}`);
     return res.status === 200 ? res.data : [];
   };
-  const { data, isPending } = useQuery({
+  const { data } = useQuery({
     queryKey: ["reviews", user?.email],
     queryFn: () => getMyReviews(user?.email),
   });
-
-  console.log(isPending);
 
   const handleMyReviewDelete = async (id) => {
     const result = await Swal.fire({

@@ -5,8 +5,10 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const ReviewCard = ({ review }) => {
+  const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const [favourite, setFavourite] = useState(false);
   const { user } = useAuth();
@@ -63,9 +65,9 @@ const ReviewCard = ({ review }) => {
           className="absolute top-4 right-4 text-primary cursor-pointer"
         >
           {favourite ? (
-            <FaHeart size={22} color="currentColor" />
+            <FaHeart size={25} color="currentColor" />
           ) : (
-            <FaRegHeart size={22} color="currentColor" />
+            <FaRegHeart size={25} color="currentColor" />
           )}
         </div>
       </figure>
@@ -80,7 +82,10 @@ const ReviewCard = ({ review }) => {
           <p className="">Location: {review.location}</p>
           <p className="">Restaurant Name: {review.restaurantName}</p>
         </div>
-        <button className="btn btn-primary mt-2 rounded-full">
+        <button
+          onClick={() => navigate(`/review-details/${review._id}`)}
+          className="btn btn-primary mt-2 rounded-full"
+        >
           View Details
         </button>
       </div>
