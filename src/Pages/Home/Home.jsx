@@ -64,7 +64,39 @@ const Home = () => {
           </button>
         </div>
 
-        <div></div>
+        <div className="mt-20">
+          <h2 className="text-4xl text-center md:text-5xl font-bold text-base-content">
+            <span className="text-primary">Our Top</span> Reviewers
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 place-items-center mt-5">
+            {topReviewers?.map((topReviewer) => {
+              const { _id, photo, name, reviewerEmail, totalReviews } =
+                topReviewer;
+              return (
+                <div
+                  key={_id}
+                  className="bg-secondary p-4 rounded-xl md:w-[400px] mx-auto"
+                >
+                  <div className="flex flex-col items-center">
+                    <figure className="w-20 h-20 rounded-full overflow-hidden">
+                      <img
+                        className="h-full w-full object-cover"
+                        src={photo}
+                        alt=""
+                      />
+                    </figure>
+                    <div className="text-center mt-4 text-lg">
+                      <h3 className="text-accent">{reviewerEmail}</h3>
+                      <p className="text-base-content font-medium">{name}</p>
+                      <p className="text-accent">Total Reviews: {totalReviews}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
         <Faq />
       </div>
