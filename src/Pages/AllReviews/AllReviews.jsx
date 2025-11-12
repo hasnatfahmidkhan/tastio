@@ -37,6 +37,7 @@ const AllReviews = () => {
 
   return (
     <section>
+      <title>All Reviews</title>
       <div className="flex flex-col items-center justify-center gap-3 w-full ">
         <h2 className="text-4xl md:text-5xl font-bold text-primary text-center">
           All <span className="text-base-content">Reviews</span>

@@ -28,6 +28,7 @@ const AddReview = () => {
 
   return (
     <section className="flex flex-col items-center justify-center min-h-[calc(100vh-180px)]">
+      <title>Add Review</title>
       <div className="mb-3 space-y-1">
         <h3 className="text-4xl text-base-content font-bold">
           <span className="text-primary">Add</span> Review

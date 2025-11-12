@@ -41,6 +41,7 @@ const ReviewDetails = () => {
 
   return (
     <section>
+      <title>Review Details</title>
       <div className="flex flex-col md:flex-row items-center gap-y-4 md:gap-6 xl:gap-8">
         <div className="w-full md:w-1/2">
           <img

@@ -59,6 +59,7 @@ const MyReviews = () => {
 
   return (
     <section>
+      <title>My Review</title>
       <h2 className="text-4xl md:text-5xl font-bold text-primary text-center mb-3 md:mb-5">
         My <span className="text-base-content">Reviews</span>
       </h2>
