@@ -67,14 +67,14 @@ const Home = () => {
             <span className="text-primary">Our Top</span> Reviewers
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 place-items-center mt-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-5 mt-5">
             {topReviewers?.map((topReviewer, i) => {
               const { photo, name, reviewerEmail, totalReviews } = topReviewer;
 
               return (
                 <div
                   key={i}
-                  className="bg-secondary p-4 rounded-xl md:w-[400px] mx-auto"
+                  className="bg-secondary p-4 rounded-xl w-full"
                 >
                   <div className="flex flex-col items-center">
                     <figure className="w-20 h-20 rounded-full overflow-hidden">

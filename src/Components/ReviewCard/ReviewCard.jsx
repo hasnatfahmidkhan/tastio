@@ -31,6 +31,9 @@ const ReviewCard = ({ review }) => {
   }, [favourites, review._id]);
 
   const handleAddFavourite = (id) => {
+    if (!user) {
+      navigate("/login");
+    }
     axiosSecure
       .post("/favourites", {
         review: id,
