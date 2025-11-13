@@ -4,6 +4,8 @@ import CardSkeleton from "../../Components/CardSkeleton/CardSkeleton";
 import useAxios from "../../hooks/useAxios";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import noData from "../../assets/No-Data.json";
+import Lottie from "lottie-react";
 
 const AllReviews = () => {
   const axiosInstance = useAxios();
@@ -80,13 +82,19 @@ const AllReviews = () => {
         </form>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-10">
-        {isPending
-          ? [...Array(reviews?.length || 9)].map((_, i) => (
-              <CardSkeleton key={i} />
-            ))
-          : reviews?.map((review) => (
-              <ReviewCard key={review._id} review={review} />
-            ))}
+        {isPending ? (
+          [...Array(reviews?.length || 9)].map((_, i) => (
+            <CardSkeleton key={i} />
+          ))
+        ) : reviews?.length === 0 ? (
+          <div className="flex justify-center items-center col-span-full md:mt-10">
+            <Lottie animationData={noData} loop={true} className="w-sm" />
+          </div>
+        ) : (
+          reviews?.map((review) => (
+            <ReviewCard key={review._id} review={review} />
+          ))
+        )}
       </div>
     </section>
   );
