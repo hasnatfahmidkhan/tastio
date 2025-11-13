@@ -57,12 +57,12 @@ const Navbar = () => {
               <div
                 tabIndex={0}
                 role="button"
-                className="flex items-center w-full h-full"
+                className="flex items-center w-full h-full cursor-pointer"
               >
                 <IoIosArrowDown />
                 <img
                   src={user?.photoURL}
-                  className="w-12 h-12 rounded-full m-1 cursor-pointer object-cover"
+                  className="w-12 h-12 rounded-full m-1 object-cover"
                 />
               </div>
 
@@ -94,11 +94,11 @@ const Navbar = () => {
                 <div
                   tabIndex={0}
                   role="button"
-                  className="flex items-center"
+                  className="flex items-center cursor-pointer"
                 >
                   <img
                     src={user?.photoURL}
-                    className="w-12 h-12 rounded-full m-1 cursor-pointer object-cover"
+                    className="w-12 h-12 rounded-full m-1 object-cover"
                   />
                   <IoIosArrowDown />
                 </div>
