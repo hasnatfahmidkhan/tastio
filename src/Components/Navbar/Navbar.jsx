@@ -91,11 +91,13 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4">
             {user ? (
               <div className="dropdown dropdown-bottom dropdown-end">
-                <div className="flex items-center gap-1">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="flex items-center"
+                >
                   <img
                     src={user?.photoURL}
-                    tabIndex={0}
-                    role="button"
                     className="w-12 h-12 rounded-full m-1 cursor-pointer object-cover"
                   />
                   <IoIosArrowDown />
