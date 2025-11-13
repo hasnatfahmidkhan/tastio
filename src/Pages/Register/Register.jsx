@@ -198,6 +198,15 @@ const Register = () => {
                 >
                   {isSubmitting ? "loading..." : "Register"}
                 </button>
+                <p className="text-base tracking-wide py-1">
+                  Already have an account?{" "}
+                  <span
+                    onClick={() => navigate("/login")}
+                    className="text-primary cursor-pointer hover:underline"
+                  >
+                    Login
+                  </span>
+                </p>
                 <div className="divider text-sm text-gray-400">
                   Or Register With
                 </div>

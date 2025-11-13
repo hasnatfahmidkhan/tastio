@@ -126,6 +126,15 @@ const Login = () => {
                 >
                   {isSubmitting ? "loading..." : "Login"}
                 </button>
+                <p className="text-base tracking-wide py-1">
+                  Don't have an account?{" "}
+                  <span
+                    onClick={() => navigate("/register")}
+                    className="text-primary cursor-pointer hover:underline"
+                  >
+                    Register
+                  </span>
+                </p>
                 <div className="divider text-sm text-gray-400">
                   Or Login With
                 </div>
