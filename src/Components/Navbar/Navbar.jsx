@@ -53,14 +53,16 @@ const Navbar = () => {
       <div className="navbar md:w-11/12 2xl:w-7xl mx-auto md:px-4">
         <div className="navbar-start gap-2">
           {user && (
-            <div className="dropdown dropdown-bottom dropdown-start md:hidden">
-              <div className="flex items-center gap-1">
+            <div className="dropdown dropdown-bottom dropdown-start md:hidden ">
+              <div
+                tabIndex={0}
+                role="button"
+                className="flex items-center w-full h-full"
+              >
                 <IoIosArrowDown />
                 <img
                   src={user?.photoURL}
-                  tabIndex={0}
-                  role="button"
-                  className="w-12 h-12 rounded-full m-1 cursor-pointer"
+                  className="w-12 h-12 rounded-full m-1 cursor-pointer object-cover"
                 />
               </div>
 
@@ -94,7 +96,7 @@ const Navbar = () => {
                     src={user?.photoURL}
                     tabIndex={0}
                     role="button"
-                    className="w-12 h-12 rounded-full m-1 cursor-pointer"
+                    className="w-12 h-12 rounded-full m-1 cursor-pointer object-cover"
                   />
                   <IoIosArrowDown />
                 </div>
