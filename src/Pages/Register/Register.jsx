@@ -25,14 +25,16 @@ const Register = () => {
 
   const handleRegister = async (data) => {
     try {
-      const currentUser = await emailPassRegister(data?.email, data?.password);
+      const result = await emailPassRegister(data?.email, data?.password);
       await updateProfileFunc(data?.name, data?.photo);
+      const currentUser = result.user;
       const newUser = {
         email: currentUser.email,
         photo: currentUser.photoURL,
         name: currentUser.displayName,
       };
       navigate("/");
+      console.log(newUser);
       await axiosInstance.post("/users", { ...newUser });
     } catch (error) {
       toast.error(error.message);

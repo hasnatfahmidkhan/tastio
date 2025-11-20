@@ -29,6 +29,7 @@ const Home = () => {
     queryKey: ["topReviewes"],
     queryFn: getTopReviewers,
   });
+  console.log(topReviewers);
 
   return (
     <section>
@@ -72,10 +73,7 @@ const Home = () => {
               const { photo, name, reviewerEmail, totalReviews } = topReviewer;
 
               return (
-                <div
-                  key={i}
-                  className="bg-secondary p-4 rounded-xl w-full"
-                >
+                <div key={i} className="bg-secondary p-4 rounded-xl w-full">
                   <div className="flex flex-col items-center">
                     <figure className="w-20 h-20 rounded-full overflow-hidden">
                       <img
