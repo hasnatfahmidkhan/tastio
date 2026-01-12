@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import noData from "../../assets/No-Data.json";
 import Lottie from "lottie-react";
+import Container from "../../Components/Container/Container";
 
 const AllReviews = () => {
   const axiosInstance = useAxios();
@@ -38,7 +39,7 @@ const AllReviews = () => {
   }
 
   return (
-    <section>
+    <Container>
       <title>All Reviews</title>
       <div className="flex flex-col items-center justify-center gap-3 w-full ">
         <h2 className="text-4xl md:text-5xl font-bold text-primary text-center">
@@ -81,7 +82,7 @@ const AllReviews = () => {
           </div>
         </form>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mt-10">
         {isPending ? (
           [...Array(reviews?.length || 9)].map((_, i) => (
             <CardSkeleton key={i} />
@@ -96,7 +97,7 @@ const AllReviews = () => {
           ))
         )}
       </div>
-    </section>
+    </Container>
   );
 };
 

@@ -53,7 +53,7 @@ const ReviewCard = ({ review }) => {
 
   return (
     <div className="card bg-base-100 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] ">
-      <figure className="relative h-52 md:h-60">
+      <figure className="relative h-52">
         <img
           className="h-full w-full object-cover"
           src={review.photo}
@@ -75,10 +75,12 @@ const ReviewCard = ({ review }) => {
           )}
         </div>
       </figure>
-      <div className="card-body justify-between gap-3">
+      <div className="card-body justify-between gap-2 ">
         <div>
-          <h2 className="card-title text-2xl">{review.foodName}</h2>
-          <p className="text-lg font-medium text-accent">
+          <h2 className="card-title text-2xl truncate w-fit">
+            {review.foodName}
+          </h2>
+          <p className="text-lg font-medium text-accent ">
             {review.reviewerName}
           </p>
         </div>
@@ -88,7 +90,7 @@ const ReviewCard = ({ review }) => {
         </div>
         <button
           onClick={() => navigate(`/review-details/${review._id}`)}
-          className="btn btn-primary mt-2 rounded-full"
+          className="btn btn-primary rounded-full"
         >
           View Details
         </button>

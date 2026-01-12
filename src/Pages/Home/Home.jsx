@@ -5,6 +5,7 @@ import CardSkeleton from "../../Components/CardSkeleton/CardSkeleton";
 import useAxios from "../../hooks/useAxios";
 import { useNavigate } from "react-router";
 import Faq from "../../Components/Faq/Faq";
+import Container from "../../Components/Container/Container";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Home = () => {
     <section>
       <Banner />
 
-      <div className="mt-14 md:mt-20">
+      <Container className="mt-14 md:mt-20">
         <div className="text-center space-y-2 md:space-y-3">
           <h2 className="text-4xl md:text-5xl font-bold text-primary">
             Top Rated <span className="text-base-content">Reviews</span>
@@ -44,7 +45,7 @@ const Home = () => {
             Discover what food lovers are raving about
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mt-10">
           {isPending
             ? [...Array(data?.length || 6)].map((_, i) => (
                 <CardSkeleton key={i} />
@@ -63,12 +64,13 @@ const Home = () => {
           </button>
         </div>
 
+        {/* Top Reviewer Section  */}
         <div className="mt-20">
           <h2 className="text-4xl text-center md:text-5xl font-bold text-base-content">
             <span className="text-primary">Our Top</span> Reviewers
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-5 mt-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 place-items-center gap-5 mt-5">
             {topReviewers?.map((topReviewer, i) => {
               const { photo, name, reviewerEmail, totalReviews } = topReviewer;
 
@@ -97,7 +99,7 @@ const Home = () => {
         </div>
 
         <Faq />
-      </div>
+      </Container>
     </section>
   );
 };
