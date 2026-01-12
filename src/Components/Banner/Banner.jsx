@@ -15,7 +15,7 @@ const images = [
 ];
 const Banner = () => {
   return (
-    <div className="md:mt-5">
+    <div className="">
       <Swiper
         pagination={{
           dynamicBullets: true,
@@ -25,7 +25,7 @@ const Banner = () => {
         autoplay={{
           delay: 2500,
         }}
-        className="h-[300px] md:h-[450px] xl:h-[650px] 2xl:h-[700px] rounded-md overflow-hidden"
+        className="h-[300px] md:h-[450px] xl:h-[650px] 2xl:h-[700px]"
       >
         {images.map((img) => (
           <SwiperSlide>

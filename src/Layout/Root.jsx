@@ -44,9 +44,7 @@ const Root = () => {
             <Spinner />
           </div>
         ) : (
-          <Container>
-            <Outlet />
-          </Container>
+          <Outlet />
         )}
         <ScrollOnTop />
       </main>
