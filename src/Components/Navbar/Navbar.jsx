@@ -49,6 +49,9 @@ const Navbar = () => {
         <NavLink to={"/dashboard"}>Dashboard</NavLink>
       </li>
       <li>
+        <NavLink to={"/be-partner"}>Be a Partner</NavLink>
+      </li>
+      <li>
         <NavLink to={"/profile"}>Profile</NavLink>
       </li>
       <li>

@@ -14,6 +14,7 @@ import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
 import Leaderboard from "../../Pages/Leaderboard/Leaderboard";
 import DashBoardLayout from "../../Layout/DashboardLayout";
 import Feed from "../../Pages/Feed/Feed";
+import BeASeller from "../../Pages/BeASeller/BeASeller";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <MyFavourite />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/be-partner",
+        element: (
+          <PrivateRoutes>
+            <BeASeller />
           </PrivateRoutes>
         ),
       },

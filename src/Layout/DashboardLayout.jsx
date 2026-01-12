@@ -1,5 +1,4 @@
 import {
-  Award,
   User,
   Home,
   LogOut,
@@ -12,68 +11,34 @@ import {
   MessageSquareText,
   UtensilsCrossed,
   SquarePen,
+  Store,
 } from "lucide-react";
 import { NavLink, Outlet, Link } from "react-router";
-// import ProfileIcon from "../../components/ProfileIcon/ProfileIcon";
 import toast from "react-hot-toast";
-// import ScrollToTop from "../../components/ScrollToUp/ScrollToUp";
 import { useState } from "react";
-// import useRole from "../../hooks/useRole";
 import useAuth from "../hooks/useAuth";
 import ScrollOnTop from "../Components/ScrollOnTop/ScrollOnTop";
+import useRole from "../hooks/useRole";
+import Spinner from "../Components/Spinner/Spinner";
 
 const DashBoardLayout = () => {
   const { user, signoutFunc } = useAuth();
   const [imageError, setImageError] = useState(false);
-  //   const { role } = useRole();
+  const [role, roleLoading] = useRole();
 
+  if (roleLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Spinner />
+      </div>
+    );
+  }
   const userMenu = [
+    // --- Admin Routes ---
     {
-      path: "/dashboard",
-      label: "Analytics",
+      path: "/dashboard/admin-home", // analytics
+      label: "Admin Home",
       icon: BarChart2,
-      role: ["admin"],
-    },
-    {
-      path: "/dashboard/me",
-      label: "Profile",
-      icon: User,
-      role: ["user", "moderator", "admin"],
-    },
-    {
-      path: "/dashboard/add-review",
-      label: "Add Review",
-      icon: SquarePen,
-      role: ["user"],
-    },
-    {
-      path: "/dashboard/my-reviews",
-      label: "My Reviews",
-      icon: MessageSquareText,
-      role: ["user"],
-    },
-    {
-      path: "/dashboard/manage-applications",
-      label: "Manage Applications",
-      icon: FileCheck,
-      role: ["moderator"],
-    },
-    {
-      path: "/dashboard/manage-reviews",
-      label: "Manage Reviews",
-      icon: MessageSquareText,
-      role: ["moderator"],
-    },
-    {
-      path: "/dashboard/add-scholarship",
-      label: "Add Scholarships",
-      icon: Award,
-      role: ["admin"],
-    },
-    {
-      path: "/dashboard/manage-scholarships",
-      label: "Manage Scholarships",
-      icon: Edit3,
       role: ["admin"],
     },
     {
@@ -81,6 +46,60 @@ const DashBoardLayout = () => {
       label: "Manage Users",
       icon: Users,
       role: ["admin"],
+    },
+    {
+      path: "/dashboard/manage-reviews", // Moderation
+      label: "Manage Reviews",
+      icon: FileCheck,
+      role: ["admin"], // or moderator
+    },
+
+    // --- Seller Routes ---
+    {
+      path: "/dashboard/seller-home",
+      label: "Seller Home",
+      icon: Store,
+      role: ["seller"],
+    },
+    {
+      path: "/dashboard/my-foods",
+      label: "My Foods",
+      icon: UtensilsCrossed,
+      role: ["seller"],
+    },
+    {
+      path: "/dashboard/add-food",
+      label: "Add Food",
+      icon: Edit3,
+      role: ["seller"],
+    },
+
+    // --- User Routes ---
+    // {
+    //   path: "/dashboard/user-home",
+    //   label: "User Profile",
+    //   icon: User,
+    //   role: ["user"], // Common for all? Or specific?
+    // },
+    {
+      path: "/dashboard/my-reviews",
+      label: "My Reviews",
+      icon: MessageSquareText,
+      role: ["user"],
+    },
+    {
+      path: "/dashboard/create-post", // Community Post
+      label: "Create Post",
+      icon: SquarePen,
+      role: ["user"],
+    },
+
+    // --- Common / Shared ---
+    {
+      path: "/dashboard/me",
+      label: "My Profile",
+      icon: User,
+      role: ["user", "seller", "admin"], // Everyone can see
     },
   ];
 
@@ -179,8 +198,7 @@ const DashBoardLayout = () => {
               <div>
                 <h1 className="text-lg font-bold text-primary">Tastio</h1>
                 <p className="text-xs text-gray-500 capitalize">
-                  {/* // role */}
-                  {"user"} Dashboard
+                  {role} Dashboard
                 </p>
               </div>
             </Link>
@@ -221,7 +239,7 @@ const DashBoardLayout = () => {
                 <li key={index}>
                   {link.role?.map(
                     (r, index) =>
-                      r.includes("user") && (
+                      r.includes(role) && (
                         <NavLink
                           key={index}
                           end
