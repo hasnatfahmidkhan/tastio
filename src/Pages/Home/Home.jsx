@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import Faq from "../../Components/Faq/Faq";
 import Container from "../../Components/Container/Container";
 import Heading from "../../Components/Heading/Heading";
+import CategorySection from "./CategorySection/CategorySection";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const Home = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mt-10">
           {isPending
-            ? [...Array(data?.length || 6)].map((_, i) => (
+            ? [...Array(data?.length || 8)].map((_, i) => (
                 <CardSkeleton key={i} />
               ))
             : data.map((review) => (
@@ -62,6 +63,7 @@ const Home = () => {
             Show All
           </button>
         </div>
+        <CategorySection />
 
         {/* Top Reviewer Section  */}
         <div className="mt-20">
