@@ -65,9 +65,7 @@ const Home = () => {
 
         {/* Top Reviewer Section  */}
         <div className="mt-20">
-          <h2 className="text-4xl text-center md:text-5xl font-bold text-base-content">
-            <span className="text-primary">Our Top</span> Reviewers
-          </h2>
+          <Heading title="Our Top" subtitle="Reviewers" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-items-center gap-5 mt-5">
             {topReviewers?.map((topReviewer, i) => {

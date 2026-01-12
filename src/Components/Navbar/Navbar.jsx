@@ -60,7 +60,7 @@ const Navbar = () => {
   );
   return (
     <nav className={"py-1 bg-base-200 shadow-md"}>
-      <div className="navbar md:w-11/12 2xl:w-7xl mx-auto md:px-4">
+      <div className="navbar md:w-11/12 2xl:w-[1440px] mx-auto md:px-4">
         <div className="navbar-start gap-2">
           {user && (
             <div className="dropdown dropdown-bottom dropdown-start md:hidden ">
@@ -72,6 +72,9 @@ const Navbar = () => {
                 <IoIosArrowDown />
                 <img
                   src={user?.photoURL}
+                  onError={(e) => {
+                    e.currentTarget.src = "./profile.png";
+                  }}
                   className="w-12 h-12 rounded-full m-1 object-cover"
                 />
               </div>

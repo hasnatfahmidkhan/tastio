@@ -4,6 +4,8 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import noData from "../../assets/No-Data.json";
 import Lottie from "lottie-react";
+import Container from "../../Components/Container/Container";
+import Heading from "../../Components/Heading/Heading";
 
 const MyFavourite = () => {
   const axiosSecure = useAxiosSecure();
@@ -56,21 +58,22 @@ const MyFavourite = () => {
   });
 
   return (
-    <section>
-      <title>My Favourite Review</title>
-      <h2 className="text-4xl md:text-5xl font-bold text-primary text-center mb-3 md:mb-5">
-        Favourite <span className="text-base-content">Reviews</span>
-      </h2>
+    <Container>
+      <title>My wishlists</title>
+      <Heading title="My" subtitle="Cravings" />
+      <p className="text-2xl md:text-3xl font-semibold text-center mt-2 mb-6 text-base-content">
+        The delicious foods you plan to eat soon!{" "}
+      </p>
       {!favourites?.length ? (
         <div className="flex justify-center mt-15">
           <Lottie animationData={noData} loop={true} className="w-sm" />
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table table-zebra">
+          <table className="table table-zebra rounded-lg overflow-hidden">
             {/* head */}
             <thead>
-              <tr className="text-lg">
+              <tr className="text-lg bg-primary text-primary-content">
                 <th>Food Image</th>
                 <th>Food Name</th>
                 <th>Restaurant Name</th>
@@ -111,7 +114,7 @@ const MyFavourite = () => {
           </table>
         </div>
       )}
-    </section>
+    </Container>
   );
 };
 

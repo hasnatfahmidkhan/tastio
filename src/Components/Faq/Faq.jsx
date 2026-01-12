@@ -1,9 +1,9 @@
+import Heading from "../Heading/Heading";
+
 const Faq = () => {
   return (
     <section className="mt-20 space-y-5">
-      <h2 className="text-4xl text-center md:text-5xl font-bold text-base-content">
-        <span className="text-primary">Most Ask</span> Questions
-      </h2>
+      <Heading title="Most Ask" subtitle="Questions" />
       <div className="collapse collapse-plus bg-base-100 border border-accent">
         <input type="radio" name="my-accordion-3" defaultChecked />
         <div className="collapse-title font-semibold">
