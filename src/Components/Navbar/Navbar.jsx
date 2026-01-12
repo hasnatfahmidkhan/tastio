@@ -27,6 +27,16 @@ const Navbar = () => {
       <li>
         <NavLink to={"/all-reviews"}>All Reviews</NavLink>
       </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to={"/leaderboard"}>Leaderboard</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/my-favourite"}>Wishlist</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 

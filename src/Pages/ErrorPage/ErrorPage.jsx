@@ -5,20 +5,15 @@ import { useNavigate } from "react-router";
 const ErrorPage = () => {
   const navigate = useNavigate();
   return (
-    <section className="flex items-center justify-center min-h-screen bg-secondary">
-      <Lottie
-        animationData={errorPage}
-        loop={true}
-        className="w-4xl h-full relative"
+    <section className="flex items-center justify-center min-h-screen bg-secondary relative">
+      <Lottie animationData={errorPage} loop={true} className="w-4xl h-full" />
+      <button
+        onClick={() => navigate(-1)}
+        className="btn btn-primary absolute top-[75%] left-1/2 -translate-x-1/2"
       >
-        <button
-          onClick={() => navigate(-1)}
-          className="btn btn-primary absolute bottom-5 left-[50%] translate-x-[-50%]"
-        >
-          <FaArrowLeft />
-          Go Back
-        </button>
-      </Lottie>
+        <FaArrowLeft className="mr-2" />
+        Go Back
+      </button>
     </section>
   );
 };
