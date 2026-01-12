@@ -13,30 +13,42 @@ const Footer = () => {
           </div>
           <ul className="text-lg flex items-center justify-center flex-col gap-7 md:flex-row md:gap-12 transition-all duration-500 pt-8 pb-10 mb-10 border-b border-gray-200">
             <li>
-              <a href="/" className="text-gray-800 hover:text-primary">
+              <a
+                href="/"
+                className="text-accent dark:text-primary-content hover:text-primary"
+              >
                 Home
               </a>
             </li>
             <li>
               <a
                 href="/all-reviews"
-                className=" text-gray-800 hover:text-primary"
+                className=" text-accent dark:text-primary-content hover:text-primary"
               >
                 All Reviews
               </a>
             </li>
             <li>
-              <a href="#" className=" text-gray-800 hover:text-primary">
+              <a
+                href="#"
+                className=" text-accent dark:text-primary-content hover:text-primary"
+              >
                 Resources
               </a>
             </li>
             <li>
-              <a href="#" className=" text-gray-800 hover:text-primary">
+              <a
+                href="#"
+                className=" text-accent dark:text-primary-content hover:text-primary"
+              >
                 Blogs
               </a>
             </li>
             <li>
-              <a href="#" className=" text-gray-800 hover:text-primary">
+              <a
+                href="#"
+                className=" text-accent dark:text-primary-content hover:text-primary"
+              >
                 Support
               </a>
             </li>

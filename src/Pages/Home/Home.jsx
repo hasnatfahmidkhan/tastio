@@ -36,7 +36,7 @@ const Home = () => {
     <section>
       <Banner />
 
-      <Container className="mt-14 md:mt-20">
+      <Container className="mt-14">
         <div className="text-center space-y-2 md:space-y-3">
           <h2 className="text-4xl md:text-5xl font-bold text-primary">
             Top Rated <span className="text-base-content">Reviews</span>
@@ -85,9 +85,11 @@ const Home = () => {
                       />
                     </figure>
                     <div className="text-center mt-4 text-lg">
-                      <h3 className="text-accent">{reviewerEmail}</h3>
-                      <p className="text-base-content font-medium">{name}</p>
-                      <p className="text-accent">
+                      <h3 className="text-accent dark:text-accent-content">
+                        {reviewerEmail}
+                      </h3>
+                      <p className="text-accent dark:text-accent-content font-medium">{name}</p>
+                      <p className="text-accent dark:text-accent-content">
                         Total Reviews: {totalReviews}
                       </p>
                     </div>

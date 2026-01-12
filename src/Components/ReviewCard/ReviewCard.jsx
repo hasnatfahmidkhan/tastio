@@ -80,7 +80,7 @@ const ReviewCard = ({ review }) => {
           <h2 className="card-title text-2xl truncate w-fit">
             {review.foodName}
           </h2>
-          <p className="text-lg font-medium text-accent ">
+          <p className="text-lg font-medium text-accent dark:text">
             {review.reviewerName}
           </p>
         </div>
