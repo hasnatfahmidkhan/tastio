@@ -43,13 +43,10 @@ const Navbar = () => {
   const userLinks = (
     <>
       <li>
-        <NavLink to={"/add-review"}>Add Review</NavLink>
+        <NavLink to={"/dashboard"}>Dashboard</NavLink>
       </li>
       <li>
-        <NavLink to={"/my-reviews"}>My Reviews</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/my-favourite"}>My Favorite</NavLink>
+        <NavLink to={"/profile"}>Profile</NavLink>
       </li>
       <li>
         <button onClick={handleSignOut} className="text-red-600">

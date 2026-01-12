@@ -12,6 +12,7 @@ import MyFavourite from "../../Pages/MyFavourite/MyFavourite";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
 import Leaderboard from "../../Pages/Leaderboard/Leaderboard";
+import DashBoardLayout from "../../Layout/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -29,35 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/review-details/:id",
-        element: (
-          <PrivateRoutes>
-            <ReviewDetails />
-          </PrivateRoutes>
-        ),
-      },
-      {
-        path: "/add-review",
-        element: (
-          <PrivateRoutes>
-            <AddReview />
-          </PrivateRoutes>
-        ),
-      },
-      {
-        path: "/my-reviews",
-        element: (
-          <PrivateRoutes>
-            <MyReviews />
-          </PrivateRoutes>
-        ),
-      },
-      {
-        path: "/my-reviews/edit/:id",
-        element: (
-          <PrivateRoutes>
-            <EditReview />
-          </PrivateRoutes>
-        ),
+        element: <ReviewDetails />,
       },
       {
         path: "/my-favourite",
@@ -82,6 +55,40 @@ const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoutes>
+        <DashBoardLayout />
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        path: "/dashboard/add-review",
+        element: (
+          <PrivateRoutes>
+            <AddReview />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/my-reviews",
+        element: (
+          <PrivateRoutes>
+            <MyReviews />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/my-reviews/edit/:id",
+        element: (
+          <PrivateRoutes>
+            <EditReview />
+          </PrivateRoutes>
+        ),
       },
     ],
   },

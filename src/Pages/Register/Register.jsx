@@ -59,12 +59,12 @@ const Register = () => {
   };
 
   return (
-    <section className="flex items-center gap-10 min-h-[calc(100vh-180px)] ">
-      <div className="hidden md:block">
+    <section className="flex items-center justify-center gap-10 min-h-[calc(100vh-180px)] p-6 md:p-0">
+      <div className="hidden xl:block">
         <Lottie animationData={loginImg} loop={true} className="w-[550px]" />
       </div>
       <div className="w-full max-w-sm h-full">
-        <div className="card bg-base-100 w-full h-full shrink-0 shadow-[0px_10px_1px_rgba(221,221,221,1),0_10px_20px_rgba(204,204,204,1)]">
+        <div className="card bg-base-100 w-full h-full shrink-0 shadow-[0px_10px_1px_rgba(221,221,221,1),0_10px_20px_rgba(204,204,204,1)] dark:shadow-[0px_0px_1px_rgba(221,221,221,1),0_0px_10px_rgba(204,204,204,1)]">
           <div className="card-body">
             <h1 className="text-3xl mb-2 font-bold text-center text-base-content">
               Register

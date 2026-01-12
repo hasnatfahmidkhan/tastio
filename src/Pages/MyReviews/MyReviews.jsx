@@ -103,7 +103,9 @@ const MyReviews = () => {
                     </td>
                     <td className="flex items-center gap-2">
                       <button
-                        onClick={() => navigate(`/my-reviews/edit/${_id}`)}
+                        onClick={() =>
+                          navigate(`/dashboard/my-reviews/edit/${_id}`)
+                        }
                         className="btn btn-info text-base-200 btn-sm text-sm tracking-wide"
                       >
                         Edit

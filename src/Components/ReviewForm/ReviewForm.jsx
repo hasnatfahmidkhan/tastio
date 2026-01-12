@@ -17,7 +17,7 @@ const ReviewForm = forwardRef(({ handleReview, review, children }, ref) => {
       reviewText: "",
     },
   });
-  
+
   // return a reset fn as obj format
   useImperativeHandle(ref, () => ({ resetForm: () => reset() }));
 
@@ -28,7 +28,7 @@ const ReviewForm = forwardRef(({ handleReview, review, children }, ref) => {
   }, [reset, review]);
 
   return (
-    <div className="card bg-base-100 w-full max-w-sm shrink-0 p-5 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border border-gray-100">
+    <div className="card bg-base-100 w-full max-w-sm shrink-0 p-5 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border border-base-200">
       <form onSubmit={handleSubmit(handleReview)}>
         <fieldset className="fieldset p-2 gap-4">
           <div>
