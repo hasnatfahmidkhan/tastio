@@ -2,7 +2,6 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import ReviewForm from "../../Components/ReviewForm/ReviewForm";
-import BackBtn from "../../Components/BackBtn/BackBtn";
 import { useRef } from "react";
 
 const AddReview = () => {

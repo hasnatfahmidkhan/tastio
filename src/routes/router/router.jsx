@@ -13,6 +13,7 @@ import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
 import Leaderboard from "../../Pages/Leaderboard/Leaderboard";
 import DashBoardLayout from "../../Layout/DashboardLayout";
+import Feed from "../../Pages/Feed/Feed";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,8 @@ const router = createBrowserRouter([
         path: "/review-details/:id",
         element: <ReviewDetails />,
       },
+      { path: "/feed", Component: Feed },
+
       {
         path: "/my-favourite",
         element: (
