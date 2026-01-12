@@ -6,6 +6,7 @@ import useAxios from "../../hooks/useAxios";
 import { useNavigate } from "react-router";
 import Faq from "../../Components/Faq/Faq";
 import Container from "../../Components/Container/Container";
+import Heading from "../../Components/Heading/Heading";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Home = () => {
   });
 
   const getTopReviewers = async () => {
-    const res = await axiosInstance.get("/topReviewes");
+    const res = await axiosInstance.get(`leaderboard?limit=${3}`);
     return res.status === 200 ? res.data : [];
   };
 
@@ -30,7 +31,7 @@ const Home = () => {
     queryKey: ["topReviewes"],
     queryFn: getTopReviewers,
   });
-  console.log(topReviewers);
+  // console.log(topReviewers);
 
   return (
     <section>
@@ -38,9 +39,7 @@ const Home = () => {
 
       <Container className="mt-14">
         <div className="text-center space-y-2 md:space-y-3">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary">
-            Top Rated <span className="text-base-content">Reviews</span>
-          </h2>
+          <Heading title="Top Rated" subtitle="Reviews" />
           <p className="text-2xl md:text-3xl font-semibold text-base-content">
             Discover what food lovers are raving about
           </p>
@@ -70,7 +69,7 @@ const Home = () => {
             <span className="text-primary">Our Top</span> Reviewers
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 place-items-center gap-5 mt-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-items-center gap-5 mt-5">
             {topReviewers?.map((topReviewer, i) => {
               const { photo, name, reviewerEmail, totalReviews } = topReviewer;
 
@@ -88,7 +87,9 @@ const Home = () => {
                       <h3 className="text-accent dark:text-accent-content">
                         {reviewerEmail}
                       </h3>
-                      <p className="text-accent dark:text-accent-content font-medium">{name}</p>
+                      <p className="text-accent dark:text-accent-content font-medium">
+                        {name}
+                      </p>
                       <p className="text-accent dark:text-accent-content">
                         Total Reviews: {totalReviews}
                       </p>

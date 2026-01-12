@@ -11,6 +11,7 @@ import EditReview from "../../Pages/EditReview/EditReview";
 import MyFavourite from "../../Pages/MyFavourite/MyFavourite";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
+import Leaderboard from "../../Pages/Leaderboard/Leaderboard";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <MyFavourite />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/leaderboard",
+        element: (
+          <PrivateRoutes>
+            <Leaderboard />
           </PrivateRoutes>
         ),
       },
