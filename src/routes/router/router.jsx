@@ -19,6 +19,7 @@ import ManageApplications from "../../Pages/Dashboard/Admin/ManageApplications/M
 import AddFood from "../../Pages/Dashboard/Seller/AddFood/AddFodd";
 import MyFoods from "../../Pages/Dashboard/Seller/MyFoods/MyFoods";
 import UpdateFood from "../../Pages/Dashboard/Seller/UpdateFood/UpdateFood";
+import AllFoods from "../../Pages/AllFoods/AllFoods";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/all-reviews",
         Component: AllReviews,
+      },
+      {
+        path: "/all-foods",
+        Component: AllFoods,
       },
       {
         path: "/review-details/:id",
