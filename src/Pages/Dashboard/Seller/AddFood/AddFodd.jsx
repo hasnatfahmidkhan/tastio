@@ -47,7 +47,7 @@ const AddFood = () => {
         description: data.description,
         image: imageUrl,
         restaurantId: restaurant._id,
-        restaurantName: restaurant.name,
+        restaurantName: restaurant.restaurantName,
         sellerEmail: user.email,
         addedAt: new Date().toISOString(),
       };

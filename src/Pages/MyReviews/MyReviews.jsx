@@ -1,132 +1,69 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
-import noData from "../../assets/No-Data.json";
-import Lottie from "lottie-react";
 
 const MyReviews = () => {
-  const navigate = useNavigate();
-
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const queryClient = useQueryClient();
-  //? get my review
-  const getMyReviews = async (email) => {
-    const res = await axiosSecure.get(`/my-reviews?email=${email}`);
-    return res.status === 200 ? res.data : [];
-  };
-  const { data } = useQuery({
-    queryKey: ["reviews", user?.email],
-    queryFn: () => getMyReviews(user?.email),
+
+  const { data: reviews = [], refetch } = useQuery({
+    queryKey: ["my-reviews", user?.email],
+    queryFn: async () =>
+      (await axiosSecure.get(`/my-reviews?email=${user.email}`)).data,
   });
 
-  const handleMyReviewDelete = async (id) => {
-    const result = await Swal.fire({
+  const handleDelete = async (id) => {
+    Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#22c55e",
-      cancelButtonColor: "#ef4444",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/my-reviews/${id}`);
+        if (res.data.deletedCount > 0) refetch();
+      }
     });
-
-    if (!result.isConfirmed) {
-      throw new Error("User cancel the deletation");
-    }
-    //! delete a review
-    await axiosSecure.delete(`/my-reviews/${id}`);
-    await Swal.fire({
-      title: "Deleted!",
-      text: "Your review has been deleted.",
-      icon: "success",
-      confirmButtonColor: "#22c55e",
-    });
-    return id;
   };
 
-  //! delete review
-  const deleteMutation = useMutation({
-    mutationFn: (id) => handleMyReviewDelete(id),
-    // in here delete review from the cache data
-    onSuccess: (id) => {
-      queryClient.setQueryData(["reviews", user?.email], (curElem) => {
-        return curElem?.filter((review) => review._id !== id);
-      });
-    },
-  });
-
   return (
-    <section>
-      <title>My Review</title>
-      <h2 className="text-4xl md:text-5xl font-bold text-primary text-center mb-3 md:mb-5">
-        My <span className="text-base-content">Reviews</span>
-      </h2>
-      {!data?.length ? (
-        <div className="flex justify-center mt-15">
-          <Lottie animationData={noData} loop={true} className="w-sm" />
-        </div>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead>
-              <tr className="text-lg">
-                <th>Food Image</th>
-                <th>Food Name</th>
-                <th>Restaurant Name</th>
-                <th>Posted At</th>
-                <th>Action</th>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-6">My Reviews ({reviews.length})</h2>
+      <div className="overflow-x-auto">
+        <table className="table w-full bg-base-100 shadow-md rounded-lg">
+          <thead>
+            <tr>
+              <th>Food</th>
+              <th>Rating</th>
+              <th>Comment</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reviews.map((review) => (
+              <tr key={review._id}>
+                <td className="font-bold">{review.foodName}</td>
+                <td className="text-warning font-bold">{review.rating} ⭐</td>
+                <td className="max-w-xs truncate">{review.reviewText}</td>
+                <td>
+                  <button
+                    onClick={() => handleDelete(review._id)}
+                    className="btn btn-sm btn-error text-white"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-              {data?.map((review) => {
-                const { _id, photo, foodName, restaurantName, postedAt } =
-                  review;
-                return (
-                  <tr key={_id}>
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="mask mask-squircle h-12 w-12">
-                            <img src={photo} alt={foodName} loading="lazy" />
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="table-td">{foodName}</td>
-                    <td className="table-td">{restaurantName}</td>
-                    <td className="table-td">
-                      {new Date(postedAt).toLocaleString()}
-                    </td>
-                    <td className="flex items-center gap-2">
-                      <button
-                        onClick={() =>
-                          navigate(`/dashboard/my-reviews/edit/${_id}`)
-                        }
-                        className="btn btn-info text-base-200 btn-sm text-sm tracking-wide"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => deleteMutation.mutate(_id)}
-                        className="btn btn-error text-base-200 btn-sm text-sm tracking-wide"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
-    </section>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
-
 export default MyReviews;
