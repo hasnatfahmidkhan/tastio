@@ -15,6 +15,10 @@ import Leaderboard from "../../Pages/Leaderboard/Leaderboard";
 import DashBoardLayout from "../../Layout/DashboardLayout";
 import Feed from "../../Pages/Feed/Feed";
 import BeASeller from "../../Pages/BeASeller/BeASeller";
+import ManageApplications from "../../Pages/Dashboard/Admin/ManageApplications/ManageApplications";
+import AddFood from "../../Pages/Dashboard/Seller/AddFood/AddFodd";
+import MyFoods from "../../Pages/Dashboard/Seller/MyFoods/MyFoods";
+import UpdateFood from "../../Pages/Dashboard/Seller/UpdateFood/UpdateFood";
 
 const router = createBrowserRouter([
   {
@@ -78,29 +82,26 @@ const router = createBrowserRouter([
       </PrivateRoutes>
     ),
     children: [
+      // Admin route
+      {
+        path: "/dashboard/manage-applications",
+        element: <ManageApplications />,
+      },
+      // Seller route
+      { path: "/dashboard/add-food", element: <AddFood /> },
+      { path: "/dashboard/my-foods", element: <MyFoods /> },
+      { path: "/dashboard/update-food/:id", element: <UpdateFood /> },
       {
         path: "/dashboard/add-review",
-        element: (
-          <PrivateRoutes>
-            <AddReview />
-          </PrivateRoutes>
-        ),
+        element: <AddReview />,
       },
       {
         path: "/dashboard/my-reviews",
-        element: (
-          <PrivateRoutes>
-            <MyReviews />
-          </PrivateRoutes>
-        ),
+        element: <MyReviews />,
       },
       {
         path: "/dashboard/my-reviews/edit/:id",
-        element: (
-          <PrivateRoutes>
-            <EditReview />
-          </PrivateRoutes>
-        ),
+        element: <EditReview />,
       },
     ],
   },

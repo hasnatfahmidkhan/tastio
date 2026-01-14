@@ -48,6 +48,12 @@ const DashBoardLayout = () => {
       role: ["admin"],
     },
     {
+      path: "/dashboard/manage-applications",
+      label: "Manage Applications",
+      icon: Users,
+      role: ["admin"],
+    },
+    {
       path: "/dashboard/manage-reviews", // Moderation
       label: "Manage Reviews",
       icon: FileCheck,
