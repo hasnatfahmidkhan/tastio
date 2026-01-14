@@ -33,7 +33,7 @@ const AdminHome = () => {
 
   if (isLoading)
     return (
-      <div className="flex justify-center h-[60vh] items-center">
+      <div className="flex justify-center h-[calc(100vh-150px)] items-center">
         <Spinner />
       </div>
     );

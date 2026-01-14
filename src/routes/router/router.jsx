@@ -23,6 +23,9 @@ import AllFoods from "../../Pages/AllFoods/AllFoods";
 import FoodDetails from "../../Pages/FoodDetails/FoodDetails";
 import AdminHome from "../../Pages/Dashboard/Admin/AdminHome/AdminHome";
 import ManageUsers from "../../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
+import ManageReviews from "../../Pages/Dashboard/Admin/ManageReviews/ManageReviews";
+import Profile from "../../Pages/Dashboard/Profile/Profile";
+import Dashboard from "../../Pages/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -96,12 +99,16 @@ const router = createBrowserRouter([
     children: [
       // Admin route
       {
-        path: "/dashboard/analytics",
-        element: <AdminHome />,
+        path: "/dashboard",
+        element: <Dashboard />,
       },
       {
         path: "/dashboard/manage-users",
         element: <ManageUsers />,
+      },
+      {
+        path: "/dashboard/manage-reviews",
+        element: <ManageReviews />,
       },
       {
         path: "/dashboard/manage-applications",
@@ -111,13 +118,12 @@ const router = createBrowserRouter([
       { path: "/dashboard/add-food", element: <AddFood /> },
       { path: "/dashboard/my-foods", element: <MyFoods /> },
       { path: "/dashboard/update-food/:id", element: <UpdateFood /> },
+
+      // profile
+      { path: "me", element: <Profile /> },
       {
         path: "/dashboard/add-review",
         element: <AddReview />,
-      },
-      {
-        path: "/dashboard/my-reviews",
-        element: <MyReviews />,
       },
       {
         path: "/dashboard/my-reviews/edit/:id",

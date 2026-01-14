@@ -3,18 +3,18 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 
-const ReviewSection = ({ foodId, foodTitle, photo }) => {
+const ReviewSection = ({ foodId, foodTitle, photo, restaurantName }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
     if (!user) return toast.error("Please login first!");
-
     const review = {
       menuId: foodId,
       foodName: foodTitle,
       photo: photo,
+      restaurantName: restaurantName,
       reviewerName: user.displayName,
       reviewerEmail: user.email,
       reviewerPhoto: user.photoURL,

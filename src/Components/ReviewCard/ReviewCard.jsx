@@ -34,6 +34,7 @@ const ReviewCard = ({ review }) => {
     if (!user) {
       navigate("/login");
     }
+
     axiosSecure
       .post("/favourites", {
         review: id,

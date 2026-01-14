@@ -10,15 +10,15 @@ import useAxios from "../../hooks/useAxios";
 const Login = () => {
   const axiosInstance = useAxios();
   const [showPassword, setShowPassword] = useState(false);
-  const location = useLocation();
+  const { state } = useLocation();
   const navigate = useNavigate();
   const { googleSignInFunc, setUser, emailPassLogin, user } = useAuth();
 
   useEffect(() => {
     if (user) {
-      navigate("/", { replace: true });
+      navigate(state || "/", { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, state]);
 
   const {
     register,
@@ -37,7 +37,7 @@ const Login = () => {
         name: currentUser.displayName,
       };
 
-      navigate(location.state || "/");
+      navigate(state || "/");
       await axiosInstance.post("/users", { ...newUser });
     } catch (error) {
       toast.error(error.message);
@@ -54,7 +54,7 @@ const Login = () => {
         photo: currentUser.photoURL,
         name: currentUser.displayName,
       };
-      navigate(location.state || "/");
+      navigate(state || "/");
       await axiosInstance.post("/users", { ...newUser });
     } catch (error) {
       toast.error(error.message);

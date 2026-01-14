@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 
 const Register = () => {
@@ -14,14 +14,25 @@ const Register = () => {
   const [cShowPassword, setCShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { googleSignInFunc, setUser, emailPassRegister, updateProfileFunc } =
-    useAuth();
+  const {
+    googleSignInFunc,
+    setUser,
+    user,
+    emailPassRegister,
+    updateProfileFunc,
+  } = useAuth();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
   } = useForm();
+
+  useEffect(() => {
+    if (user) {
+      navigate(location.state || "/", { replace: true });
+    }
+  }, [user, navigate, location.state]);
 
   const handleRegister = async (data) => {
     try {
@@ -33,8 +44,8 @@ const Register = () => {
         photo: currentUser.photoURL,
         name: currentUser.displayName,
       };
-      navigate("/");
-      console.log(newUser);
+      navigate(location.state || "/");
+      // console.log(newUser);
       await axiosInstance.post("/users", { ...newUser });
     } catch (error) {
       toast.error(error.message);

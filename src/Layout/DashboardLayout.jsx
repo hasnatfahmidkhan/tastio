@@ -36,7 +36,7 @@ const DashBoardLayout = () => {
   const userMenu = [
     // --- Admin Routes ---
     {
-      path: "/dashboard/analytics", // analytics
+      path: "/dashboard", // analytics
       label: "Admin Home",
       icon: BarChart2,
       role: ["admin"],
@@ -62,7 +62,7 @@ const DashBoardLayout = () => {
 
     // --- Seller Routes ---
     {
-      path: "/dashboard/seller-home",
+      path: "/dashboard",
       label: "Seller Home",
       icon: Store,
       role: ["seller"],
@@ -79,22 +79,14 @@ const DashBoardLayout = () => {
       icon: Edit3,
       role: ["seller"],
     },
-
-    // --- User Routes ---
-    // {
-    //   path: "/dashboard/user-home",
-    //   label: "User Profile",
-    //   icon: User,
-    //   role: ["user"], // Common for all? Or specific?
-    // },
     {
-      path: "/dashboard/my-reviews",
+      path: "/dashboard",
       label: "My Reviews",
       icon: MessageSquareText,
       role: ["user"],
     },
     {
-      path: "/dashboard/create-post", // Community Post
+      path: "/feed", // Community Post
       label: "Create Post",
       icon: SquarePen,
       role: ["user"],

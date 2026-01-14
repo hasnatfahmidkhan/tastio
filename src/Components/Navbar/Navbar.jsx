@@ -3,7 +3,6 @@ import BtnPrimary from "../Buttons/BtnPrimary/BtnPrimary";
 import BtnSecondary from "../Buttons/BtnSecondary/BtnSecondary";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import { FaArrowDown } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 
 const Navbar = () => {

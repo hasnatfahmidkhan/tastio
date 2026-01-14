@@ -47,7 +47,12 @@ const FoodDetails = () => {
       </div>
 
       {/* Review Section */}
-      <ReviewSection photo={food.image} foodId={id} foodTitle={food.name} />
+      <ReviewSection
+        restaurantName={food.restaurantName}
+        photo={food.image}
+        foodId={id}
+        foodTitle={food.name}
+      />
     </Container>
   );
 };

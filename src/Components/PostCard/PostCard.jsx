@@ -1,65 +1,75 @@
-import {
-  MoreHorizontal,
-  ThumbsUp,
-  MessageCircle,
-  Share2,
-  Globe,
-} from "lucide-react";
+import { MoreHorizontal, MessageCircle, Share2, Heart } from "lucide-react";
+import useAuth from "../../hooks/useAuth";
 
-export default function PostCard() {
+export default function PostCard({ post, toggleLike }) {
+  const { user } = useAuth();
   return (
-    <div>
-      <div className="w-full max-w-[680px] bg-[#242526] rounded-xl shadow-xl overflow-hidden">
-        {/* Header */}
-        <div className="flex items-start gap-3 p-4">
-          <img src="/profile.png" className="w-12 h-12 rounded-full" alt="" />
-          <div className="flex-1">
-            <h4 className="text-white font-semibold leading-none">
-              Find Web Developer ( Bangladesh )
-            </h4>
-            <p className="text-gray-400 text-sm flex items-center gap-1 mt-1">
-              Aminul Zisan · 22h <Globe size={14} />
+    <div className="bg-base-100 rounded-2xl shadow-sm border border-base-200 overflow-hidden">
+      {/* Post Header */}
+      <div className="p-4 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          <div className="avatar">
+            <div className="w-10 h-10 rounded-full">
+              <img src={post.userPhoto} alt="user" />
+            </div>
+          </div>
+          <div>
+            <h4 className="font-bold text-sm">{post.userName}</h4>
+            <p className="text-xs text-gray-500">
+              {new Date(post.date).toLocaleDateString()}
             </p>
           </div>
-          <MoreHorizontal className="text-gray-400" />
         </div>
+        <button className="btn btn-ghost btn-circle btn-sm">
+          <MoreHorizontal size={20} />
+        </button>
+      </div>
 
-        {/* Post text */}
-        <div className="px-4 pb-4 text-gray-200 text-sm leading-relaxed">
-          <p>
-            I recently built Zeeploy <br />A platform that lets you deploy
-            websites, backends, bots, or apps just by connecting your GitHub, no
-            complicated setup. Exactly like render/railway.
-          </p>
-        </div>
+      {/* Post Content */}
+      <div className="px-4 pb-2">
+        <p className="text-base-content/90 whitespace-pre-wrap">
+          {post.caption}
+        </p>
+      </div>
 
-        {/* Image */}
-        <div className="w-full bg-black">
+      {/* Post Image */}
+      {post.image && (
+        <div className="mt-2 bg-base-200">
           <img
-            src="/image.jpg" // put your Zeepoy UI image here
-            alt=""
-            className="w-full object-cover"
+            src={post.image}
+            alt="food"
+            className="w-full max-h-[500px] object-cover"
           />
         </div>
+      )}
 
-        {/* Reactions */}
-        <div className="flex justify-between px-4 py-3 text-gray-400 text-sm border-b border-gray-700">
-          <span>👍 ❤️ 😮 93</span>
-          <span>33 comments · 7 shares</span>
+      {/* Post Actions */}
+      <div className="p-4 flex items-center justify-between border-t border-base-200 mt-2">
+        <div className="flex gap-4">
+          <button
+            onClick={() => toggleLike(post._id)}
+            className={`flex items-center gap-2 btn btn-ghost btn-sm ${
+              post.likes?.includes(user?.email)
+                ? "text-red-500"
+                : "text-gray-500"
+            }`}
+          >
+            <Heart
+              size={20}
+              className={
+                post.likes?.includes(user?.email) ? "fill-current" : ""
+              }
+            />
+            <span>{post.likes?.length || 0}</span>
+          </button>
+          <button className="flex items-center gap-2 btn btn-ghost btn-sm text-gray-500">
+            <MessageCircle size={20} />
+            <span>Comment</span>
+          </button>
         </div>
-
-        {/* Actions */}
-        <div className="grid grid-cols-3 text-gray-300">
-          <button className="flex items-center justify-center gap-2 py-3 hover:bg-white/5">
-            <ThumbsUp size={18} /> Like
-          </button>
-          <button className="flex items-center justify-center gap-2 py-3 hover:bg-white/5">
-            <MessageCircle size={18} /> Comment
-          </button>
-          <button className="flex items-center justify-center gap-2 py-3 hover:bg-white/5">
-            <Share2 size={18} /> Share
-          </button>
-        </div>
+        <button className="btn btn-ghost btn-circle btn-sm text-gray-500">
+          <Share2 size={20} />
+        </button>
       </div>
     </div>
   );

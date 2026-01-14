@@ -85,6 +85,7 @@ const MyFavourite = () => {
               {/* row 1 */}
               {favourites?.map((review) => {
                 const { _id, photo, foodName, restaurantName, rating } = review;
+
                 return (
                   <tr key={_id}>
                     <td>

@@ -4,6 +4,7 @@ import useAuth from "../../../../hooks/useAuth";
 import { Edit, Trash2, DollarSign } from "lucide-react";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+import Spinner from "../../../../Components/Spinner/Spinner";
 
 const MyFoods = () => {
   const { user } = useAuth();
@@ -44,8 +45,8 @@ const MyFoods = () => {
 
   if (isLoading)
     return (
-      <div className="text-center mt-20">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
+      <div className="flex justify-center h-[calc(100vh-150px)] items-center">
+        <Spinner />
       </div>
     );
 

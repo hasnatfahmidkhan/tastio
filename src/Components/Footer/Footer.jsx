@@ -1,88 +1,198 @@
+import { Link } from "react-router";
 import { CiLinkedin } from "react-icons/ci";
-import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { FaFacebook, FaGithub, FaXTwitter } from "react-icons/fa6";
+import { UtensilsCrossed } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="w-full py-14">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <div className="flex justify-center">
-            <a className="text-4xl font-bold tracking-wide text-primary logo-font">
-              Tastio
-            </a>
+    <footer className="bg-base-200 text-base-content border-t border-base-300 mt-auto">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          {/* 1. Brand Section */}
+          <div className="space-y-4">
+            <Link to="/" className="flex items-center gap-2">
+              <UtensilsCrossed className="text-primary size-8" />
+              <span className="text-3xl font-bold tracking-wide text-primary logo-font">
+                Tastio
+              </span>
+            </Link>
+            <p className="text-base-content/70 text-sm leading-relaxed">
+              Discover authentic Bangladeshi dishes, share your honest reviews,
+              and join the biggest community of food lovers.
+            </p>
+
+            {/* Social Icons */}
+            <div className="flex gap-4 pt-2">
+              <a
+                target="_blank"
+                href="https://linkedin.com/in/hasnatfahmid"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors duration-300"
+              >
+                <CiLinkedin size={28} />
+              </a>
+              <a
+                target="_blank"
+                href="https://github.com/hasnatfahmidkhan"
+                className="hover:text-primary transition-colors duration-300"
+              >
+                <FaGithub size={24} />
+              </a>
+              <a
+                target="_blank"
+                href="https://www.facebook.com/hasnatfahmidkhan"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors duration-300"
+              >
+                <FaFacebook size={24} />
+              </a>
+
+              <a
+                target="_blank"
+                href="#"
+                className="hover:text-primary transition-colors duration-300"
+              >
+                <FaXTwitter size={24} />
+              </a>
+            </div>
           </div>
-          <ul className="text-lg flex items-center justify-center flex-col gap-7 md:flex-row md:gap-12 transition-all duration-500 pt-8 pb-10 mb-10 border-b border-gray-200">
-            <li>
-              <a
-                href="/"
-                className="text-accent dark:text-primary-content hover:text-primary"
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="/all-reviews"
-                className=" text-accent dark:text-primary-content hover:text-primary"
-              >
-                All Reviews
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className=" text-accent dark:text-primary-content hover:text-primary"
-              >
-                Resources
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className=" text-accent dark:text-primary-content hover:text-primary"
-              >
-                Blogs
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className=" text-accent dark:text-primary-content hover:text-primary"
-              >
-                Support
-              </a>
-            </li>
-          </ul>
-          <div className="flex space-x-10 justify-center items-center mb-8">
-            <a
-              href="#"
-              className="block  text-gray-900 transition-all duration-500 hover:text-primary"
-            >
-              <FaXTwitter size={28} />
-            </a>
-            <a
-              href="https://www.facebook.com/hasnatfahmidkhan"
-              className="block  text-gray-900 transition-all duration-500 hover:text-primary"
-            >
-              <FaFacebook size={30} />
-            </a>
-            <a
-              href="linkedin.com/in/hasnatfahmid"
-              className="block  text-gray-900 transition-all duration-500 hover:text-primary"
-            >
-              <CiLinkedin size={32} />
-            </a>
-            <a
-              href="#"
-              className="block  text-gray-900 transition-all duration-500 hover:text-primary"
-            >
-              <FaInstagram size={32} />
-            </a>
+
+          {/* 2. Discover Links */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 uppercase tracking-wider text-base-content">
+              Discover
+            </h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  to="/all-foods"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  All Foods
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/all-reviews"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Community Reviews
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/leaderboard"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Top Reviewers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/feed"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Foodie Feed
+                </Link>
+              </li>
+            </ul>
           </div>
-          <span className="text-lg text-gray-500 text-center block">
-            ©<a href="https://pagedone.io/">Tastio</a>{" "}
-            {new Date().getFullYear()}, All rights reserved.
-          </span>
+
+          {/* 3. For Business */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 uppercase tracking-wider text-base-content">
+              For Business
+            </h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  to="/be-partner"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Add Your Restaurant
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/login"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Business Login
+                </Link>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Pricing & Plans
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Seller Support
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* 4. Contact / Legal */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 uppercase tracking-wider text-base-content">
+              Company
+            </h3>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-base-content/70 hover:text-primary hover:pl-2 transition-all"
+                >
+                  Terms of Service
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-base-300 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-base-content/60">
+          <p>© {new Date().getFullYear()} Tastio. All rights reserved.</p>
+          <p>
+            Designed & Built by{" "}
+            <a
+              href="https://linkedin.com/in/hasnatfahmid"
+              className="text-primary hover:underline"
+            >
+              Hasnat Fahmid
+            </a>
+          </p>
         </div>
       </div>
     </footer>

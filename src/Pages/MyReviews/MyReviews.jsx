@@ -3,12 +3,17 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
+import Spinner from "../../Components/Spinner/Spinner";
 
 const MyReviews = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: reviews = [], refetch } = useQuery({
+  const {
+    data: reviews = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["my-reviews", user?.email],
     queryFn: async () =>
       (await axiosSecure.get(`/my-reviews?email=${user.email}`)).data,
@@ -30,6 +35,13 @@ const MyReviews = () => {
       }
     });
   };
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center h-[calc(100vh-150px)] items-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <div className="p-6">

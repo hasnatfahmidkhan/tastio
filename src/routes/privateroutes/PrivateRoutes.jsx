@@ -8,7 +8,7 @@ const PrivateRoutes = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <Spinner />
       </div>
     );
@@ -18,7 +18,7 @@ const PrivateRoutes = ({ children }) => {
     return children;
   }
 
-  return <Navigate to={"/login"} state={{ from: location.pathname }} />;
+  return <Navigate to={"/login"} state={location.pathname} />;
 };
 
 export default PrivateRoutes;

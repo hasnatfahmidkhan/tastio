@@ -13,6 +13,7 @@ import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { uploadImage } from "../../../../utils";
 import { useState } from "react";
+import Spinner from "../../../../Components/Spinner/Spinner";
 
 const AddFood = () => {
   const { user } = useAuth();
@@ -48,10 +49,10 @@ const AddFood = () => {
         image: imageUrl,
         restaurantId: restaurant._id,
         restaurantName: restaurant.restaurantName,
+        location: restaurant.location,
         sellerEmail: user.email,
         addedAt: new Date().toISOString(),
       };
-
       const res = await axiosSecure.post("/menu", foodItem);
 
       if (res.data.insertedId) {
@@ -68,8 +69,8 @@ const AddFood = () => {
 
   if (isLoading)
     return (
-      <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
+      <div className="flex justify-center h-[calc(100vh-150px)] items-center">
+        <Spinner />
       </div>
     );
 
