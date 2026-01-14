@@ -36,7 +36,7 @@ const DashBoardLayout = () => {
   const userMenu = [
     // --- Admin Routes ---
     {
-      path: "/dashboard/admin-home", // analytics
+      path: "/dashboard/analytics", // analytics
       label: "Admin Home",
       icon: BarChart2,
       role: ["admin"],

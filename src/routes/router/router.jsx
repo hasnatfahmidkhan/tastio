@@ -21,6 +21,8 @@ import MyFoods from "../../Pages/Dashboard/Seller/MyFoods/MyFoods";
 import UpdateFood from "../../Pages/Dashboard/Seller/UpdateFood/UpdateFood";
 import AllFoods from "../../Pages/AllFoods/AllFoods";
 import FoodDetails from "../../Pages/FoodDetails/FoodDetails";
+import AdminHome from "../../Pages/Dashboard/Admin/AdminHome/AdminHome";
+import ManageUsers from "../../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +95,14 @@ const router = createBrowserRouter([
     ),
     children: [
       // Admin route
+      {
+        path: "/dashboard/analytics",
+        element: <AdminHome />,
+      },
+      {
+        path: "/dashboard/manage-users",
+        element: <ManageUsers />,
+      },
       {
         path: "/dashboard/manage-applications",
         element: <ManageApplications />,
