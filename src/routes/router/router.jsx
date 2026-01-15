@@ -26,6 +26,9 @@ import ManageUsers from "../../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageReviews from "../../Pages/Dashboard/Admin/ManageReviews/ManageReviews";
 import Profile from "../../Pages/Dashboard/Profile/Profile";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import SellerRoute from "../SellerRoute/SellerRoute";
+import ManageRestaurants from "../../Pages/Dashboard/Admin/ManageRestaurants/ManageRestaurants";
 
 const router = createBrowserRouter([
   {
@@ -97,27 +100,68 @@ const router = createBrowserRouter([
       </PrivateRoutes>
     ),
     children: [
-      // Admin route
       {
         path: "/dashboard",
         element: <Dashboard />,
       },
+      // Admin route
       {
         path: "/dashboard/manage-users",
-        element: <ManageUsers />,
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/manage-reviews",
-        element: <ManageReviews />,
+        element: (
+          <AdminRoute>
+            <ManageReviews />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-restaurants",
+        element: (
+          <AdminRoute>
+            <ManageRestaurants />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/manage-applications",
-        element: <ManageApplications />,
+        element: (
+          <AdminRoute>
+            <ManageApplications />
+          </AdminRoute>
+        ),
       },
       // Seller route
-      { path: "/dashboard/add-food", element: <AddFood /> },
-      { path: "/dashboard/my-foods", element: <MyFoods /> },
-      { path: "/dashboard/update-food/:id", element: <UpdateFood /> },
+      {
+        path: "/dashboard/add-food",
+        element: (
+          <SellerRoute>
+            <AddFood />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-foods",
+        element: (
+          <SellerRoute>
+            <MyFoods />
+          </SellerRoute>
+        ),
+      },
+      {
+        path: "/dashboard/update-food/:id",
+        element: (
+          <SellerRoute>
+            <UpdateFood />
+          </SellerRoute>
+        ),
+      },
 
       // profile
       { path: "me", element: <Profile /> },

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { CheckCircle, XCircle } from "lucide-react";
+import Swal from "sweetalert2"; // Import SweetAlert
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const ManageApplications = () => {
@@ -9,11 +10,13 @@ const ManageApplications = () => {
   const { data: applications = [], refetch } = useQuery({
     queryKey: ["seller-requests"],
     queryFn: async () => {
+      // Ensure your backend returns requests that are pending
       const res = await axiosSecure.get("/restaurants?status=pending");
       return res.data;
     },
   });
 
+  // Approve Handler
   const handleApprove = async (app) => {
     try {
       const res = await axiosSecure.patch(`/restaurants/verify/${app._id}`, {
@@ -27,6 +30,45 @@ const ManageApplications = () => {
     } catch (error) {
       toast.error("Failed to approve");
     }
+  };
+
+  // Reject Handler (NEW)
+  const handleReject = (app) => {
+    Swal.fire({
+      title: "Reject Application?",
+      text: `Are you sure you want to reject ${app.restaurantName}?`,
+      icon: "warning",
+      input: "text", // Input box for reason
+      inputPlaceholder: "Enter reason for rejection...",
+      showCancelButton: true,
+      confirmButtonColor: "#ef4444", // Red color
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, Reject",
+      preConfirm: (reason) => {
+        if (!reason) {
+          Swal.showValidationMessage("Please enter a reason");
+        }
+        return reason;
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await axiosSecure.patch(
+            `/restaurants/reject/${app._id}`,
+            {
+              reason: result.value, // Send the input value
+            }
+          );
+
+          if (res.data.modifiedCount > 0) {
+            Swal.fire("Rejected!", "Application has been rejected.", "success");
+            refetch();
+          }
+        } catch (error) {
+          toast.error("Failed to reject application");
+        }
+      }
+    });
   };
 
   return (
@@ -83,17 +125,24 @@ const ManageApplications = () => {
                     <div className="badge badge-warning gap-2">Pending</div>
                   </td>
                   <td>
-                    <button
-                      onClick={() => handleApprove(app)}
-                      className="btn btn-sm btn-success text-white"
-                      title="Approve"
-                    >
-                      <CheckCircle size={16} /> Approve
-                    </button>
-                    {/* Reject button (Optional) */}
-                    <button className="btn btn-sm btn-error text-white ml-2">
-                      <XCircle size={16} />
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleApprove(app)}
+                        className="btn btn-sm btn-success text-white"
+                        title="Approve"
+                      >
+                        <CheckCircle size={16} /> Approve
+                      </button>
+
+                      {/* Reject Button with Handler */}
+                      <button
+                        onClick={() => handleReject(app)}
+                        className="btn btn-sm btn-error text-white"
+                        title="Reject"
+                      >
+                        <XCircle size={16} /> Reject
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))
