@@ -6,13 +6,28 @@ import useAxios from "../../hooks/useAxios";
 import { useNavigate } from "react-router";
 import Faq from "../../Components/Faq/Faq";
 import Container from "../../Components/Container/Container";
-import Heading from "../../Components/Heading/Heading";
 import CategorySection from "./CategorySection/CategorySection";
+import TrendingNow from "./TrendingNow/TrendingNow";
+import { ArrowDown, Star } from "lucide-react";
+import SectionHeader from "../../Components/SectionHeader/SectionHeader";
+import { useRef } from "react";
+import TopRatedFoods from "./TopRatedFoods/TopRatedFoods";
+import HowItWorks from "./HowItWorks/HowItWorks";
+import FeaturedRestaurants from "./FeaturedRestaurants/FeaturedRestaurants";
+import CommunityTeaser from "./CommunityTeaser/CommunityTeaser";
+import TopReviewers from "./TopReviewers/TopReviewers";
+import StatsSection from "./StatsSection/StatsSection";
+import Newsletter from "./Newsletter/Newsletter";
+import TopReviews from "./TopReviews/TopReviews";
 
 const Home = () => {
   const navigate = useNavigate();
   const axiosInstance = useAxios();
+  const trendingRef = useRef(null); // 1. Create Ref
 
+  const scrollToContent = () => {
+    trendingRef.current?.scrollIntoView({ behavior: "smooth" }); // 2. Scroll Function
+  };
   const getTopReviews = async () => {
     const res = await axiosInstance.get("/latest-reviews");
     return res.status === 200 ? res.data : [];
@@ -23,83 +38,50 @@ const Home = () => {
     queryFn: getTopReviews,
   });
 
-  const getTopReviewers = async () => {
-    const res = await axiosInstance.get(`leaderboard?limit=${3}`);
-    return res.status === 200 ? res.data : [];
-  };
-
-  const { data: topReviewers } = useQuery({
-    queryKey: ["topReviewes"],
-    queryFn: getTopReviewers,
-  });
-  // console.log(topReviewers);
-
   return (
-    <section>
+    <section className="relative">
       <Banner />
 
-      <Container className="mt-14">
-        <div className="text-center space-y-2 md:space-y-3">
-          <Heading title="Top Rated" subtitle="Reviews" />
-          <p className="text-2xl md:text-3xl font-semibold text-base-content">
-            Discover what food lovers are raving about
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mt-10">
-          {isPending
-            ? [...Array(data?.length || 8)].map((_, i) => (
-                <CardSkeleton key={i} />
-              ))
-            : data.map((review) => (
-                <ReviewCard key={review._id} review={review} />
-              ))}
-        </div>
+      {/* 3. Improved Bounce Arrow */}
+      <div className="translate-y-1/2 flex justify-center z-10">
+        <button
+          onClick={scrollToContent}
+          className="w-14 h-14 bg-base-100 dark:bg-base-200 rounded-full shadow-lg border border-base-300 flex items-center justify-center animate-bounce cursor-pointer hover:bg-primary hover:text-white transition-colors"
+          aria-label="Scroll Down"
+        >
+          <ArrowDown size={24} />
+        </button>
+      </div>
 
-        <div className="mt-20 text-center">
-          <button
-            onClick={() => navigate("/all-reviews")}
-            className="btn btn-primary w-44 text-base py-5 rounded-full"
-          >
-            Show All
-          </button>
-        </div>
+      <Container>
+        <TrendingNow trendingRef={trendingRef} />
+
+        {/* Top Rated reviews  */}
+        <TopReviews />
+
+        {/* Top rated foods  */}
+        <TopRatedFoods />
+
+        {/* Category section  */}
         <CategorySection />
 
+        {/* How is it works section  */}
+        <HowItWorks />
+
+        {/* Featured restaurant section  */}
+        <FeaturedRestaurants />
+
+        {/* Community Teaser section  */}
+        <CommunityTeaser />
+
         {/* Top Reviewer Section  */}
-        <div className="mt-20">
-          <Heading title="Our Top" subtitle="Reviewers" />
+        <TopReviewers />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 place-items-center gap-5 mt-5">
-            {topReviewers?.map((topReviewer, i) => {
-              const { photo, name, reviewerEmail, totalReviews } = topReviewer;
+        {/* Stats Section  */}
+        <StatsSection />
 
-              return (
-                <div key={i} className="bg-secondary p-4 rounded-xl w-full">
-                  <div className="flex flex-col items-center">
-                    <figure className="w-20 h-20 rounded-full overflow-hidden">
-                      <img
-                        className="h-full w-full object-cover"
-                        src={photo}
-                        alt=""
-                      />
-                    </figure>
-                    <div className="text-center mt-4 text-lg">
-                      <h3 className="text-accent dark:text-accent-content">
-                        {reviewerEmail}
-                      </h3>
-                      <p className="text-accent dark:text-accent-content font-medium">
-                        {name}
-                      </p>
-                      <p className="text-accent dark:text-accent-content">
-                        Total Reviews: {totalReviews}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        {/* Newsletter Section  */}
+        <Newsletter />
 
         <Faq />
       </Container>

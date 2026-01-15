@@ -39,7 +39,7 @@ const FoodDetails = () => {
 
           <div className="flex items-center gap-4 mt-auto">
             <div className="badge badge-outline p-4">
-              By: {food.restaurantName || "Unknown"}
+              By: {food?.restaurant.restaurantName || "Unknown"}
             </div>
             <div className="badge badge-secondary p-4">{food.category}</div>
           </div>
@@ -48,7 +48,7 @@ const FoodDetails = () => {
 
       {/* Review Section */}
       <ReviewSection
-        restaurantName={food.restaurantName}
+        restaurantId={food?.restaurant._id}
         photo={food.image}
         foodId={id}
         foodTitle={food.name}

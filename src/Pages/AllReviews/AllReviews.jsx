@@ -36,7 +36,8 @@ const AllReviews = () => {
     },
     keepPreviousData: true, // Prevents flickering during pagination
   });
-
+  
+  console.log(data);
   const reviews = data?.result || [];
   const totalPages = Math.ceil((data?.total || 0) / limit);
 

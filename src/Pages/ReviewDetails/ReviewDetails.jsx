@@ -40,7 +40,8 @@ const ReviewDetails = () => {
     postedAt,
     reviewText,
   } = data;
-
+  
+  console.log(data)
   // Star Rating Helper
   const renderStars = (rating) => {
     return [...Array(5)].map((_, i) => (
@@ -70,7 +71,7 @@ const ReviewDetails = () => {
               src={photo}
               alt={foodName}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-8">
               <div className="text-white">
                 <div className="flex items-center gap-2 mb-2">
                   <Store size={18} className="text-primary" />
@@ -92,7 +93,7 @@ const ReviewDetails = () => {
                 <h2 className="text-3xl md:text-4xl font-bold text-base-content leading-tight">
                   {foodName}
                 </h2>
-                <div className="flex flex-col items-center bg-base-200 p-3 rounded-xl min-w-[80px]">
+                <div className="flex flex-col items-center bg-base-200 p-3 rounded-xl min-w-20">
                   <span className="text-3xl font-black text-primary">
                     {rating}
                   </span>

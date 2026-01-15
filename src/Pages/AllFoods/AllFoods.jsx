@@ -11,9 +11,10 @@ const AllFoods = () => {
 
   // --- 1. Initialize State from URL (Fixes the "Stuck" issue) ---
   const initialCategory = searchParams.get("category") || "All";
+  const querySearch = searchParams.get("search");
   const [category, setCategory] = useState(initialCategory);
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(querySearch || "");
   const [sort, setSort] = useState("newest");
   const [page, setPage] = useState(1);
   const limit = 9;

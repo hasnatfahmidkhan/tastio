@@ -30,6 +30,9 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import SellerRoute from "../SellerRoute/SellerRoute";
 import ManageRestaurants from "../../Pages/Dashboard/Admin/ManageRestaurants/ManageRestaurants";
 import ManageCategories from "../../Pages/Dashboard/Admin/ManageCategories/ManageCategories";
+import RestaurantDetails from "../../Pages/RestaurantDetails/RestaurantDetails";
+import Contact from "../../Pages/Contact/Contact";
+import AllRestaurants from "../../Pages/AllRestaurants/AllRestaurants";
 
 const router = createBrowserRouter([
   {
@@ -50,14 +53,23 @@ const router = createBrowserRouter([
         Component: AllFoods,
       },
       {
+        path: "/all-restaurants",
+        Component: AllRestaurants,
+      },
+      {
         path: "/food-details/:id",
         element: <FoodDetails />,
+      },
+      {
+        path: "/restaurant/:id",
+        element: <RestaurantDetails />,
       },
       {
         path: "/review-details/:id",
         element: <ReviewDetails />,
       },
       { path: "/feed", Component: Feed },
+      { path: "/contact", Component: Contact },
 
       {
         path: "/my-favourite",

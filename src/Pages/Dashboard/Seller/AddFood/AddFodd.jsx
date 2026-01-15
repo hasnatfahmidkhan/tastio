@@ -53,6 +53,7 @@ const AddFood = () => {
         sellerEmail: user.email,
         addedAt: new Date().toISOString(),
       };
+
       const res = await axiosSecure.post("/menu", foodItem);
 
       if (res.data.insertedId) {

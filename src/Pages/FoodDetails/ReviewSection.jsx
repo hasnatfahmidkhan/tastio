@@ -3,7 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 
-const ReviewSection = ({ foodId, foodTitle, photo, restaurantName }) => {
+const ReviewSection = ({ foodId, foodTitle, photo, restaurantId }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
@@ -12,9 +12,9 @@ const ReviewSection = ({ foodId, foodTitle, photo, restaurantName }) => {
     if (!user) return toast.error("Please login first!");
     const review = {
       menuId: foodId,
+      restaurantId,
       foodName: foodTitle,
       photo: photo,
-      restaurantName: restaurantName,
       reviewerName: user.displayName,
       reviewerEmail: user.email,
       reviewerPhoto: user.photoURL,
@@ -22,7 +22,7 @@ const ReviewSection = ({ foodId, foodTitle, photo, restaurantName }) => {
       reviewText: data.comment,
       postedAt: new Date().toISOString(),
     };
-
+   
     const res = await axiosSecure.post("/reviews", review);
     if (res.data.insertedId) {
       toast.success("Review Added!");

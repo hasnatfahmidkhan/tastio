@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import SectionHeader from "../../../Components/SectionHeader/SectionHeader";
 
 const CategorySection = () => {
   const navigate = useNavigate();
@@ -25,38 +26,31 @@ const CategorySection = () => {
 
   if (isLoading) return <div>Loading Categories...</div>;
 
-  
   const handleCategoryClick = (categoryName) => {
     navigate(`/all-foods?category=${categoryName}`);
   };
 
   return (
     <section className="py-20 bg-base-100 relative">
-      <div className="container mx-auto px-4">
+      <div className="">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
-          <div className="text-left">
-            <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-wider mb-2">
-              <Utensils size={20} /> Categories
-            </div>
-            <h2 className="text-4xl font-bold text-base-content">
-              Browse by Category
-            </h2>
-            <p className="text-gray-500 mt-2">
-              Explore our diverse menu curated just for you.
-            </p>
-          </div>
-
-          {/* Navigation Buttons (Top Right) */}
+        <SectionHeader
+          heading="Browse by Category"
+          subHeading="Explore our diverse menu curated just for you."
+          badge="Categories"
+          icon={Utensils}
+          align="left"
+        >
+          {/* Right Side Content: Custom Navigation Buttons */}
           <div className="flex gap-2">
-            <button className="swiper-prev w-12 h-12 rounded-full border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer">
+            <button className="swiper-prev w-12 h-12 rounded-full border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer bg-base-100 z-10">
               <ChevronLeft size={24} />
             </button>
-            <button className="swiper-next w-12 h-12 rounded-full border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer">
+            <button className="swiper-next w-12 h-12 rounded-full border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer bg-base-100 z-10">
               <ChevronRight size={24} />
             </button>
           </div>
-        </div>
+        </SectionHeader>
 
         {/* Swiper Slider */}
         <Swiper
