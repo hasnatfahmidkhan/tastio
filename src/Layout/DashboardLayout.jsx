@@ -14,6 +14,7 @@ import {
   Store,
   ClipboardList,
   Tags,
+  ChevronDown,
 } from "lucide-react";
 import { NavLink, Outlet, Link } from "react-router";
 import toast from "react-hot-toast";
@@ -127,7 +128,7 @@ const DashBoardLayout = () => {
       {/* Main Content */}
       <div className="drawer-content flex flex-col bg-base-200 min-h-screen">
         {/* Navbar */}
-        <nav className="navbar bg-base-100 shadow-sm sticky top-0 z-30 px-3 md:px-6 py-6">
+        <nav className="navbar bg-base-100 shadow-sm sticky top-0 z-30 px-3 md:px-10 py-6">
           {/* Mobile Menu Toggle */}
           <label
             htmlFor="dashboard-drawer"
@@ -147,11 +148,32 @@ const DashBoardLayout = () => {
           <div className="flex items-center gap-3 ">
             {/* User Avatar Dropdown - Using ProfileIcon */}
             <div className="dropdown dropdown-end">
-              {/* <ProfileIcon user={user} iconPosition="right-0" /> */}
-              {/* profile icons */}
+              <div
+                tabIndex={0}
+                role="button"
+                className="flex items-center gap-2 cursor-pointer p-1 pr-2 rounded-full border border-transparent hover:border-base-content/20 transition-all"
+              >
+                <div className="avatar">
+                  <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                      loading="lazy"
+                      src={user?.photoURL || "/profile.png"}
+                      onError={(e) => {
+                        e.currentTarget.src = "/profile.png";
+                      }}
+                      alt="User"
+                    />
+                  </div>
+                </div>
+                {/* Arrow that rotates on group focus */}
+                <ChevronDown
+                  size={16}
+                  className={`transition-transform duration-300 group-focus:rotate-180 text-base-content`}
+                />
+              </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow-lg mt-4"
+                className="dropdown-content menu bg-base-100 rounded-box z-50 w-60 p-2 shadow-lg mt-4"
               >
                 {/* User Info Header */}
                 <li className="px-4 py-2 pointer-events-none">

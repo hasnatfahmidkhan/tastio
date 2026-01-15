@@ -18,12 +18,19 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Spinner from "../../../Components/Spinner/Spinner";
 import { Link } from "react-router";
+import { useState } from "react";
+import EditProfileModal from "../../../Components/Modal/EditProfileModal/EditProfileModal";
 
 const Profile = () => {
   const { user: authUser } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data: profileData, isLoading } = useQuery({
+  const {
+    data: profileData,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["profile", authUser?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/profile/${authUser?.email}`);
@@ -78,7 +85,7 @@ const Profile = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       {/* Header / Cover Area */}
-      <div className="relative mb-20">
+      <div className="relative mb-30">
         <div className="h-48 bg-linear-to-r from-primary to-secondary-content dark:to-secondary  rounded-t-2xl"></div>
 
         {/* Profile Picture */}
@@ -105,10 +112,19 @@ const Profile = () => {
 
         {/* Edit Button (Optional) */}
         <div className="absolute bottom-4 right-4">
-          <button className="btn btn-sm btn-ghost bg-white/20 hover:bg-white/40 text-white backdrop-blur-md border-none">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="btn btn-sm btn-ghost bg-white/20 hover:bg-white/40 text-white backdrop-blur-md border-none"
+          >
             <Edit size={16} /> Edit Profile
           </button>
         </div>
+        {/* The Modal */}
+        <EditProfileModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          refetch={refetch} // Pass the refetch function from useQuery
+        />
       </div>
 
       {/* Mobile Name View */}

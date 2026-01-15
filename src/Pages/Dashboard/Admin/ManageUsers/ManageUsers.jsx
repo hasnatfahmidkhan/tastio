@@ -1,12 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import { Trash2, UserCheck, Shield, Search } from "lucide-react";
+import { Trash2, Shield, Search } from "lucide-react";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useAuth from "../../../../hooks/useAuth";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
+  const { user: currentUser } = useAuth(); // Get logged-in user
   const [search, setSearch] = useState("");
   const [filterRole, setFilterRole] = useState("All");
 
@@ -44,6 +46,10 @@ const ManageUsers = () => {
               refetch();
               toast.success(`${user.name} is now an ${newRole}!`);
             }
+          })
+          .catch((err) => {
+            // Handle backend rejection (e.g. trying to change Super Admin)
+            toast.error(err.response?.data?.message || "Failed to update role");
           });
       }
     });
@@ -84,10 +90,13 @@ const ManageUsers = () => {
             <input
               type="text"
               placeholder="Search by name/email"
-              className="input input-bordered pl-10 w-full max-w-xs"
+              className="input input-bordered pl-10 w-full"
               onChange={(e) => setSearch(e.target.value)}
             />
-            <Search className="absolute left-3 top-3 text-gray-400" size={18} />
+            <Search
+              className="absolute left-3 top-3.5 text-gray-400"
+              size={18}
+            />
           </div>
           <select
             className="select select-bordered"
@@ -118,95 +127,127 @@ const ManageUsers = () => {
             {isLoading ? (
               <tr>
                 <td colSpan="5" className="text-center py-10">
-                  Loading...
+                  <span className="loading loading-spinner loading-lg"></span>
                 </td>
               </tr>
             ) : users.length === 0 ? (
               <tr>
-                <td colSpan="5" className="text-center py-10">
+                <td colSpan="5" className="text-center py-10 text-gray-400">
                   No users found
                 </td>
               </tr>
             ) : (
-              users.map((user, index) => (
-                <tr key={user._id} className="hover">
-                  <th>{index + 1}</th>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            loading="lazy"
-                            src={
-                              user.photo || "https://i.ibb.co/1M8x6yv/user.png"
-                            }
-                            alt="User"
-                          />
+              users.map((user, index) => {
+                // Logic: Disable actions for Self or Protected Users
+                const isCurrentUser = user.email === currentUser?.email;
+                const isProtected = user.isProtected === true; // Check DB flag
+
+                return (
+                  <tr key={user._id} className="hover">
+                    <th>{index + 1}</th>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <img
+                              loading="lazy"
+                              src={user.photo || "./profile.png"}
+                              alt="User"
+                              onError={(e) => {
+                                e.currentTarget.src = "/profile.png";
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-bold">{user.name}</div>
+                          <div className="text-sm opacity-50">{user.email}</div>
                         </div>
                       </div>
-                      <div>
-                        <div className="font-bold">{user.name}</div>
-                        <div className="text-sm opacity-50">{user.email}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    {user.role === "admin" ? (
-                      <div className="badge badge-primary badge-outline font-bold gap-1">
-                        <Shield size={12} /> Admin
-                      </div>
-                    ) : user.role === "seller" ? (
-                      <div className="badge badge-secondary badge-outline font-bold">
-                        Seller
-                      </div>
-                    ) : (
-                      <div className="badge badge-ghost font-bold">User</div>
-                    )}
-                  </td>
-                  <td>
-                    <div className="dropdown dropdown-hover dropdown-right">
-                      <div
-                        tabIndex={0}
-                        role="button"
-                        className="btn btn-xs btn-ghost border border-gray-300"
+                    </td>
+                    <td>
+                      {user.role === "admin" ? (
+                        <div className="badge badge-primary badge-outline font-bold gap-1">
+                          <Shield size={12} /> Admin
+                        </div>
+                      ) : user.role === "seller" ? (
+                        <div className="badge badge-secondary badge-outline font-bold">
+                          Seller
+                        </div>
+                      ) : (
+                        <div className="badge badge-ghost font-bold">User</div>
+                      )}
+                    </td>
+
+                    {/* --- Change Role Column --- */}
+                    <td>
+                      {isCurrentUser || isProtected ? (
+                        <span
+                          className={`text-xs font-bold px-2 py-1 rounded select-none ${
+                            isProtected
+                              ? "bg-purple-100 text-purple-600 border border-purple-200"
+                              : "bg-gray-100 text-gray-500"
+                          }`}
+                        >
+                          {isProtected ? "Super Admin" : "Restricted"}
+                        </span>
+                      ) : (
+                        <div className="dropdown dropdown-hover dropdown-right">
+                          <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn btn-xs btn-ghost border border-gray-300"
+                          >
+                            Change Role
+                          </div>
+                          <ul
+                            tabIndex={0}
+                            className="dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-200"
+                          >
+                            <li>
+                              <button
+                                onClick={() => handleRoleUpdate(user, "admin")}
+                              >
+                                Make Admin
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => handleRoleUpdate(user, "user")}
+                              >
+                                Make User
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                onClick={() => handleRoleUpdate(user, "seller")}
+                              >
+                                Make Seller
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                    </td>
+
+                    {/* --- Delete Action Column --- */}
+                    <td>
+                      <button
+                        onClick={() => handleDeleteUser(user)}
+                        className="btn btn-ghost btn-sm text-error hover:bg-red-50"
+                        disabled={isProtected || isCurrentUser} // Disable delete for self/super
+                        title={
+                          isProtected
+                            ? "Cannot delete Super Admin"
+                            : "Delete User"
+                        }
                       >
-                        Change Role
-                      </div>
-                      <ul
-                        tabIndex={0}
-                        className="dropdown-content z-1 menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-200"
-                      >
-                        <li>
-                          <a onClick={() => handleRoleUpdate(user, "admin")}>
-                            Make Admin
-                          </a>
-                        </li>
-                        <li>
-                          <a onClick={() => handleRoleUpdate(user, "user")}>
-                            Make User
-                          </a>
-                        </li>
-                        {/* Seller role usually comes from application, but admin can force it */}
-                        <li>
-                          <a onClick={() => handleRoleUpdate(user, "seller")}>
-                            Make Seller
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => handleDeleteUser(user)}
-                      className="btn btn-ghost btn-sm text-error hover:bg-red-50"
-                      disabled={user.role === "admin"} // Cannot delete admin
-                      title="Delete User"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </td>
-                </tr>
-              ))
+                        <Trash2 size={18} />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
