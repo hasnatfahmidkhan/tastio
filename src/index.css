@@ -76,6 +76,8 @@
 body,
 html {
   font-family: "Baloo 2", sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* for active route  */
@@ -103,8 +105,6 @@ nav a.active {
   will-change: transform; /* জিপিইউ (GPU) কে আগে থেকে রেডি রাখে */
 }
 
-/* মারকিউ (Marquee) ফিক্স */
-.marquee-container {
-  will-change: transform;
-  transform: translateZ(0); /* 3D অ্যাক্সিলারেশন অন করে */
+.linear-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
 }

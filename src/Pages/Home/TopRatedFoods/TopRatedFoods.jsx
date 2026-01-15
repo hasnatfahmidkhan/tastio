@@ -63,7 +63,9 @@ const TopRatedFoods = () => {
                     </h2>
                     <div className="flex items-center gap-1 text-xs font-bold text-warning">
                       <Star size={14} fill="currentColor" />
-                      <span>{item.averageRating || 5.0}</span>
+                      {item.averageRating > 0
+                        ? item.averageRating.toFixed(2)
+                        : "New"}
                     </div>
                   </div>
 

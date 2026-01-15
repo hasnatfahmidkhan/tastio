@@ -66,7 +66,7 @@ const Profile = () => {
     enabled: profileData?.user?.role === "admin",
   });
 
-  if (isLoading)
+  if (isLoading || reviewLoading)
     return (
       <div className="flex justify-center h-[calc(100vh-150px)] items-center">
         <Spinner />
@@ -88,6 +88,9 @@ const Profile = () => {
               <img
                 loading="lazy"
                 src={user?.photo || authUser?.photoURL}
+                onError={(e) => {
+                  e.currentTarget.src = "/profile.png";
+                }}
                 alt="Profile"
               />
             </div>

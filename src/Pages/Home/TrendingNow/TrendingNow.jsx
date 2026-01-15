@@ -1,6 +1,6 @@
 import Marquee from "react-fast-marquee";
 import { useQuery } from "@tanstack/react-query";
-import { Star, Flame, ArrowRight } from "lucide-react";
+import { Star, Flame } from "lucide-react";
 import { Link } from "react-router";
 import useAxios from "../../../hooks/useAxios";
 import SectionHeader from "../../../Components/SectionHeader/SectionHeader";
@@ -30,7 +30,7 @@ const TrendingNow = ({ trendingRef }) => {
       ></SectionHeader>
 
       {/* --- Marquee Slider --- */}
-      <Marquee speed={40} pauseOnHover={true} autoFill>
+      <Marquee speed={40} pauseOnHover={true} autoFill gradient={false}>
         {trendingFoods.map((item) => (
           <Link
             key={item._id}

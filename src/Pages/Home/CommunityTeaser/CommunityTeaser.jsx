@@ -39,7 +39,14 @@ const CommunityTeaser = () => {
             <div className="flex items-center gap-3 p-4 pb-2">
               <div className="avatar">
                 <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
-                  <img loading="lazy" src={post.userPhoto} alt="user" />
+                  <img
+                    loading="lazy"
+                    src={post.userPhoto}
+                    onError={(e) => {
+                      e.currentTarget.src = "/profile.png";
+                    }}
+                    alt="user"
+                  />
                 </div>
               </div>
               <div>

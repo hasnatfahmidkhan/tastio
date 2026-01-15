@@ -63,6 +63,9 @@ const TopReviewers = () => {
                     loading="lazy"
                     src={reviewer.photo}
                     alt={reviewer.name}
+                    onError={(e) => {
+                      e.currentTarget.src = "/profile.png";
+                    }}
                   />
                 </div>
               </div>

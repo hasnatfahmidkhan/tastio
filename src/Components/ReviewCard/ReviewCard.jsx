@@ -108,7 +108,14 @@ const ReviewCard = ({ review }) => {
           <div className="avatar placeholder">
             <div className="bg-neutral text-neutral-content rounded-full w-8">
               {review.reviewerPhoto ? (
-                <img loading="lazy" src={review.reviewerPhoto} alt="user" />
+                <img
+                  loading="lazy"
+                  src={review.reviewerPhoto}
+                  onError={(e) => {
+                    e.currentTarget.src = "/profile.png";
+                  }}
+                  alt="user"
+                />
               ) : (
                 <span className="text-xs">U</span>
               )}
