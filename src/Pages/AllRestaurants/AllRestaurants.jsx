@@ -3,16 +3,16 @@ import { Search, MapPin, ArrowRight, Utensils, ChefHat } from "lucide-react";
 import { Link } from "react-router";
 import { useState } from "react";
 import Container from "../../Components/Container/Container";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxios from "../../hooks/useAxios";
 
 const AllRestaurants = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxios();
   const [search, setSearch] = useState("");
 
   const { data: restaurants = [], isLoading } = useQuery({
     queryKey: ["all-restaurants-public", search],
     queryFn: async () => {
-      const res = await axiosSecure.get(
+      const res = await axiosPublic.get(
         `/restaurants?status=verified&search=${search}`
       );
       return res.data;
@@ -30,7 +30,7 @@ const AllRestaurants = () => {
             alt="Background"
             className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/50 to-base-100"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-black/30 via-black/10 to-transparent"></div>
         </div>
 
         <Container className="relative z-10 text-center">

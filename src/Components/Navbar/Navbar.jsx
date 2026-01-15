@@ -1,184 +1,231 @@
-import { NavLink, Link } from "react-router";
-import BtnPrimary from "../Buttons/BtnPrimary/BtnPrimary";
-import BtnSecondary from "../Buttons/BtnSecondary/BtnSecondary";
+import { useEffect, useState } from "react";
+import { NavLink, Link, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import { IoIosArrowDown } from "react-icons/io";
+import {
+  UtensilsCrossed,
+  Menu,
+  Sun,
+  Moon,
+  ChevronDown,
+  LogOut,
+  User,
+  LayoutDashboard,
+  Store,
+} from "lucide-react";
 
 const Navbar = () => {
   const { user, signoutFunc } = useAuth();
+  const navigate = useNavigate();
 
+  // --- State ---
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  // --- Theme Logic ---
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  // --- Scroll Logic ---
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // --- Handlers ---
   const handleSignOut = async () => {
     try {
-      signoutFunc().then(() => {
-        toast.success("Sign Out Successfully!");
-      });
+      await signoutFunc();
+      toast.success("Sign Out Successfully!");
+      navigate("/");
     } catch (error) {
       toast.error(error.message);
     }
   };
 
-  const links = (
-    <>
-      <li>
-        <NavLink to={"/"}>Home</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/all-reviews"}>All Reviews</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/all-foods"}>All Foods</NavLink>
-      </li>
-      {user && (
-        <>
-          <li>
-            <NavLink to={"/all-restaurants"}>All Restaurants</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/leaderboard"}>Leaderboard</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/my-favourite"}>Wishlist</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/feed"}>Feed</NavLink>
-          </li>
-        </>
-      )}
-      <li>
-        <NavLink to={"/contact"}>Contact</NavLink>
-      </li>
-    </>
-  );
+  // --- Navigation Links ---
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Foods", path: "/all-foods" },
+    { name: "Restaurants", path: "/all-restaurants" },
+    { name: "Reviews", path: "/all-reviews" },
+    ...(user
+      ? [
+          { name: "Leaderboard", path: "/leaderboard" },
+          { name: "Feed", path: "/feed" },
+          { name: "Wishlist", path: "/my-favourite" },
+        ]
+      : []),
+    { name: "Contact", path: "/contact" },
+  ];
 
-  const userLinks = (
-    <>
-      <li>
-        <NavLink to={"/dashboard"}>Dashboard</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/be-partner"}>Be a Partner</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/profile"}>Profile</NavLink>
-      </li>
-      <li>
-        <button onClick={handleSignOut} className="text-red-600">
-          Sign Out
-        </button>
-      </li>
-    </>
-  );
   return (
-    <nav className={"py-1 bg-base-200 shadow-md"}>
-      <div className="navbar md:w-11/12 2xl:w-[1440px] mx-auto md:px-4">
-        <div className="navbar-start gap-2">
-          {user && (
-            <div className="dropdown dropdown-bottom dropdown-start md:hidden ">
+    <nav
+      className={`sticky top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-base-100/80 backdrop-blur-md shadow-md py-3"
+          : "bg-transparent py-5"
+      }`}
+    >
+      <div className="max-w-[1440px] mx-auto px-4 flex justify-between items-center">
+        {/* 1. Logo */}
+        <Link to="/" className="flex items-center gap-2 group">
+          <div className="bg-primary/10 p-2 rounded-full text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+            <UtensilsCrossed size={24} />
+          </div>
+          <h2
+            className={`text-2xl font-bold tracking-wide logo-font text-primary`}
+          >
+            Tastio
+          </h2>
+        </Link>
+
+        {/* 2. Desktop Menu */}
+        <div className="hidden lg:flex items-center gap-6">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              className={({ isActive }) =>
+                `font-medium text-sm uppercase tracking-wide transition-colors ${
+                  isActive
+                    ? "text-primary"
+                    : "text-base-content hover:text-primary"
+                }`
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
+        </div>
+
+        {/* 3. Right Side Actions */}
+        <div className="flex items-center gap-4">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className={`btn btn-circle btn-sm btn-ghost transition-transform hover:rotate-12 text-base-content`}
+          >
+            {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+          </button>
+
+          {/* User Dropdown or Login */}
+          {user ? (
+            <div className="dropdown dropdown-end group">
+              {/* Trigger */}
               <div
                 tabIndex={0}
                 role="button"
-                className="flex items-center w-full h-full cursor-pointer"
+                className="flex items-center gap-2 cursor-pointer p-1 pr-2 rounded-full border border-transparent hover:border-base-content/20 transition-all"
               >
-                <IoIosArrowDown />
-                <img
-                  src={user?.photoURL}
-                  onError={(e) => {
-                    e.currentTarget.src = "./profile.png";
-                  }}
-                  className="w-12 h-12 rounded-full m-1 object-cover"
+                <div className="avatar">
+                  <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <img
+                      src={user?.photoURL || "/profile.png"}
+                      onError={(e) => {
+                        e.currentTarget.src = "/profile.png";
+                      }}
+                      alt="User"
+                    />
+                  </div>
+                </div>
+                {/* Arrow that rotates on group focus */}
+                <ChevronDown
+                  size={16}
+                  className={`transition-transform duration-300 group-focus:rotate-180 ${
+                    isScrolled ? "text-base-content" : "text-white"
+                  }`}
                 />
               </div>
 
+              {/* Dropdown Menu */}
               <ul
-                tabIndex="-1"
-                className="dropdown-content menu menu-lg bg-base-100 rounded-md z-1 w-52 text-base-content font-semibold p-2 shadow-sm tracking-wide divide-y divide-accent"
+                tabIndex={0}
+                className="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-xl w-60 z-1 mt-4 border border-base-200"
               >
-                {userLinks}
+                <li className="menu-title px-4 py-2">
+                  Hello, {user.displayName?.split(" ")[0]}
+                </li>
+                <li>
+                  <NavLink to="/dashboard" className="py-3 font-medium">
+                    <LayoutDashboard size={18} /> Dashboard
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/profile" className="py-3 font-medium">
+                    <User size={18} /> Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/be-partner" className="py-3 font-medium">
+                    <Store size={18} /> Be a Partner
+                  </NavLink>
+                </li>
+                <div className="divider my-1"></div>
+                <li>
+                  <button
+                    onClick={handleSignOut}
+                    className="text-error font-bold hover:bg-error/10"
+                  >
+                    <LogOut size={18} /> Sign Out
+                  </button>
+                </li>
               </ul>
             </div>
-          )}
-          <Link to="/">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-wide text-primary logo-font">
-              Tastio
-            </h2>
-          </Link>
-        </div>
-
-        {/* desktop menu  */}
-        <div className="navbar-center hidden lg:flex">
-          <ul className="navlinks flex gap-9 font-medium text-base-content text-lg">
-            {links}
-          </ul>
-        </div>
-        <div className="navbar-end">
-          <div className="hidden lg:flex items-center gap-4">
-            {user ? (
-              <div className="dropdown dropdown-bottom dropdown-end">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="flex items-center cursor-pointer"
-                >
-                  <img
-                    src={user?.photoURL}
-                    className="w-12 h-12 rounded-full m-1 object-cover"
-                  />
-                  <IoIosArrowDown />
-                </div>
-
-                <ul
-                  tabIndex="-1"
-                  className="dropdown-content menu text-base bg-base-100 rounded-md z-1 w-52 text-base-content font-semibold divide-accent p-2 shadow-sm"
-                >
-                  {userLinks}
-                </ul>
-              </div>
-            ) : (
-              <>
-                <BtnSecondary to={"/login"} className={"rounded-full"}>
-                  Login
-                </BtnSecondary>
-
-                <BtnPrimary to={"/register"} className={"rounded-full"}>
-                  Register
-                </BtnPrimary>
-              </>
-            )}
-          </div>
-
-          {/* mobile menu  */}
-          <div className="dropdown dropdown-end ">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 rotate-y-180"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+          ) : (
+            <div className="hidden lg:flex gap-2">
+              <Link
+                to="/login"
+                className="btn btn-ghost btn-sm text-base-content"
               >
-                {" "}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h7"
-                />{" "}
-              </svg>
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="btn btn-primary btn-sm rounded-full px-6 border-none shadow-lg"
+              >
+                Register
+              </Link>
+            </div>
+          )}
+
+          {/* Mobile Menu Button */}
+          <div className="dropdown dropdown-end lg:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className={`btn btn-ghost btn-circle ${
+                isScrolled ? "text-base-content" : "text-white"
+              }`}
+            >
+              <Menu size={24} />
             </div>
             <ul
               tabIndex={0}
-              className="navlinks menu menu-lg dropdown-content bg-base-100 rounded-md z-1 mt-3 w-52 p-2 shadow divide-y divide-accent font-semibold"
+              className="menu menu-lg dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-200"
             >
-              {links}
-
+              {navLinks.map((link) => (
+                <li key={link.path}>
+                  <NavLink to={link.path}>{link.name}</NavLink>
+                </li>
+              ))}
               {!user && (
                 <>
+                  <div className="divider my-1"></div>
                   <li>
-                    <NavLink to={"/login"}>Login</NavLink>
+                    <Link to="/login">Login</Link>
                   </li>
                   <li>
-                    <NavLink to={"/register"}>Register</NavLink>
+                    <Link to="/register">Register</Link>
                   </li>
                 </>
               )}

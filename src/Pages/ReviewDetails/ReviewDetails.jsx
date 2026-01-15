@@ -1,17 +1,17 @@
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { MapPin, Store, Quote, Calendar, Star, User } from "lucide-react";
 import BackBtn from "../../Components/BackBtn/BackBtn";
 import Spinner from "../../Components/Spinner/Spinner";
 import Container from "../../Components/Container/Container";
+import useAxios from "../../hooks/useAxios";
 
 const ReviewDetails = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxios();
   const { id } = useParams();
 
   const getDetails = async () => {
-    const res = await axiosSecure.get(`/reviews/${id}`);
+    const res = await axiosPublic.get(`/reviews/${id}`);
     return res.status === 200 && res.data;
   };
 
@@ -40,8 +40,7 @@ const ReviewDetails = () => {
     postedAt,
     reviewText,
   } = data;
-  
-  console.log(data)
+
   // Star Rating Helper
   const renderStars = (rating) => {
     return [...Array(5)].map((_, i) => (

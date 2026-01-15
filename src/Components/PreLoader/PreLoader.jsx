@@ -12,14 +12,14 @@ import {
 // খাবারের আইকন লিস্ট
 const icons = [Pizza, Coffee, Utensils, IceCream, Sandwich, Soup];
 
-const Spinner = ({ fullScreen = false }) => {
+const PreLoader = ({ fullScreen = false }) => {
   const [index, setIndex] = useState(0);
 
   // আইকন চেঞ্জ করার লজিক
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % icons.length);
-    }, 1200); // প্রতি ১.২ সেকেন্ডে আইকন চেঞ্জ হবে
+    }, 1000); // প্রতি ১.২ সেকেন্ডে আইকন চেঞ্জ হবে
     return () => clearInterval(timer);
   }, []);
 
@@ -27,11 +27,7 @@ const Spinner = ({ fullScreen = false }) => {
 
   return (
     <div
-      className={`flex flex-col justify-center items-center ${
-        fullScreen
-          ? "fixed inset-0 h-screen w-full bg-base-100/80 backdrop-blur-md z-50"
-          : "h-full w-full min-h-[300px]"
-      }`}
+      className={`flex flex-col justify-center items-center ${"fixed inset-0 h-screen w-full bg-base-100/80 backdrop-blur-md z-50"}`}
     >
       <div className="relative flex justify-center items-center">
         {/* --- 1. Outer Rotating Ring (Dashed) --- */}
@@ -75,7 +71,7 @@ const Spinner = ({ fullScreen = false }) => {
 
       {/* --- Text --- */}
       <motion.p
-        className="mt-8 font-bold text-sm tracking-widest text-gray-400 uppercase"
+        className="mt-10 font-bold text-sm tracking-widest text-gray-400 uppercase"
         animate={{ opacity: [0.4, 1, 0.4] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
@@ -85,4 +81,4 @@ const Spinner = ({ fullScreen = false }) => {
   );
 };
 
-export default Spinner;
+export default PreLoader;

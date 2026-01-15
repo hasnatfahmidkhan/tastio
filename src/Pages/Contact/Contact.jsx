@@ -24,7 +24,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-base-100 py-12 ">
+    <>
       <Container>
         {/* Header */}
         <SectionHeader
@@ -147,7 +147,7 @@ const Contact = () => {
           </div>
         </div>
       </Container>
-    </div>
+    </>
   );
 };
 

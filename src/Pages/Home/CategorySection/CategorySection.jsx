@@ -63,7 +63,7 @@ const CategorySection = () => {
             nextEl: ".swiper-next",
           }}
           autoplay={{
-            delay: 3000,
+            delay: 2000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
@@ -81,7 +81,7 @@ const CategorySection = () => {
             <SwiperSlide key={cat.id} className="pb-12">
               <div
                 onClick={() => handleCategoryClick(cat.name)}
-                className="group relative cursor-pointer flex flex-col items-center p-6 bg-base-100 border border-base-200 rounded-3xl transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:-translate-y-2 h-full"
+                className="group shadow-lg relative cursor-pointer flex flex-col items-center p-6 bg-base-100 border border-base-200 rounded-3xl transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:-translate-y-2 h-full "
               >
                 {/* Image Container */}
                 <div className="relative w-32 h-32 mb-6">

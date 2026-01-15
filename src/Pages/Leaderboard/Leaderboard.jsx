@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import Container from "../../Components/Container/Container";
 import useAxios from "../../hooks/useAxios";
 import Spinner from "../../Components/Spinner/Spinner";
-import { ChessQueen, CircleStar, Medal } from "lucide-react";
-import Heading from "../../Components/Heading/Heading";
+import { Trophy, Medal, Award, Crown } from "lucide-react";
 
 const Leaderboard = () => {
   const axiosInstance = useAxios();
@@ -17,13 +16,21 @@ const Leaderboard = () => {
 
   // Badge Function
   const getBadge = (count) => {
-    if (count >= 50) return <span className="badge badge-warning">Master</span>;
+    if (count >= 50)
+      return (
+        <div className="badge badge-warning gap-1 p-3">
+          <Crown size={14} /> Master
+        </div>
+      );
     if (count >= 20)
-      return <span className="badge badge-secondary">Critic</span>;
-    return <span className="badge badge-ghost">Foodie</span>;
+      return (
+        <div className="badge badge-secondary gap-1 p-3">
+          <Award size={14} /> Critic
+        </div>
+      );
+    return <div className="badge badge-ghost p-3">Foodie</div>;
   };
 
-  console.log(allreviewers);
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-[70vh]">
@@ -31,43 +38,67 @@ const Leaderboard = () => {
       </div>
     );
   }
+
   return (
     <Container>
-      <div className="overflow-x-auto w-full my-5">
-        <Heading
-          title="Top"
-          subtitle="Reviewers 🏆"
-          className="text-center mb-10"
-        />
-        <table className="table w-full border border-gray-300 rounded-lg overflow-hidden">
+      {/* --- Header Section --- */}
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center justify-center p-3 bg-yellow-100 text-yellow-600 rounded-full mb-4">
+          <Trophy size={32} />
+        </div>
+        <h1 className="text-4xl font-bold text-base-content mb-2">
+          Top Contributors
+        </h1>
+        <p className="text-gray-500 max-w-lg mx-auto">
+          Meet the foodies who help our community discover the best tastes.
+        </p>
+      </div>
+
+      <div className="overflow-x-auto w-full bg-base-100 shadow-xl rounded-2xl border border-base-200">
+        <table className="table w-full">
           {/* Head */}
-          <thead className="bg-primary text-white text-lg">
+          <thead className="bg-base-200/50 text-base-content font-bold text-sm uppercase tracking-wider">
             <tr>
-              <th>Rank</th>
-              <th>User</th>
-              <th>Badge</th>
-              <th>Total Reviews</th>
+              <th className="py-4 pl-6">Rank</th>
+              <th className="py-4">User Profile</th>
+              <th className="py-4">Status</th>
+              <th className="py-4 pr-6 text-right">Contributions</th>
             </tr>
           </thead>
           {/* Body */}
-          <tbody>
+          <tbody className="divide-y divide-base-200">
             {allreviewers.map((user, index) => (
-              <tr key={user.email} className="hover">
-                <th>
+              <tr
+                key={user.email}
+                className="hover:bg-base-200/30 transition-colors"
+              >
+                <th className="pl-6">
                   {index + 1 === 1 ? (
-                    <ChessQueen className="text-yellow-400" />
+                    <Trophy
+                      className="text-yellow-500 fill-yellow-500"
+                      size={24}
+                    />
                   ) : index + 1 === 2 ? (
-                    <Medal className="text-teal-400" />
+                    <Medal className="text-gray-400 fill-gray-400" size={24} />
                   ) : index + 1 === 3 ? (
-                    <CircleStar className="text-orange-400" />
+                    <Award
+                      className="text-orange-500 fill-orange-500"
+                      size={24}
+                    />
                   ) : (
-                    index + 1
+                    <span className="font-mono text-lg text-gray-400">
+                      #{index + 1}
+                    </span>
                   )}
                 </th>
                 <td>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-4">
                     <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
+                      <div
+                        className={`mask mask-squircle w-12 h-12 ${
+                          index < 3 ? "ring ring-primary ring-offset-2" : ""
+                        }`}
+                      >
                         <img
                           src={user.photo || "/profile.png"}
                           onError={(e) => {
@@ -78,21 +109,22 @@ const Leaderboard = () => {
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold">{user.name}</div>
-                      <div className="text-sm opacity-50">{user.email}</div>
+                      <div className="font-bold text-base">{user.name}</div>
+                      <div className="text-xs text-gray-500">{user.email}</div>
                     </div>
                   </div>
                 </td>
-                <td>{getBadge(user.reviewCount)}</td>
-                <td className="font-bold text-primary text-lg">
-                  {user.totalReviews} Reviews
+                <td>{getBadge(user.totalReviews)}</td>
+                <td className="pr-6 text-right">
+                  <div className="font-bold text-primary text-lg">
+                    {user.totalReviews}
+                  </div>
+                  <div className="text-xs text-gray-400">Reviews</div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-
-        {/* Pagination Button can go here */}
       </div>
     </Container>
   );

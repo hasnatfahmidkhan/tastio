@@ -5,6 +5,7 @@ import Footer from "../Components/Footer/Footer";
 import ScrollOnTop from "../Components/ScrollOnTop/ScrollOnTop";
 import { useEffect, useState } from "react";
 import Spinner from "../Components/Spinner/Spinner";
+import Preloader from "../Components/PreLoader/PreLoader";
 
 const Root = () => {
   const { pathname } = useLocation();
@@ -15,7 +16,7 @@ const Root = () => {
     setPreloader(true);
     setTimeout(() => {
       setPreloader(false);
-    }, 2500);
+    }, 4000);
   }, []);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const Root = () => {
   if (preloader) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <Spinner />
+        <Preloader />
       </div>
     );
   }

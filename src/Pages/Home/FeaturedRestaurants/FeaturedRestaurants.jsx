@@ -23,7 +23,7 @@ const FeaturedRestaurants = () => {
   if (isLoading) return null; // Or skeleton
 
   return (
-    <section className="py-20 container mx-auto px-4 bg-base-100">
+    <section className="py-20">
       {/* Header with 'View All' Link */}
       <SectionHeader
         heading="Featured Restaurants"

@@ -83,11 +83,8 @@ const CommunityTeaser = () => {
 
       {/* Call to Action */}
       <div className="text-center mt-12">
-        <Link
-          to="/feed"
-          className="btn btn-primary btn-wide rounded-full shadow-lg hover:shadow-primary/50 transition-shadow"
-        >
-          View All Posts <ArrowRight size={18} />
+        <Link to="/feed" className="btn btn-outline btn-wide rounded-full">
+          View All Posts
         </Link>
       </div>
     </section>

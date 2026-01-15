@@ -47,7 +47,9 @@ const TrendingNow = ({ trendingRef }) => {
                 />
                 <div className="absolute top-3 right-3 bg-base-100/90 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1 shadow-sm">
                   <Star size={12} className="text-warning fill-warning" />
-                  {item.averageRating || "New"}
+                  {item.averageRating > 0
+                    ? item.averageRating.toFixed(2)
+                    : "New"}
                 </div>
               </div>
 

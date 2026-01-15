@@ -5,7 +5,9 @@ import Swal from "sweetalert2";
 import noData from "../../assets/No-Data.json";
 import Lottie from "lottie-react";
 import Container from "../../Components/Container/Container";
-import Heading from "../../Components/Heading/Heading";
+import { Heart, Trash2, ArrowRight } from "lucide-react";
+import { Link } from "react-router";
+import SectionHeader from "../../Components/SectionHeader/SectionHeader";
 
 const MyFavourite = () => {
   const axiosSecure = useAxiosSecure();
@@ -17,96 +19,125 @@ const MyFavourite = () => {
     return res.status === 200 ? res.data : [];
   };
 
-  const { data: favourites } = useQuery({
+  const { data: favourites, isLoading } = useQuery({
     queryKey: ["favourite", user?.email],
     queryFn: () => getFavourite(user?.email),
   });
 
   const handleDelete = async (id) => {
     const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Remove from Wishlist?",
+      text: "You can always add it back later.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#22c55e",
-      cancelButtonColor: "#ef4444",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, remove it!",
     });
 
-    if (!result.isConfirmed) {
-      throw new Error("User cancel the deletation");
+    if (result.isConfirmed) {
+      await axiosSecure.delete(`/favourites/${id}`);
+      Swal.fire("Removed!", "Item removed from your wishlist.", "success");
+      return id;
     }
-    //! delete a review
-    await axiosSecure.delete(`/favourites/${id}`);
-    await Swal.fire({
-      title: "Deleted!",
-      text: "Your review has been deleted.",
-      icon: "success",
-    });
-    return id;
   };
 
-  //! delete review
   const deleteMutation = useMutation({
     mutationFn: (id) => handleDelete(id),
-    // in here delete review from the cache data
     onSuccess: (id) => {
-      queryClient.setQueryData(["favourite", user?.email], (curElem) => {
-        return curElem?.filter((review) => review._id !== id);
-      });
+      if (id) {
+        queryClient.setQueryData(["favourite", user?.email], (curElem) => {
+          return curElem?.filter((review) => review._id !== id);
+        });
+      }
     },
   });
 
   return (
     <Container>
-      <title>My wishlists</title>
-      <Heading title="My" subtitle="Cravings" />
-      <p className="text-2xl md:text-3xl font-semibold text-center mt-2 mb-6 text-base-content">
-        The delicious foods you plan to eat soon!{" "}
-      </p>
-      {!favourites?.length ? (
-        <div className="flex justify-center mt-15">
-          <Lottie animationData={noData} loop={true} className="w-sm" />
+      <title>My Cravings | Tastio</title>
+
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4 pb-6">
+        <SectionHeader
+          heading="Food Bucket List"
+          subHeading="The delicious foods you plan to eat soon!"
+          badge="My Cravings"
+          icon={Heart}
+          align="left"
+        ></SectionHeader>
+        <div className="text-right">
+          <p className="text-lg font-bold">{favourites?.length || 0} Items</p>
+          <p className="text-xs text-gray-400">Saved</p>
+        </div>
+      </div>
+
+      {!favourites?.length && !isLoading ? (
+        <div className="flex flex-col justify-center items-center py-20 bg-base-200/50 rounded-3xl border border-dashed border-base-300">
+          <Lottie animationData={noData} loop={true} className="w-64" />
+          <h3 className="text-xl font-bold mt-4 text-gray-500">
+            Your wishlist is empty!
+          </h3>
+          <Link to="/all-foods" className="btn btn-primary mt-4">
+            Explore Foods
+          </Link>
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table table-zebra rounded-lg overflow-hidden">
+        <div className="overflow-x-auto bg-base-100 shadow-xl rounded-2xl border border-base-200">
+          <table className="table w-full">
             {/* head */}
-            <thead>
-              <tr className="text-lg bg-primary text-primary-content">
-                <th>Food Image</th>
-                <th>Food Name</th>
-                <th>Restaurant Name</th>
+            <thead className="bg-base-200/50">
+              <tr>
+                <th className="pl-6">Food Details</th>
+                <th>Restaurant</th>
                 <th>Rating</th>
-                <th>Action</th>
+                <th className="pr-6 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody>
-              {/* row 1 */}
+            <tbody className="divide-y divide-base-200">
               {favourites?.map((review) => {
                 const { _id, photo, foodName, restaurantName, rating } = review;
 
                 return (
-                  <tr key={_id}>
-                    <td>
-                      <div className="flex items-center gap-3">
+                  <tr key={_id} className="group hover:bg-base-200/30">
+                    <td className="pl-6">
+                      <div className="flex items-center gap-4">
                         <div className="avatar">
-                          <div className="mask mask-squircle h-12 w-12">
-                            <img src={photo} alt={foodName} />
+                          <div className="mask mask-squircle h-16 w-16">
+                            <img
+                              src={photo}
+                              alt={foodName}
+                              className="object-cover"
+                            />
                           </div>
                         </div>
+                        <div className="font-bold text-lg">{foodName}</div>
                       </div>
                     </td>
-                    <td className="table-td">{foodName}</td>
-                    <td className="table-td">{restaurantName}</td>
-                    <td className="table-td">{rating}</td>
-                    <td className="flex items-center gap-2">
-                      <button
-                        onClick={() => deleteMutation.mutate(_id)}
-                        className="btn btn-error text-base-200 btn-sm text-sm tracking-wide"
-                      >
-                        Delete
-                      </button>
+                    <td className="text-gray-600 font-medium">
+                      {restaurantName}
+                    </td>
+                    <td>
+                      <div className="badge badge-warning font-bold gap-1">
+                        {rating} ★
+                      </div>
+                    </td>
+                    <td className="pr-6 text-right">
+                      <div className="flex justify-end items-center gap-2">
+                        <Link
+                          to={`/review-details/${review.review}`}
+                          className="btn btn-sm btn-ghost text-primary"
+                        >
+                          View <ArrowRight size={16} />
+                        </Link>
+                        <button
+                          onClick={() => deleteMutation.mutate(_id)}
+                          className="btn btn-sm btn-square btn-ghost text-error hover:bg-error/10"
+                          title="Remove"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 );
