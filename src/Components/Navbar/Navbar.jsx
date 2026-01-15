@@ -20,7 +20,7 @@ const Navbar = () => {
 
   // --- State ---
   const [isScrolled, setIsScrolled] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
   // --- Theme Logic ---
   useEffect(() => {
