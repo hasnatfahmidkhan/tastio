@@ -18,7 +18,7 @@ const TopReviews = () => {
   });
 
   return (
-    <section className="py-20 container mx-auto px-4">
+    <section className="py-20">
       {/* Header */}
       <SectionHeader
         heading="Top Rated Reviews"

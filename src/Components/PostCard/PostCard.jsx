@@ -10,7 +10,7 @@ export default function PostCard({ post, toggleLike }) {
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="w-10 h-10 rounded-full">
-              <img src={post.userPhoto} alt="user" />
+              <img loading="lazy" src={post.userPhoto} alt="user" />
             </div>
           </div>
           <div>
@@ -36,6 +36,7 @@ export default function PostCard({ post, toggleLike }) {
       {post.image && (
         <div className="mt-2 bg-base-200">
           <img
+            loading="lazy"
             src={post.image}
             alt="food"
             className="w-full max-h-[500px] object-cover"

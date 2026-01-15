@@ -41,7 +41,7 @@ const TopReviewers = () => {
 
           return (
             <div
-              key={reviewer.email}
+              key={index}
               className={`relative bg-base-100 rounded-2xl p-8 flex flex-col items-center text-center shadow-xl border ${
                 isFirst
                   ? "border-yellow-400 border-2 scale-105 z-10 shadow-yellow-100"
@@ -59,7 +59,11 @@ const TopReviewers = () => {
                     isFirst ? "ring-yellow-400" : "ring-base-300"
                   }`}
                 >
-                  <img src={reviewer.photo} alt={reviewer.name} />
+                  <img
+                    loading="lazy"
+                    src={reviewer.photo}
+                    alt={reviewer.name}
+                  />
                 </div>
               </div>
               {/* Info */}

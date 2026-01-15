@@ -139,6 +139,7 @@ const ManageCategories = () => {
                   {/* Image */}
                   <div className="w-20 h-20 rounded-full p-1 border-2 border-base-200 mb-3 group-hover:border-primary transition-colors">
                     <img
+                      loading="lazy"
                       src={cat.image}
                       alt={cat.name}
                       className="w-full h-full rounded-full object-cover"

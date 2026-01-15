@@ -65,6 +65,7 @@ const Banner = () => {
             <div className="relative h-full w-full">
               {/* Background Image */}
               <img
+                loading="lazy"
                 src={slide.image}
                 alt="Banner"
                 className="h-full w-full object-cover"

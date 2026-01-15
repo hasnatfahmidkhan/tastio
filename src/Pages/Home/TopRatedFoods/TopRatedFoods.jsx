@@ -40,6 +40,7 @@ const TopRatedFoods = () => {
                 {/* Image Section */}
                 <figure className="relative h-60 overflow-hidden">
                   <img
+                    loading="lazy"
                     src={item.image}
                     alt={item.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"

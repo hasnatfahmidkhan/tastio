@@ -26,6 +26,7 @@ const AllRestaurants = () => {
         {/* Background Image with Blur */}
         <div className="absolute inset-0 overflow-hidden">
           <img
+            loading="lazy"
             src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1974&auto=format&fit=crop"
             alt="Background"
             className="w-full h-full object-cover opacity-30"
@@ -103,11 +104,12 @@ const AllRestaurants = () => {
                 {/* Image */}
                 <figure className="h-64 relative overflow-hidden">
                   <img
+                    loading="lazy"
                     src={res.restaurantImage}
                     alt={res.restaurantName}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
 
                   <div className="absolute bottom-5 left-5 text-white pr-4">
                     <h3 className="text-2xl font-bold mb-1 leading-tight group-hover:text-primary transition-colors">

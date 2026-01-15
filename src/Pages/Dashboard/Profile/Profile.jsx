@@ -85,7 +85,11 @@ const Profile = () => {
         <div className="absolute -bottom-20 left-8 flex items-end">
           <div className="avatar">
             <div className="w-32 rounded-full ring ring-base-100 ring-offset-base-100 ring-offset-2">
-              <img src={user?.photo || authUser?.photoURL} alt="Profile" />
+              <img
+                loading="lazy"
+                src={user?.photo || authUser?.photoURL}
+                alt="Profile"
+              />
             </div>
           </div>
           <div className="ml-4 mb-4 hidden md:block">
@@ -223,6 +227,7 @@ const Profile = () => {
                       <div className="w-16 h-16 rounded-lg overflow-hidden bg-base-200 shrink-0">
                         {review.photo ? (
                           <img
+                            loading="lazy"
                             src={review.photo}
                             alt="Food"
                             className="w-full h-full object-cover"
@@ -303,6 +308,7 @@ const Profile = () => {
                       {/* Image */}
                       <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 border border-base-300">
                         <img
+                          loading="lazy"
                           src={food.image}
                           alt={food.name}
                           className="w-full h-full object-cover"

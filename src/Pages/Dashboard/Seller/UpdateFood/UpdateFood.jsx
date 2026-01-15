@@ -90,6 +90,7 @@ const UpdateFood = () => {
               </label>
               <div className="rounded-xl overflow-hidden border border-base-300 shadow-sm">
                 <img
+                  loading="lazy"
                   src={food.image}
                   alt="Food"
                   className="w-full h-48 object-cover"

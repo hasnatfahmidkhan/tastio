@@ -111,6 +111,7 @@ const ManageReviews = () => {
                       <div className="avatar">
                         <div className="w-10 rounded-full">
                           <img
+                            loading="lazy"
                             src={review.reviewerPhoto || "./profile.png"}
                             alt="User"
                           />

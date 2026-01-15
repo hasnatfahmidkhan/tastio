@@ -87,6 +87,7 @@ const CategorySection = () => {
                 <div className="relative w-32 h-32 mb-6">
                   <div className="absolute inset-0 bg-primary/10 rounded-full scale-0 group-hover:scale-110 transition-transform duration-500"></div>
                   <img
+                    loading="lazy"
                     src={cat.image}
                     alt={cat.name}
                     className="w-full h-full object-cover rounded-full shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all duration-500 border-4 border-base-100"

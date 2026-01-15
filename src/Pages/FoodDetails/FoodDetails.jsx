@@ -44,6 +44,7 @@ const FoodDetails = () => {
       <div className="card lg:card-side bg-base-100 shadow-xl mb-10 border border-base-200 mt-10">
         <figure className="lg:w-1/2 h-96">
           <img
+            loading="lazy"
             src={food.image} // Safe now because we checked !food above
             alt={food.name}
             className="w-full h-full object-cover"

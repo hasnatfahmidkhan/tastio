@@ -100,6 +100,7 @@ const Leaderboard = () => {
                         }`}
                       >
                         <img
+                          loading="lazy"
                           src={user.photo || "/profile.png"}
                           onError={(e) => {
                             e.currentTarget.src = "./profile.png";

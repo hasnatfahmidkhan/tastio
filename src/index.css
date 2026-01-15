@@ -6,14 +6,14 @@
 /* --- 1. DEFINE DARK THEME FIRST (Set as Default) --- */
 @plugin "daisyui/theme" {
   name: "dark";
-  default: true;      /* Sets this as the default :root */
-  prefersdark: true;  /* Auto-selects for users with Dark Mode OS settings */
+  default: true; /* Sets this as the default :root */
+  prefersdark: true; /* Auto-selects for users with Dark Mode OS settings */
   color-scheme: dark;
 
   /* Backgrounds: Dark Slate */
-  --color-base-100: #0f172a; 
-  --color-base-200: #1e293b; 
-  --color-base-content: #e2e8f0; 
+  --color-base-100: #0f172a;
+  --color-base-200: #1e293b;
+  --color-base-content: #e2e8f0;
 
   /* Primary: Brand Green */
   --color-primary: #07a061;
@@ -23,7 +23,7 @@
   /* Secondary: Deep Forest Green */
   --color-secondary: #064e3b;
   --color-secondary-hover: #065f46;
-  --color-secondary-content: #6ee7b7; 
+  --color-secondary-content: #6ee7b7;
 
   /* Accent */
   --color-accent: #374151;
@@ -44,7 +44,7 @@
 /* --- 2. DEFINE LIGHT THEME SECOND --- */
 @plugin "daisyui/theme" {
   name: "light";
-  default: false;     /* Ensure this is false */
+  default: false; /* Ensure this is false */
   prefersdark: false;
   color-scheme: light;
 
@@ -93,4 +93,18 @@ nav a.active {
 
 .table-td {
   @apply text-base font-medium tracking-wide text-base-content;
+}
+
+/* Swiper ফিক্স */
+.swiper-container,
+.swiper-wrapper,
+.swiper-slide {
+  touch-action: pan-y; /* ব্রাউজারকে বলো ভার্টিক্যাল স্ক্রল যেন স্মুথ রাখে */
+  will-change: transform; /* জিপিইউ (GPU) কে আগে থেকে রেডি রাখে */
+}
+
+/* মারকিউ (Marquee) ফিক্স */
+.marquee-container {
+  will-change: transform;
+  transform: translateZ(0); /* 3D অ্যাক্সিলারেশন অন করে */
 }

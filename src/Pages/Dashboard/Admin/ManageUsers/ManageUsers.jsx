@@ -136,6 +136,7 @@ const ManageUsers = () => {
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
                           <img
+                            loading="lazy"
                             src={
                               user.photo || "https://i.ibb.co/1M8x6yv/user.png"
                             }

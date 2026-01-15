@@ -39,7 +39,7 @@ const CommunityTeaser = () => {
             <div className="flex items-center gap-3 p-4 pb-2">
               <div className="avatar">
                 <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
-                  <img src={post.userPhoto} alt="user" />
+                  <img loading="lazy" src={post.userPhoto} alt="user" />
                 </div>
               </div>
               <div>
@@ -59,6 +59,7 @@ const CommunityTeaser = () => {
             {post.image && (
               <figure className="h-56 w-full overflow-hidden">
                 <img
+                  loading="lazy"
                   src={post.image}
                   alt="post"
                   className="w-full h-full object-cover"

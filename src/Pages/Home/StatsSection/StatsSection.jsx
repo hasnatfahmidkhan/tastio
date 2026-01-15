@@ -4,7 +4,7 @@ import { Users, MessageSquare, Store, Utensils } from "lucide-react";
 const StatsSection = () => {
   return (
     <section
-      className="my-20 py-24 relative bg-cover bg-center bg-fixed rounded-xl overflow-hidden"
+      className="my-20 py-24 relative bg-cover bg-center rounded-xl overflow-hidden"
       style={{
         backgroundImage:
           "url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1500')",

@@ -49,6 +49,7 @@ const FeaturedRestaurants = () => {
               {/* Cover Image */}
               <figure className="h-40 w-full overflow-hidden relative">
                 <img
+                  loading="lazy"
                   src={
                     res.restaurantImage ||
                     "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop"

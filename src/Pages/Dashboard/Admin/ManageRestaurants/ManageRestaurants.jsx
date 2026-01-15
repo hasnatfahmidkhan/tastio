@@ -107,6 +107,7 @@ const ManageRestaurants = () => {
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
                           <img
+                            loading="lazy"
                             src={
                               res.restaurantImage ||
                               "https://i.ibb.co/hR0k7wQ/shop.png"

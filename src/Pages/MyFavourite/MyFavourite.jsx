@@ -105,6 +105,7 @@ const MyFavourite = () => {
                         <div className="avatar">
                           <div className="mask mask-squircle h-16 w-16">
                             <img
+                              loading="lazy"
                               src={photo}
                               alt={foodName}
                               className="object-cover"

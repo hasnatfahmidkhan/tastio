@@ -42,6 +42,7 @@ const AllReviews = () => {
         {/* Background Image */}
         <div className="absolute inset-0 overflow-hidden">
           <img
+            loading="lazy"
             src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop"
             alt="Reviews Banner"
             className="w-full h-full object-cover opacity-20"

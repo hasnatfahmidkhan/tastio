@@ -66,6 +66,7 @@ const ReviewDetails = () => {
           {/* Left Side: Food Image */}
           <div className="lg:w-1/2 relative min-h-[300px] lg:min-h-[500px]">
             <img
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
               src={photo}
               alt={foodName}
@@ -105,7 +106,11 @@ const ReviewDetails = () => {
                 <div className="avatar">
                   <div className="w-14 h-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                     {reviewerPhoto ? (
-                      <img src={reviewerPhoto} alt={reviewerName} />
+                      <img
+                        loading="lazy"
+                        src={reviewerPhoto}
+                        alt={reviewerName}
+                      />
                     ) : (
                       <div className="bg-neutral text-neutral-content w-full h-full flex items-center justify-center">
                         <User size={24} />

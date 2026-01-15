@@ -32,6 +32,7 @@ const RestaurantDetails = () => {
       {/* --- 1. Hero Banner --- */}
       <div className="relative h-[300px] md:h-[400px]">
         <img
+          loading="lazy"
           src={
             restaurant.restaurantImage ||
             "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000"
@@ -68,7 +69,7 @@ const RestaurantDetails = () => {
 
       {/* --- 2. Info Bar --- */}
       <div className="border-b border-base-200 bg-base-100 shadow-sm sticky top-0 z-20">
-        <Container className={'px-0'}>
+        <Container className={"px-0"}>
           <div className="flex flex-wrap gap-6 py-4 text-sm font-medium text-gray-600">
             <div className="flex items-center gap-2">
               <Utensils size={16} className="text-primary" />
@@ -80,7 +81,10 @@ const RestaurantDetails = () => {
             </div>
             <div className="flex items-center gap-2">
               <Star size={16} className="text-warning fill-warning" />
-              <span>{restaurant.averageRating} ({restaurant.totalReviews} Reviews)</span> {/* Static for now */}
+              <span>
+                {restaurant.averageRating} ({restaurant.totalReviews} Reviews)
+              </span>{" "}
+              {/* Static for now */}
             </div>
           </div>
         </Container>
@@ -110,6 +114,7 @@ const RestaurantDetails = () => {
               >
                 <figure className="h-48 relative">
                   <img
+                    loading="lazy"
                     src={item.image}
                     alt={item.name}
                     className="w-full h-full object-cover"

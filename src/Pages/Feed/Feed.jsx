@@ -84,7 +84,7 @@ const Feed = () => {
         <div className="flex gap-4">
           <div className="avatar">
             <div className="w-12 h-12 rounded-full">
-              <img src={user?.photoURL} alt="user" />
+              <img loading="lazy" src={user?.photoURL} alt="user" />
             </div>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="flex-1">

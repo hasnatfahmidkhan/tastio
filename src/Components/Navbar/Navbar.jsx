@@ -130,6 +130,7 @@ const Navbar = () => {
                 <div className="avatar">
                   <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                     <img
+                      loading="lazy"
                       src={user?.photoURL || "/profile.png"}
                       onError={(e) => {
                         e.currentTarget.src = "/profile.png";

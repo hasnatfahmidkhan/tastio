@@ -78,6 +78,7 @@ const AllFoods = () => {
         {/* Background Image */}
         <div className="absolute inset-0 overflow-hidden">
           <img
+            loading="lazy"
             src="https://images.unsplash.com/photo-1543353071-873f17a7a088?q=80&w=2070&auto=format&fit=crop"
             alt="Food Background"
             className="w-full h-full object-cover opacity-20"
@@ -189,7 +190,8 @@ const AllFoods = () => {
               className="card bg-base-100 shadow-xl hover:-translate-y-2 transition-transform duration-300 border border-base-200 group"
             >
               <figure className="relative h-60 overflow-hidden">
-                <img
+                <img 
+                  loading="lazy"
                   src={item.image}
                   alt={item.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"

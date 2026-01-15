@@ -227,6 +227,7 @@ const BeASeller = () => {
       {/* --- HERO SECTION --- */}
       <section className="relative h-full min-h-[70vh] flex items-center bg-black/50">
         <img
+          loading="lazy"
           src={bg}
           alt="Be a Seller"
           className="absolute inset-0 w-full h-full object-cover -z-10"
