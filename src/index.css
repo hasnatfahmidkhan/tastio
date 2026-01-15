@@ -2,9 +2,49 @@
 
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* --- 1. DEFINE DARK THEME FIRST (Set as Default) --- */
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;      /* Sets this as the default :root */
+  prefersdark: true;  /* Auto-selects for users with Dark Mode OS settings */
+  color-scheme: dark;
+
+  /* Backgrounds: Dark Slate */
+  --color-base-100: #0f172a; 
+  --color-base-200: #1e293b; 
+  --color-base-content: #e2e8f0; 
+
+  /* Primary: Brand Green */
+  --color-primary: #07a061;
+  --color-primary-hover: #059a59;
+  --color-primary-content: #ffffff;
+
+  /* Secondary: Deep Forest Green */
+  --color-secondary: #064e3b;
+  --color-secondary-hover: #065f46;
+  --color-secondary-content: #6ee7b7; 
+
+  /* Accent */
+  --color-accent: #374151;
+  --color-accent-content: #d1d5db;
+
+  /* Status Colors */
+  --color-info: #38bdf8;
+  --color-success: #22c55e;
+  --color-warning: #facc15;
+  --color-error: #ef4444;
+
+  /* Radius */
+  --radius-box: 1rem;
+  --radius-btn: 0.5rem;
+  --radius-badge: 1.9rem;
+}
+
+/* --- 2. DEFINE LIGHT THEME SECOND --- */
 @plugin "daisyui/theme" {
   name: "light";
-  default: false;
+  default: false;     /* Ensure this is false */
   prefersdark: false;
   color-scheme: light;
 
@@ -33,44 +73,6 @@
   --radius-badge: 1.9rem;
 }
 
-@plugin "daisyui/theme" {
-  name: "dark";
-  default: true;
-  prefersdark: true;
-  color-scheme: dark;
-
-  /* Backgrounds: Dark Slate (Matches your light mode text vibe) */
-  --color-base-100: #0f172a; /* Main Background (Very Dark Blue/Slate) */
-  --color-base-200: #1e293b; /* Card/Section Background (Lighter Slate) */
-  --color-base-content: #e2e8f0; /* Text Color (Soft White/Gray) */
-
-  /* Primary: Kept your Brand Green */
-  --color-primary: #07a061;
-  --color-primary-hover: #059a59;
-  --color-primary-content: #ffffff;
-
-  /* Secondary: Adapted for Dark Mode */
-  /* Using pale green (#e7fff3) on dark mode hurts eyes, so we use a Deep Forest Green */
-  --color-secondary: #064e3b;
-  --color-secondary-hover: #065f46;
-  --color-secondary-content: #6ee7b7; /* Light Green text for contrast */
-
-  /* Accent: Darker gray for neutral elements */
-  --color-accent: #374151;
-  --color-accent-content: #d1d5db;
-
-  /* Status Colors */
-  --color-info: #38bdf8;
-  --color-success: #22c55e;
-  --color-warning: #facc15;
-  --color-error: #ef4444;
-
-  /* Radius (Kept Consistent) */
-  --radius-box: 1rem;
-  --radius-btn: 0.5rem;
-  --radius-badge: 1.9rem;
-}
-
 body,
 html {
   font-family: "Baloo 2", sans-serif;
@@ -91,21 +93,4 @@ nav a.active {
 
 .table-td {
   @apply text-base font-medium tracking-wide text-base-content;
-}
-
-.banner-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  /* Hard-coded black — cannot be overridden */
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.65) 40%,
-    rgba(0, 0, 0, 0.25) 70%,
-    rgba(0, 0, 0, 0.05) 100%
-  );
-
-  z-index: 2;
 }

@@ -15,7 +15,7 @@ const TopRatedFoods = () => {
       return res.data;
     },
   });
-  console.log(foods);
+
   return (
     <section className="py-20">
       {/* Reusable Header */}

@@ -1,15 +1,9 @@
 import Banner from "../../Components/Banner/Banner";
-import { useQuery } from "@tanstack/react-query";
-import ReviewCard from "../../Components/ReviewCard/ReviewCard";
-import CardSkeleton from "../../Components/CardSkeleton/CardSkeleton";
-import useAxios from "../../hooks/useAxios";
-import { useNavigate } from "react-router";
 import Faq from "../../Components/Faq/Faq";
 import Container from "../../Components/Container/Container";
 import CategorySection from "./CategorySection/CategorySection";
 import TrendingNow from "./TrendingNow/TrendingNow";
-import { ArrowDown, Star } from "lucide-react";
-import SectionHeader from "../../Components/SectionHeader/SectionHeader";
+import { ArrowDown } from "lucide-react";
 import { useRef } from "react";
 import TopRatedFoods from "./TopRatedFoods/TopRatedFoods";
 import HowItWorks from "./HowItWorks/HowItWorks";
@@ -21,22 +15,11 @@ import Newsletter from "./Newsletter/Newsletter";
 import TopReviews from "./TopReviews/TopReviews";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const axiosInstance = useAxios();
   const trendingRef = useRef(null); // 1. Create Ref
 
   const scrollToContent = () => {
     trendingRef.current?.scrollIntoView({ behavior: "smooth" }); // 2. Scroll Function
   };
-  const getTopReviews = async () => {
-    const res = await axiosInstance.get("/latest-reviews");
-    return res.status === 200 ? res.data : [];
-  };
-
-  const { data, isPending } = useQuery({
-    queryKey: ["latest-reviews"],
-    queryFn: getTopReviews,
-  });
 
   return (
     <section className="relative">
