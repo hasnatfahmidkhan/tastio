@@ -92,3 +92,20 @@ nav a.active {
 .table-td {
   @apply text-base font-medium tracking-wide text-base-content;
 }
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  /* Hard-coded black — cannot be overridden */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.65) 40%,
+    rgba(0, 0, 0, 0.25) 70%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+
+  z-index: 2;
+}

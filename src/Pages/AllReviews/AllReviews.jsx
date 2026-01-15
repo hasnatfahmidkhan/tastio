@@ -38,7 +38,7 @@ const AllReviews = () => {
   return (
     <div className="bg-base-100 min-h-screen pb-20">
       {/* --- HERO HEADER --- */}
-      <div className="relative bg-base-900 text-white py-24 mb-12">
+      <div className="relative bg-gray-900 text-white py-24 mb-12">
         {/* Background Image */}
         <div className="absolute inset-0 overflow-hidden">
           <img

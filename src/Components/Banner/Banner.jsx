@@ -71,7 +71,7 @@ const Banner = () => {
               />
 
               {/* Dark Gradient Overlay for Readability */}
-              <div className="absolute inset-0 bg-black/60 bg-gradient-to-t from-black via-transparent to-black/30"></div>
+              <div className="absolute inset-0 bg-black/60 bg-linear-to-t from-black via-transparent to-black/30"></div>
 
               {/* Content Center */}
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 md:px-20">

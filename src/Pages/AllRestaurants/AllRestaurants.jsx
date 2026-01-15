@@ -22,7 +22,7 @@ const AllRestaurants = () => {
   return (
     <div className="bg-base-100 min-h-screen pb-20">
       {/* --- HERO HEADER --- */}
-      <div className="relative bg-base-900 text-white py-20 mb-16">
+      <div className="relative bg-gray-900 text-white py-20 mb-16">
         {/* Background Image with Blur */}
         <div className="absolute inset-0 overflow-hidden">
           <img
