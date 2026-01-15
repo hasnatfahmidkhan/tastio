@@ -22,22 +22,6 @@ import { useQuery } from "@tanstack/react-query";
 import Spinner from "../../Components/Spinner/Spinner";
 import { Link } from "react-router";
 
-// --- Options for Cuisine ---
-const cuisineOptions = [
-  { value: "Biryani", label: "Biryani" },
-  { value: "Kacchi", label: "Kacchi" },
-  { value: "Fast Food", label: "Fast Food" },
-  { value: "Burger", label: "Burger" },
-  { value: "Pizza", label: "Pizza" },
-  { value: "Chinese", label: "Chinese" },
-  { value: "Bengali", label: "Bengali" },
-  { value: "Indian", label: "Indian" },
-  { value: "Thai", label: "Thai" },
-  { value: "Dessert", label: "Dessert" },
-  { value: "Coffee & Juice", label: "Coffee & Juice" },
-  { value: "Street Food", label: "Street Food" },
-];
-
 // --- Custom Styles for React Select (Theme Compatible) ---
 const customStyles = {
   control: (base, state) => ({
@@ -106,7 +90,19 @@ const BeASeller = () => {
     enabled: !!user?.email,
   });
 
-  console.log(existingApp);
+  const { data: categoryList = [] } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/categories");
+      return res.data;
+    },
+  });
+
+  // 2. Transform Data for React-Select
+  const cuisineOptions = categoryList.map((cat) => ({
+    value: cat.name,
+    label: cat.name,
+  }));
 
   const {
     register,
@@ -170,6 +166,7 @@ const BeASeller = () => {
       toast.error(error.message || "Something went wrong!", { id: toastId });
       console.error(error);
     } finally {
+      refetch();
       setUploading(false);
     }
   };

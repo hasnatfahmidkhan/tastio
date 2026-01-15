@@ -29,6 +29,7 @@ import Dashboard from "../../Pages/Dashboard/Dashboard";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import SellerRoute from "../SellerRoute/SellerRoute";
 import ManageRestaurants from "../../Pages/Dashboard/Admin/ManageRestaurants/ManageRestaurants";
+import ManageCategories from "../../Pages/Dashboard/Admin/ManageCategories/ManageCategories";
 
 const router = createBrowserRouter([
   {
@@ -126,6 +127,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <ManageRestaurants />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manage-categories",
+        element: (
+          <AdminRoute>
+            <ManageCategories />
           </AdminRoute>
         ),
       },

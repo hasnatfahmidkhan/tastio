@@ -13,6 +13,7 @@ import {
   SquarePen,
   Store,
   ClipboardList,
+  Tags,
 } from "lucide-react";
 import { NavLink, Outlet, Link } from "react-router";
 import toast from "react-hot-toast";
@@ -58,6 +59,12 @@ const DashBoardLayout = () => {
       path: "/dashboard/manage-restaurants", // Update Route
       label: "All Restaurants",
       icon: Store,
+      role: ["admin"],
+    },
+    {
+      path: "/dashboard/manage-categories", // Update Route
+      label: "Manage Categories",
+      icon: Tags,
       role: ["admin"],
     },
     {

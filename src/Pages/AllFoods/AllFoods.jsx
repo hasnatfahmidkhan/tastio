@@ -1,26 +1,38 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { Search, Filter, SlidersHorizontal, Star } from "lucide-react";
-import { Link } from "react-router";
+import { Search, Filter, Star } from "lucide-react";
+import { Link, useSearchParams } from "react-router";
 import useAxios from "../../hooks/useAxios";
 import Heading from "../../Components/Heading/Heading";
 
 const AllFoods = () => {
-  // State Management for Filters
+  const axiosInstance = useAxios();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // --- 1. Initialize State from URL (Fixes the "Stuck" issue) ---
+  const initialCategory = searchParams.get("category") || "All";
+  const [category, setCategory] = useState(initialCategory);
+
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
-  const [priceRange, setPriceRange] = useState([0, 2000]);
   const [sort, setSort] = useState("newest");
   const [page, setPage] = useState(1);
-  const limit = 9; // Per page items
+  const limit = 9;
+  const [priceRange] = useState([0, 10000]); // Increased max price range
 
-  const axiosInstance = useAxios();
-  // Fetch Data with Filters
+  // --- 2. Fetch Dynamic Categories ---
+  const { data: categoryList = [] } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const res = await axiosInstance.get("/categories");
+      return res.data;
+    },
+  });
+
+  // --- 3. Fetch Foods with Filters ---
   const { data, isLoading } = useQuery({
-    queryKey: ["all-foods", search, category, sort, page, priceRange],
+    queryKey: ["all-foods", search, category, sort, page],
     queryFn: async () => {
       const res = await axiosInstance.get(`/all-foods`, {
-        // at backend these all are get by query
         params: {
           search,
           category,
@@ -38,10 +50,29 @@ const AllFoods = () => {
   const foods = data?.result || [];
   const totalPages = Math.ceil((data?.total || 0) / limit);
 
-  // Reset Page on Filter Change
+  // --- 4. Handle Category Change (Updates State + URL) ---
+  const handleCategoryChange = (e) => {
+    const newCategory = e.target.value;
+    setCategory(newCategory);
+    setPage(1);
+
+    // Update URL without reloading page
+    setSearchParams((prev) => {
+      prev.set("category", newCategory);
+      return prev;
+    });
+  };
+
+  // --- 5. Handle Sort Change ---
+  const handleSortChange = (e) => {
+    setSort(e.target.value);
+    setPage(1);
+  };
+
+  // Reset page when search changes
   useEffect(() => {
     setPage(1);
-  }, [search, category, sort]);
+  }, [search]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -64,27 +95,30 @@ const AllFoods = () => {
 
           {/* Filter Group */}
           <div className="flex flex-wrap gap-4 w-full md:w-auto">
-            {/* Category Filter */}
+            {/* Dynamic Category Filter */}
             <div className="relative">
               <select
                 className="select select-bordered w-full md:w-auto pl-9"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={handleCategoryChange} // Use the new handler
               >
                 <option value="All">All Categories</option>
-                <option value="Biryani">Biryani</option>
-                <option value="Burger">Burger</option>
-                <option value="Pizza">Pizza</option>
-                <option value="Dessert">Dessert</option>
+                {/* Map through fetched categories */}
+                {categoryList.map((cat) => (
+                  <option key={cat._id} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
               </select>
               <Star className="absolute left-3 top-3 text-warning" size={18} />
             </div>
+
             {/* Sort Option */}
             <div className="relative">
               <select
                 className="select select-bordered w-full md:w-auto pl-9"
                 value={sort}
-                onChange={(e) => setSort(e.target.value)}
+                onChange={handleSortChange}
               >
                 <option value="newest">Newest First</option>
                 <option value="price-asc">Price: Low to High</option>

@@ -1,95 +1,115 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Pagination, Navigation, Autoplay } from "swiper/modules";
 import { useNavigate } from "react-router";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Utensils } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-const categories = [
-  { id: 1, name: "Biryani", image: "https://i.ibb.co/image1.jpg", count: 15 },
-  { id: 2, name: "Burger", image: "https://i.ibb.co/image2.jpg", count: 8 },
-  { id: 3, name: "Pizza", image: "https://i.ibb.co/image3.jpg", count: 12 },
-  { id: 4, name: "Dessert", image: "https://i.ibb.co/image4.jpg", count: 20 },
-  { id: 5, name: "Drinks", image: "https://i.ibb.co/image5.jpg", count: 5 },
-  {
-    id: 6,
-    name: "Traditional",
-    image: "https://i.ibb.co/image6.jpg",
-    count: 30,
-  },
-];
+import useAxios from "../../../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
 
 const CategorySection = () => {
   const navigate = useNavigate();
+  const axiosPublic = useAxios(); // Use public axios (no token needed)
 
+  // FETCH DYNAMIC CATEGORIES
+  const { data: categories = [], isLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/categories");
+      return res.data;
+    },
+  });
+
+  if (isLoading) return <div>Loading Categories...</div>;
+
+  
   const handleCategoryClick = (categoryName) => {
     navigate(`/all-foods?category=${categoryName}`);
   };
 
   return (
-    <section className="my-16 container mx-auto px-4">
-      <h2 className="text-3xl font-bold text-center mb-2">
-        Browse by Category
-      </h2>
-      <p className="text-center text-gray-500 mb-8">
-        Find your favorite food by category
-      </p>
-
-      <Swiper
-        slidesPerView={2}
-        spaceBetween={20}
-        freeMode={true}
-        pagination={{ clickable: true }}
-        navigation={{
-          prevEl: ".swiper-prev",
-          nextEl: ".swiper-next",
-        }}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        breakpoints={{
-          640: { slidesPerView: 3, spaceBetween: 20 },
-          768: { slidesPerView: 4, spaceBetween: 30 },
-          1024: { slidesPerView: 5, spaceBetween: 40 },
-        }}
-        modules={[FreeMode, Pagination, Navigation, Autoplay]}
-        className="mySwiper"
-      >
-        {categories.map((cat) => (
-          <SwiperSlide key={cat.id} className="pb-10">
-            <div
-              onClick={() => handleCategoryClick(cat.name)}
-              className="group cursor-pointer flex flex-col items-center p-4 border rounded-xl hover:shadow-xl transition-all duration-300 bg-base-100 hover:border-primary"
-            >
-              <div className="w-24 h-24 rounded-full overflow-hidden mb-3 ring-2 ring-primary ring-offset-2 group-hover:scale-110 transition-transform">
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-                {cat.name}
-              </h3>
-              <p className="text-sm text-gray-400">{cat.count}+ Items</p>
+    <section className="py-20 bg-base-100 relative">
+      <div className="container mx-auto px-4">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
+          <div className="text-left">
+            <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-wider mb-2">
+              <Utensils size={20} /> Categories
             </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            <h2 className="text-4xl font-bold text-base-content">
+              Browse by Category
+            </h2>
+            <p className="text-gray-500 mt-2">
+              Explore our diverse menu curated just for you.
+            </p>
+          </div>
 
-      {/* Navigation Arrows Below */}
-      <div className="flex justify-between items-center mt-4 px-4">
-        <div className="swiper-prev cursor-pointer p-2">
-          <ChevronLeft size={28} className="text-primary" />
+          {/* Navigation Buttons (Top Right) */}
+          <div className="flex gap-2">
+            <button className="swiper-prev w-12 h-12 rounded-full border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer">
+              <ChevronLeft size={24} />
+            </button>
+            <button className="swiper-next w-12 h-12 rounded-full border border-base-300 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer">
+              <ChevronRight size={24} />
+            </button>
+          </div>
         </div>
-        <div className="swiper-next cursor-pointer p-2">
-          <ChevronRight size={28} className="text-primary" />
-        </div>
+
+        {/* Swiper Slider */}
+        <Swiper
+          slidesPerView={2}
+          spaceBetween={20}
+          freeMode={true}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          navigation={{
+            prevEl: ".swiper-prev",
+            nextEl: ".swiper-next",
+          }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          loop={true}
+          breakpoints={{
+            640: { slidesPerView: 3, spaceBetween: 20 },
+            768: { slidesPerView: 4, spaceBetween: 30 },
+            1024: { slidesPerView: 5, spaceBetween: 30 },
+            1280: { slidesPerView: 6, spaceBetween: 30 },
+          }}
+          modules={[FreeMode, Pagination, Navigation, Autoplay]}
+          className="mySwiper px-4 py-8"
+        >
+          {categories.map((cat) => (
+            <SwiperSlide key={cat.id} className="pb-12">
+              <div
+                onClick={() => handleCategoryClick(cat.name)}
+                className="group relative cursor-pointer flex flex-col items-center p-6 bg-base-100 border border-base-200 rounded-3xl transition-all duration-300 hover:shadow-2xl hover:border-primary/50 hover:-translate-y-2 h-full"
+              >
+                {/* Image Container */}
+                <div className="relative w-32 h-32 mb-6">
+                  <div className="absolute inset-0 bg-primary/10 rounded-full scale-0 group-hover:scale-110 transition-transform duration-500"></div>
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-cover rounded-full shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all duration-500 border-4 border-base-100"
+                  />
+                </div>
+
+                {/* Text Content */}
+                <h3 className="text-xl font-bold text-base-content group-hover:text-primary transition-colors mb-1">
+                  {cat.name}
+                </h3>
+                <span className="text-xs font-semibold text-gray-400 bg-base-200 px-3 py-1 rounded-full group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                  {cat.count} Items
+                </span>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </section>
   );
