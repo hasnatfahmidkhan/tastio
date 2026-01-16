@@ -25,7 +25,7 @@ const Contact = () => {
 
   return (
     <>
-      <Container>
+      <Container className={'mt-20'}>
         {/* Header */}
         <SectionHeader
           heading="Get in Touch"

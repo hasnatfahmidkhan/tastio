@@ -78,7 +78,7 @@ const Feed = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto py-8 px-4">
+    <div className="max-w-2xl mx-auto py-8 px-4 mt-20">
       {/* --- CREATE POST SECTION --- */}
       <div className="bg-base-100 p-6 rounded-2xl shadow-sm border border-base-200 mb-8">
         <div className="flex gap-4">

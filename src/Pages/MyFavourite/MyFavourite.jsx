@@ -54,7 +54,7 @@ const MyFavourite = () => {
   });
 
   return (
-    <Container>
+    <Container className={'mt-20'}>
       <title>My Cravings | Tastio</title>
 
       {/* Header */}

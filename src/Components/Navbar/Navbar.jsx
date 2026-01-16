@@ -70,7 +70,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`sticky top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-base-100/80 backdrop-blur-md shadow-md py-3"
           : "bg-transparent py-5"
@@ -99,7 +99,7 @@ const Navbar = () => {
                 `font-medium text-sm uppercase tracking-wide transition-colors ${
                   isActive
                     ? "text-primary"
-                    : "text-base-content hover:text-primary"
+                    : `${isScrolled ? "" : "text-white/90 hover:text-primary"}`
                 }`
               }
             >
@@ -113,7 +113,9 @@ const Navbar = () => {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className={`btn btn-circle btn-sm btn-ghost transition-transform hover:rotate-12 text-base-content`}
+            className={`btn btn-circle btn-sm btn-ghost transition-transform hover:rotate-12 ${
+              isScrolled ? "" : "text-white/90"
+            }`}
           >
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
           </button>
@@ -212,7 +214,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-lg dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-200"
+              className="menu menu-lg dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box w-52 border border-base-200"
             >
               {navLinks.map((link) => (
                 <li key={link.path}>

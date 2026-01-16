@@ -35,10 +35,9 @@ const Root = () => {
   }
 
   return (
-    <section className="flex flex-col justify-center min-h-screen">
-      <header className="sticky top-0 z-50">
-        <Navbar />
-      </header>
+    <section className="flex flex-col min-h-screen">
+      <Navbar />
+
       <main className="flex-1">
         {loading ? (
           <div className="flex items-center justify-center h-screen">
