@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, Link, useNavigate } from "react-router";
+import { NavLink, Link, useNavigate, useLocation } from "react-router"; 
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import {
@@ -17,10 +17,19 @@ import {
 const Navbar = () => {
   const { user, signoutFunc } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation(); // Hook to get current route
 
   // --- State ---
   const [isScrolled, setIsScrolled] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  // --- Logic: Check if current page has a Hero Banner ---
+  // List all routes that have a dark hero image at the top
+  const pagesWithHero = ["/", "/all-foods", "/all-restaurants", "/all-reviews"];
+
+  // Logic: Use white text ONLY if we are on a Hero page AND not scrolled yet.
+  const isHeroPage = pagesWithHero.includes(location.pathname);
+  const useWhiteText = isHeroPage && !isScrolled;
 
   // --- Theme Logic ---
   useEffect(() => {
@@ -52,7 +61,6 @@ const Navbar = () => {
     }
   };
 
-  // --- Navigation Links ---
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Foods", path: "/all-foods" },
@@ -67,6 +75,10 @@ const Navbar = () => {
       : []),
     { name: "Contact", path: "/contact" },
   ];
+
+  // Helper class for text color
+  const textColorClass = useWhiteText ? "text-white/90" : "text-base-content";
+  const hoverClass = useWhiteText ? "hover:text-white" : "hover:text-primary";
 
   return (
     <nav
@@ -97,9 +109,7 @@ const Navbar = () => {
               to={link.path}
               className={({ isActive }) =>
                 `font-medium text-sm uppercase tracking-wide transition-colors ${
-                  isActive
-                    ? "text-primary"
-                    : `${isScrolled ? "" : "text-white/90 hover:text-primary"}`
+                  isActive ? "text-primary" : `${textColorClass} ${hoverClass}`
                 }`
               }
             >
@@ -113,9 +123,7 @@ const Navbar = () => {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className={`btn btn-circle btn-sm btn-ghost transition-transform hover:rotate-12 ${
-              isScrolled ? "" : "text-white/90"
-            }`}
+            className={`btn btn-circle btn-sm btn-ghost transition-transform hover:rotate-12 ${textColorClass}`}
           >
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
           </button>
@@ -141,12 +149,10 @@ const Navbar = () => {
                     />
                   </div>
                 </div>
-                {/* Arrow that rotates on group focus */}
+                {/* Arrow Color Logic Applied Here */}
                 <ChevronDown
                   size={16}
-                  className={`transition-transform duration-300 group-focus:rotate-180 ${
-                    isScrolled ? "text-base-content" : "text-white"
-                  }`}
+                  className={`transition-transform duration-300 group-focus:rotate-180 ${textColorClass}`}
                 />
               </div>
 
@@ -155,21 +161,30 @@ const Navbar = () => {
                 tabIndex={0}
                 className="dropdown-content menu p-2 shadow-xl bg-base-100 rounded-xl w-60 z-1 mt-4 border border-base-200"
               >
-                <li className="menu-title px-4 py-2">
+                <li className="menu-title px-4 py-2 text-base-content">
                   Hello, {user.displayName?.split(" ")[0]}
                 </li>
                 <li>
-                  <NavLink to="/dashboard" className="py-3 font-medium">
+                  <NavLink
+                    to="/dashboard"
+                    className="py-3 font-medium text-base-content"
+                  >
                     <LayoutDashboard size={18} /> Dashboard
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/profile" className="py-3 font-medium">
+                  <NavLink
+                    to="/profile"
+                    className="py-3 font-medium text-base-content"
+                  >
                     <User size={18} /> Profile
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/be-partner" className="py-3 font-medium">
+                  <NavLink
+                    to="/be-partner"
+                    className="py-3 font-medium text-base-content"
+                  >
                     <Store size={18} /> Be a Partner
                   </NavLink>
                 </li>
@@ -188,7 +203,7 @@ const Navbar = () => {
             <div className="hidden lg:flex gap-2">
               <Link
                 to="/login"
-                className="btn btn-ghost btn-sm text-base-content"
+                className={`btn btn-ghost btn-sm ${textColorClass}`}
               >
                 Login
               </Link>
@@ -206,9 +221,7 @@ const Navbar = () => {
             <div
               tabIndex={0}
               role="button"
-              className={`btn btn-ghost btn-circle ${
-                isScrolled ? "text-base-content" : "text-white"
-              }`}
+              className={`btn btn-ghost btn-circle ${textColorClass}`}
             >
               <Menu size={24} />
             </div>
@@ -218,17 +231,23 @@ const Navbar = () => {
             >
               {navLinks.map((link) => (
                 <li key={link.path}>
-                  <NavLink to={link.path}>{link.name}</NavLink>
+                  <NavLink to={link.path} className="text-base-content">
+                    {link.name}
+                  </NavLink>
                 </li>
               ))}
               {!user && (
                 <>
                   <div className="divider my-1"></div>
                   <li>
-                    <Link to="/login">Login</Link>
+                    <Link to="/login" className="text-base-content">
+                      Login
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/register">Register</Link>
+                    <Link to="/register" className="text-base-content">
+                      Register
+                    </Link>
                   </li>
                 </>
               )}
