@@ -1,4 +1,3 @@
-````markdown
 # 🍔 Tastio — Multi-Vendor Food Review & Discovery Platform
 
 ![Project Banner](https://i.ibb.co.com/4nZC2C3q/Home.png)
@@ -156,7 +155,5 @@ Contributions are welcome!
 **Hasnat Fahmid**  
 Full Stack Developer  
 [LinkedIn](https://linkedin.com/in/hasnatfahmid) | [GitHub](https://github.com/hasnatfahmidkhan)
-
-```
 
 ```
