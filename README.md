@@ -1,6 +1,6 @@
 # 🍔 Tastio — Multi-Vendor Food Review & Discovery Platform
 
-![Project Banner](https://i.ibb.co.com/4nZC2C3q/Home.png)
+![Project Banner](https://res.cloudinary.com/dye6u4hpt/image/upload/v1781354859/Home_vh38s0.png)
 
 <!-- 👆 Replace the link above with a real screenshot hosted on ImgBB/Cloudinary -->
 
