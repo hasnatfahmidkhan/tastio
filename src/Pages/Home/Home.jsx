@@ -16,7 +16,7 @@ import TopReviews from "./TopReviews/TopReviews";
 
 const Home = () => {
   const trendingRef = useRef(null); // 1. Create Ref
-
+  const featuredRef = useRef(null); // 2. Create Ref
   const scrollToContent = () => {
     trendingRef.current?.scrollIntoView({ behavior: "smooth" }); // 2. Scroll Function
   };
@@ -52,7 +52,7 @@ const Home = () => {
         <HowItWorks />
 
         {/* Featured restaurant section  */}
-        <FeaturedRestaurants />
+        <FeaturedRestaurants featuredRef={featuredRef}/>
 
         {/* Community Teaser section  */}
         <CommunityTeaser />

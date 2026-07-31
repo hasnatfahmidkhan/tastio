@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Marquee from "react-fast-marquee";
 
-const FeaturedRestaurants = () => {
+const FeaturedRestaurants = ({ featuredRef }) => {
   const axiosPublic = useAxios();
 
   const { data: restaurants = [], isLoading } = useQuery({
@@ -23,7 +23,7 @@ const FeaturedRestaurants = () => {
   if (isLoading) return null; // Or skeleton
 
   return (
-    <section className="py-20">
+    <section ref={featuredRef} className="py-20 overflow-hidden">
       {/* Header with 'View All' Link */}
       <SectionHeader
         heading="Featured Restaurants"
@@ -42,7 +42,7 @@ const FeaturedRestaurants = () => {
       </SectionHeader>
 
       {/* Restaurant Slider */}
-      <Marquee speed={40} pauseOnHover gradient={false} className="mt-10">
+      <Marquee speed={40} pauseOnHover autoFill gradient={false}>
         {restaurants.map((res) => (
           <div key={res._id} className="mx-4 w-[280px]">
             <div className="card bg-base-100 border border-base-200 shadow-md hover:shadow-xl transition-all duration-300 h-full group">
