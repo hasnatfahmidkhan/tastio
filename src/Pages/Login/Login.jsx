@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Shield, User, Store } from "lucide-react";
 import useAxios from "../../hooks/useAxios";
 const Login = () => {
   const axiosInstance = useAxios();
@@ -23,8 +24,21 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm();
+
+  const demoAccounts = [
+    { label: "Admin", email: "admin@gmail.com", password: "Admin@#1", icon: Shield, color: "btn-error" },
+    { label: "User", email: "user@gmail.com", password: "User@#1", icon: User, color: "btn-info" },
+    { label: "Seller", email: "seller@gmail.com", password: "Seller@#1", icon: Store, color: "btn-success" },
+  ];
+
+  const handleDemoLogin = (account) => {
+    setValue("email", account.email);
+    setValue("password", account.password);
+    handleSubmit(handleLogin)();
+  };
 
   const handleLogin = async (data) => {
     try {
@@ -176,6 +190,28 @@ dark:shadow-[0px_0px_1px_rgba(221,221,221,1),0_0px_10px_rgba(204,204,204,1)]"
                   </svg>
                   Login with Google
                 </button>
+
+                {/* Demo Login Buttons */}
+                <div className="divider text-sm text-gray-400">
+                  Quick Demo Login
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {demoAccounts.map((account) => {
+                    const Icon = account.icon;
+                    return (
+                      <button
+                        key={account.label}
+                        type="button"
+                        disabled={isSubmitting}
+                        onClick={() => handleDemoLogin(account)}
+                        className={`btn btn-sm ${account.color} btn-outline gap-1 text-xs font-bold`}
+                      >
+                        <Icon size={14} />
+                        {account.label}
+                      </button>
+                    );
+                  })}
+                </div>
               </fieldset>
             </form>
           </div>
