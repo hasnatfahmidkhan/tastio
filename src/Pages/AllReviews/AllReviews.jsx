@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
-import { Search, Star, Filter, MessageCircle, ThumbsUp } from "lucide-react";
-import useAxios from "../../hooks/useAxios";
-import ReviewCard from "../../Components/ReviewCard/ReviewCard";
+import Lottie from "lottie-react";
+import { Filter, MessageCircle, Search, Star } from "lucide-react";
+import { useEffect, useState } from "react";
 import CardSkeleton from "../../Components/CardSkeleton/CardSkeleton";
 import Container from "../../Components/Container/Container";
+import ReviewCard from "../../Components/ReviewCard/ReviewCard";
 import noData from "../../assets/No-Data.json";
-import Lottie from "lottie-react";
+import useAxios from "../../hooks/useAxios";
 
 const AllReviews = () => {
   const axiosInstance = useAxios();
@@ -182,7 +182,7 @@ const AllReviews = () => {
                   >
                     {pageNum}
                   </button>
-                )
+                ),
               )}
             </div>
             <button
