@@ -20,17 +20,19 @@ const Home = () => {
 
   return (
     <section className="relative">
-      <Banner />
+      <div className="relative">
+        <Banner />
 
-      {/* Bounce Arrow */}
-      <div className="translate-y-1/2 flex justify-center z-10">
-        <button
-          onClick={scrollToContent}
-          className="w-14 h-14 bg-base-100 dark:bg-base-200 rounded-full shadow-lg border border-base-300 flex items-center justify-center animate-bounce cursor-pointer hover:bg-primary hover:text-white transition-colors"
-          aria-label="Scroll Down"
-        >
-          <ArrowDown size={24} />
-        </button>
+        {/* Bounce Arrow */}
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 translate-y-1/2 flex justify-center z-10">
+          <button
+            onClick={scrollToContent}
+            className="w-14 h-14 bg-base-100 dark:bg-base-200 rounded-full shadow-lg border border-base-300 flex items-center justify-center animate-bounce cursor-pointer hover:bg-primary hover:text-white transition-colors"
+            aria-label="Scroll Down"
+          >
+            <ArrowDown size={24} />
+          </button>
+        </div>
       </div>
 
       <Container>

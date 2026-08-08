@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import { NavLink, Link, useNavigate, useLocation } from "react-router"; 
-import useAuth from "../../hooks/useAuth";
-import toast from "react-hot-toast";
 import {
-  UtensilsCrossed,
-  Menu,
-  Sun,
-  Moon,
   ChevronDown,
-  LogOut,
-  User,
   LayoutDashboard,
+  LogOut,
+  Menu,
+  Moon,
   Store,
+  Sun,
+  User,
+  UtensilsCrossed,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { Link, NavLink, useLocation, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const { user, signoutFunc } = useAuth();
@@ -70,7 +70,6 @@ const Navbar = () => {
       ? [
           { name: "Leaderboard", path: "/leaderboard" },
           { name: "Feed", path: "/feed" },
-          { name: "Wishlist", path: "/my-favourite" },
         ]
       : []),
     { name: "Contact", path: "/contact" },

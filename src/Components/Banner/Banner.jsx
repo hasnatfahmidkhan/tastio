@@ -58,7 +58,7 @@ const Banner = () => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        className="h-[550px] md:h-[650px] lg:h-[750px]"
+        className="h-screen w-full"
       >
         {slides.map((slide, idx) => (
           <SwiperSlide key={idx}>

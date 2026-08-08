@@ -1,38 +1,36 @@
 import { createBrowserRouter } from "react-router";
-import Root from "../../Layout/Root";
-import Home from "../../Pages/Home/Home";
-import Login from "../../Pages/Login/Login";
-import Register from "../../Pages/Register/Register";
-import AllReviews from "../../Pages/AllReviews/AllReviews";
-import AddReview from "../../Pages/AddReview/AddReview";
-import PrivateRoutes from "../privateroutes/PrivateRoutes";
-import MyReviews from "../../Pages/MyReviews/MyReviews";
-import EditReview from "../../Pages/EditReview/EditReview";
-import MyFavourite from "../../Pages/MyFavourite/MyFavourite";
-import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
-import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
-import Leaderboard from "../../Pages/Leaderboard/Leaderboard";
 import DashBoardLayout from "../../Layout/DashboardLayout";
-import Feed from "../../Pages/Feed/Feed";
+import Root from "../../Layout/Root";
+import AddReview from "../../Pages/AddReview/AddReview";
+import AllFoods from "../../Pages/AllFoods/AllFoods";
+import AllRestaurants from "../../Pages/AllRestaurants/AllRestaurants";
+import AllReviews from "../../Pages/AllReviews/AllReviews";
 import BeASeller from "../../Pages/BeASeller/BeASeller";
+import Contact from "../../Pages/Contact/Contact";
 import ManageApplications from "../../Pages/Dashboard/Admin/ManageApplications/ManageApplications";
+import ManageCategories from "../../Pages/Dashboard/Admin/ManageCategories/ManageCategories";
+import ManageRestaurants from "../../Pages/Dashboard/Admin/ManageRestaurants/ManageRestaurants";
+import ManageReviews from "../../Pages/Dashboard/Admin/ManageReviews/ManageReviews";
+import ManageUsers from "../../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
+import Dashboard from "../../Pages/Dashboard/Dashboard";
+import Profile from "../../Pages/Dashboard/Profile/Profile";
 import AddFood from "../../Pages/Dashboard/Seller/AddFood/AddFodd";
 import MyFoods from "../../Pages/Dashboard/Seller/MyFoods/MyFoods";
 import UpdateFood from "../../Pages/Dashboard/Seller/UpdateFood/UpdateFood";
-import AllFoods from "../../Pages/AllFoods/AllFoods";
+import EditReview from "../../Pages/EditReview/EditReview";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
+import Feed from "../../Pages/Feed/Feed";
 import FoodDetails from "../../Pages/FoodDetails/FoodDetails";
-import AdminHome from "../../Pages/Dashboard/Admin/AdminHome/AdminHome";
-import ManageUsers from "../../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
-import ManageReviews from "../../Pages/Dashboard/Admin/ManageReviews/ManageReviews";
-import Profile from "../../Pages/Dashboard/Profile/Profile";
-import Dashboard from "../../Pages/Dashboard/Dashboard";
-import AdminRoute from "../AdminRoute/AdminRoute";
-import SellerRoute from "../SellerRoute/SellerRoute";
-import ManageRestaurants from "../../Pages/Dashboard/Admin/ManageRestaurants/ManageRestaurants";
-import ManageCategories from "../../Pages/Dashboard/Admin/ManageCategories/ManageCategories";
+import Home from "../../Pages/Home/Home";
+import Leaderboard from "../../Pages/Leaderboard/Leaderboard";
+import Login from "../../Pages/Login/Login";
+import Register from "../../Pages/Register/Register";
 import RestaurantDetails from "../../Pages/RestaurantDetails/RestaurantDetails";
-import Contact from "../../Pages/Contact/Contact";
-import AllRestaurants from "../../Pages/AllRestaurants/AllRestaurants";
+import ReviewDetails from "../../Pages/ReviewDetails/ReviewDetails";
+import Wishlist from "../../Pages/Wishlist/Wishlist";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import PrivateRoutes from "../privateroutes/PrivateRoutes";
+import SellerRoute from "../SellerRoute/SellerRoute";
 
 const router = createBrowserRouter([
   {
@@ -71,14 +69,6 @@ const router = createBrowserRouter([
       { path: "/feed", Component: Feed },
       { path: "/contact", Component: Contact },
 
-      {
-        path: "/my-favourite",
-        element: (
-          <PrivateRoutes>
-            <MyFavourite />
-          </PrivateRoutes>
-        ),
-      },
       {
         path: "/be-partner",
         element: (
@@ -193,6 +183,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/my-reviews/edit/:id",
         element: <EditReview />,
+      },
+      {
+        path: "/dashboard/wishlist",
+        element: <Wishlist />,
       },
     ],
   },

@@ -1,15 +1,15 @@
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import useAuth from "../../hooks/useAuth";
+import Lottie from "lottie-react";
+import { ArrowRight, Heart, Trash2 } from "lucide-react";
+import { Link } from "react-router";
 import Swal from "sweetalert2";
 import noData from "../../assets/No-Data.json";
-import Lottie from "lottie-react";
 import Container from "../../Components/Container/Container";
-import { Heart, Trash2, ArrowRight } from "lucide-react";
-import { Link } from "react-router";
 import SectionHeader from "../../Components/SectionHeader/SectionHeader";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-const MyFavourite = () => {
+const Wishlist = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -54,7 +54,7 @@ const MyFavourite = () => {
   });
 
   return (
-    <Container className={'mt-20'}>
+    <Container className={""}>
       <title>My Cravings | Tastio</title>
 
       {/* Header */}
@@ -151,4 +151,4 @@ const MyFavourite = () => {
   );
 };
 
-export default MyFavourite;
+export default Wishlist;

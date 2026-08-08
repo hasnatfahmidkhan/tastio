@@ -4,6 +4,7 @@ import { Search, Utensils } from "lucide-react";
 import { Link, useSearchParams } from "react-router";
 import useAxios from "../../hooks/useAxios";
 import Container from "../../Components/Container/Container";
+import FoodPageCard from "../../Components/FoodPageCard/FoodPageCard";
 
 const AllFoods = () => {
   const axiosInstance = useAxios();
@@ -185,45 +186,7 @@ const AllFoods = () => {
         {/* Food Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {foods.map((item) => (
-            <div
-              key={item._id}
-              className="card bg-base-100 shadow-xl hover:-translate-y-2 transition-transform duration-300 border border-base-200 group"
-            >
-              <figure className="relative h-60 overflow-hidden">
-                <img 
-                  loading="lazy"
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 badge badge-primary font-bold shadow-md">
-                  ${item.price}
-                </div>
-                <div className="absolute bottom-3 left-3 badge badge-neutral text-xs font-medium">
-                  {item.category}
-                </div>
-              </figure>
-              <div className="card-body p-6">
-                <h2 className="card-title text-xl font-bold justify-between">
-                  {item.name}
-                </h2>
-                <p className="text-gray-500 text-sm line-clamp-2 mt-1 mb-4">
-                  {item.description}
-                </p>
-
-                <div className="card-actions justify-between items-center pt-4 border-t border-base-200">
-                  <span className="text-xs font-semibold text-gray-400 truncate max-w-[120px]">
-                    {item.restaurantName || "Tastio Seller"}
-                  </span>
-                  <Link
-                    to={`/food-details/${item._id}`}
-                    className="btn btn-sm btn-outline btn-primary px-6 rounded-full group-hover:btn-active"
-                  >
-                    View Details
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <FoodPageCard key={item._id} item={item} />
           ))}
         </div>
 

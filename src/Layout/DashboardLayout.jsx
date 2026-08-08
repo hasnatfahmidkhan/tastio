@@ -1,28 +1,29 @@
 import {
-  User,
+  BarChart2,
+  ChevronDown,
+  ChevronRight,
+  ClipboardList,
+  Edit3,
+  FileCheck,
+  Heart,
   Home,
   LogOut,
-  ChevronRight,
   Menu,
-  Edit3,
-  Users,
-  BarChart2,
-  FileCheck,
   MessageSquareText,
-  UtensilsCrossed,
   SquarePen,
   Store,
-  ClipboardList,
   Tags,
-  ChevronDown,
+  User,
+  Users,
+  UtensilsCrossed,
 } from "lucide-react";
-import { NavLink, Outlet, Link } from "react-router";
-import toast from "react-hot-toast";
 import { useState } from "react";
-import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
+import { Link, NavLink, Outlet } from "react-router";
 import ScrollOnTop from "../Components/ScrollOnTop/ScrollOnTop";
-import useRole from "../hooks/useRole";
 import Spinner from "../Components/Spinner/Spinner";
+import useAuth from "../hooks/useAuth";
+import useRole from "../hooks/useRole";
 
 const DashBoardLayout = () => {
   const { user, signoutFunc } = useAuth();
@@ -104,6 +105,12 @@ const DashBoardLayout = () => {
       path: "/feed", // Community Post
       label: "Create Post",
       icon: SquarePen,
+      role: ["user"],
+    },
+    {
+      path: "/dashboard/wishlist",
+      label: "Wishlist",
+      icon: Heart,
       role: ["user"],
     },
 
@@ -294,7 +301,7 @@ const DashBoardLayout = () => {
                             </>
                           )}
                         </NavLink>
-                      )
+                      ),
                   )}
                 </li>
               ))}
